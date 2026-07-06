@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Fight Life — Supplement Field Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0A0A0A;
+  --panel: #141414;
+  --panel-2: #1A1A1A;
+  --panel-hover: #1F1F1F;
+  --border: #242424;
+  --border-strong: #333;
+  --red: #CC0000;
+  --red-dim: #7A0000;
+  --red-glow: rgba(204, 0, 0, 0.15);
+  --text: #F5F5F5;
+  --text-dim: #999;
+  --text-faint: #555;
+  --green: #00C853;
+  --yellow: #FFD600;
+  --orange: #FF6D00;
+  --purple: #9C27B0;
+  --blue: #2196F3;
+  --gray: #555;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--bg); color: var(--text); }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 20px;
+  min-height: 100vh;
+}
+.bebas { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.04em; }
+.app { max-width: 1400px; margin: 0 auto; }
+
+/* HEADER */
+header {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 20px;
+  margin-bottom: 24px;
+}
+.header-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.logo-block .bar {
+  display: inline-block;
+  width: 32px;
+  height: 3px;
+  background: var(--red);
+  margin-right: 10px;
+  vertical-align: middle;
+}
+h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 42px;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  display: inline;
+}
+h1 .accent { color: var(--red); }
+.tagline {
+  color: var(--text-dim);
+  font-size: 13px;
+  margin-top: 8px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.meta-stats {
+  display: flex;
+  gap: 20px;
+  font-size: 11px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.meta-stats .num {
+  color: var(--red);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.04em;
+  display: block;
+  line-height: 1;
+}
+
+/* HOW TO USE */
+.howto {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--red);
+  padding: 22px 24px;
+  margin-bottom: 16px;
+}
+.howto-eyebrow {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.18em;
+  color: var(--red);
+  margin-bottom: 8px;
+}
+.howto-lead {
+  color: var(--text-dim);
+  font-size: 13.5px;
+  line-height: 1.65;
+  max-width: 860px;
+  margin-bottom: 22px;
+}
+.howto-lead strong { color: var(--text); font-weight: 600; }
+.howto-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.howto-step {
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  padding: 14px 16px;
+}
+.howto-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  color: var(--red);
+  margin-bottom: 6px;
+}
+.howto-step-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 19px;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+.howto-step-body {
+  color: var(--text-dim);
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+.howto-evidence {
+  font-size: 11.5px;
+  color: var(--text-faint);
+  line-height: 2;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
+.howto-evidence-label {
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-right: 4px;
+  font-size: 11px;
+}
+.ev-inline { font-weight: 700; letter-spacing: 0.02em; }
+.ev-inline-strong { color: var(--green); }
+.ev-inline-moderate { color: var(--yellow); }
+.ev-inline-limited { color: var(--orange); }
+.ev-inline-experimental { color: var(--purple); }
+@media (max-width: 720px) {
+  .howto-steps { grid-template-columns: 1fr; gap: 10px; }
+}
+
+/* SEARCH */
+.search-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 2px 16px;
+  margin-bottom: 16px;
+  transition: border-color 0.15s;
+}
+.search-row:focus-within { border-color: var(--red-dim); }
+.search-icon { color: var(--text-dim); font-size: 18px; flex-shrink: 0; }
+.search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+  padding: 13px 0;
+  outline: none;
+  min-width: 0;
+}
+.search-input::placeholder { color: var(--text-faint); }
+.search-clear {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  padding: 6px 8px;
+  display: none;
+  font-family: inherit;
+  flex-shrink: 0;
+}
+.search-clear:hover { color: var(--text); }
+.search-row.has-query .search-clear { display: block; }
+.no-results {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 32px 24px;
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 13px;
+  line-height: 1.6;
+  display: none;
+}
+.no-results.show { display: block; }
+.no-results strong { color: var(--text); }
+
+/* CORE STACK BAR */
+.core-stack {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--red);
+  padding: 16px 20px;
+  margin-bottom: 16px;
+}
+.core-stack-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.core-stack-label {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 0.1em;
+  color: var(--text);
+}
+.core-stack-label .dot {
+  color: var(--red);
+  margin-right: 6px;
+}
+.core-stack-count {
+  font-size: 11px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.core-stack-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-height: 32px;
+  align-items: center;
+}
+.core-stack-chips .empty {
+  color: var(--text-faint);
+  font-size: 12px;
+  font-style: italic;
+}
+.core-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--red-glow);
+  border: 1px solid var(--red-dim);
+  color: var(--text);
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.core-chip:hover { background: rgba(204, 0, 0, 0.3); border-color: var(--red); }
+.core-chip .x {
+  color: var(--text-dim);
+  font-size: 14px;
+  line-height: 1;
+}
+.core-chip:hover .x { color: var(--text); }
+
+/* CONTROLS */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+  align-items: center;
+}
+.btn {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+.btn:hover { background: var(--panel-hover); border-color: var(--border-strong); }
+.btn.btn-red { border-color: var(--red-dim); }
+.btn.btn-red:hover { background: var(--red-glow); border-color: var(--red); }
+.btn.btn-ghost { background: transparent; }
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  user-select: none;
+}
+.toggle:hover { background: var(--panel-hover); }
+.toggle-switch {
+  width: 32px;
+  height: 16px;
+  background: var(--border-strong);
+  position: relative;
+  transition: background 0.15s;
+}
+.toggle-switch::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  background: var(--text-dim);
+  transition: all 0.15s;
+}
+.toggle.active .toggle-switch { background: var(--red); }
+.toggle.active .toggle-switch::after { left: 18px; background: var(--text); }
+
+/* CATEGORY */
+.category {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  margin-bottom: 10px;
+  overflow: hidden;
+  transition: border-color 0.15s;
+}
+.category:hover { border-color: var(--border-strong); }
+.category.expanded { border-color: var(--red-dim); }
+.cat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  cursor: pointer;
+  user-select: none;
+}
+.cat-header:hover { background: var(--panel-hover); }
+.cat-header-left {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+.cat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  color: var(--red);
+  font-size: 14px;
+  letter-spacing: 0.1em;
+}
+.cat-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.05em;
+}
+.cat-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.cat-count {
+  font-size: 11px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.cat-tagged {
+  font-size: 11px;
+  background: var(--red-glow);
+  border: 1px solid var(--red-dim);
+  color: var(--text);
+  padding: 2px 8px;
+  letter-spacing: 0.05em;
+}
+.chevron {
+  color: var(--text-dim);
+  font-size: 16px;
+  transition: transform 0.2s;
+}
+.category.expanded .chevron { transform: rotate(90deg); color: var(--red); }
+
+.cat-body {
+  display: none;
+  padding: 0 20px 20px 20px;
+  border-top: 1px solid var(--border);
+}
+.category.expanded .cat-body { display: block; }
+.cat-desc {
+  color: var(--text-dim);
+  font-size: 13px;
+  padding: 14px 0 16px 0;
+  line-height: 1.6;
+  max-width: 900px;
+}
+
+/* SUPPLEMENT GRID */
+.supp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+}
+.supp-card {
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  position: relative;
+  min-height: 80px;
+}
+.supp-card:hover {
+  border-color: var(--red-dim);
+  background: var(--panel-hover);
+  transform: translateY(-1px);
+}
+.supp-card.status-in-stack { border-left: 3px solid var(--red); }
+.supp-card.status-considering { border-left: 3px solid var(--blue); }
+.supp-card.status-researching { border-left: 3px solid var(--purple); }
+.supp-card.status-ruled-out { border-left: 3px solid var(--gray); opacity: 0.6; }
+.supp-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+  line-height: 1.1;
+}
+.supp-sub {
+  font-size: 10px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+.supp-tags {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+.evidence-pill {
+  font-size: 9px;
+  padding: 2px 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  border: 1px solid;
+}
+.evidence-strong { color: var(--green); border-color: var(--green); }
+.evidence-moderate { color: var(--yellow); border-color: var(--yellow); }
+.evidence-limited { color: var(--orange); border-color: var(--orange); }
+.evidence-experimental { color: var(--purple); border-color: var(--purple); }
+.evidence-pill.hidden { display: none; }
+.status-pill {
+  font-size: 9px;
+  padding: 2px 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+.status-in-stack-pill { background: var(--red); color: var(--text); }
+.status-considering-pill { background: var(--blue); color: var(--text); }
+.status-researching-pill { background: var(--purple); color: var(--text); }
+.status-ruled-out-pill { background: var(--gray); color: var(--text); }
+
+.has-notes {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  color: var(--yellow);
+  font-size: 10px;
+}
+
+/* MODAL */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 20px;
+  animation: fadeIn 0.15s ease;
+}
+.modal-backdrop.open { display: flex; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.modal {
+  background: var(--panel);
+  border: 1px solid var(--red-dim);
+  max-width: 720px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+.modal-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+.modal-title-block .m-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+.modal-title-block .m-sub {
+  font-size: 11px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 6px;
+}
+.modal-title-block .m-tags {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+.modal-close {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  transition: all 0.15s;
+  flex-shrink: 0;
+  font-family: inherit;
+}
+.modal-close:hover { color: var(--text); border-color: var(--red); }
+.modal-body { padding: 20px 24px; }
+.m-field { margin-bottom: 18px; }
+.m-field-label {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--red);
+  margin-bottom: 6px;
+}
+.m-field-value {
+  color: var(--text);
+  line-height: 1.6;
+  font-size: 13px;
+}
+.m-field-value.dim { color: var(--text-dim); }
+.m-field.athlete {
+  background: rgba(204, 0, 0, 0.06);
+  border-left: 2px solid var(--red);
+  padding: 10px 14px;
+}
+.m-field.dose-gated {
+  background: var(--panel-2);
+  border: 1px dashed var(--border-strong);
+  padding: 10px 14px;
+}
+.dose-locked {
+  color: var(--text-faint);
+  font-style: italic;
+  font-size: 12px;
+}
+.m-status-block {
+  background: var(--panel-2);
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+.m-status-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-top: 8px;
+}
+@media (max-width: 500px) {
+  .m-status-grid { grid-template-columns: repeat(2, 1fr); }
+}
+.status-btn {
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--text-dim);
+  padding: 8px 10px;
+  font-size: 11px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+.status-btn:hover { color: var(--text); border-color: var(--text-dim); }
+.status-btn.active[data-status="in-stack"] { background: var(--red); border-color: var(--red); color: var(--text); }
+.status-btn.active[data-status="considering"] { background: var(--blue); border-color: var(--blue); color: var(--text); }
+.status-btn.active[data-status="researching"] { background: var(--purple); border-color: var(--purple); color: var(--text); }
+.status-btn.active[data-status="ruled-out"] { background: var(--gray); border-color: var(--gray); color: var(--text); }
+.notes-area {
+  width: 100%;
+  min-height: 100px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 12px;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+  resize: vertical;
+}
+.notes-area:focus { outline: none; border-color: var(--red-dim); }
+.modal-footer {
+  padding: 14px 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.save-indicator {
+  font-size: 11px;
+  color: var(--green);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0;
+  transition: opacity 0.2s;
+  align-self: center;
+}
+.save-indicator.show { opacity: 1; }
+
+/* ADD CUSTOM MODAL */
+.custom-form .m-field input,
+.custom-form .m-field select,
+.custom-form .m-field textarea {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 10px 12px;
+  font-family: inherit;
+  font-size: 13px;
+  margin-top: 4px;
+}
+.custom-form .m-field input:focus,
+.custom-form .m-field select:focus,
+.custom-form .m-field textarea:focus { outline: none; border-color: var(--red-dim); }
+
+/* EXPORT MODAL */
+.export-text {
+  width: 100%;
+  min-height: 400px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 16px;
+  font-family: 'SF Mono', Menlo, Monaco, monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  resize: vertical;
+  white-space: pre;
+}
+
+/* FOOTER NOTE */
+.footer-note {
+  margin-top: 40px;
+  padding: 16px 20px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--yellow);
+  font-size: 12px;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+.footer-note strong { color: var(--text); }
+
+/* LEGEND */
+.legend {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  padding: 12px 16px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.legend-item { display: inline-flex; align-items: center; gap: 6px; }
+.legend-dot { width: 10px; height: 10px; display: inline-block; }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border-strong); }
+::-webkit-scrollbar-thumb:hover { background: var(--red-dim); }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-top">
+      <div class="logo-block">
+        <span class="bar"></span>
+        <h1>THE FIGHT LIFE <span class="accent">/</span> SUPPLEMENT FIELD GUIDE</h1>
+        <div class="tagline">A plain-English map of what each supplement actually does — so you can build a stack that's yours, not someone's affiliate link.</div>
+      </div>
+      <div class="meta-stats">
+        <div><span class="num" id="stat-total">0</span>Total</div>
+        <div><span class="num" id="stat-stack">0</span>In Stack</div>
+        <div><span class="num" id="stat-considering">0</span>Considering</div>
+        <div><span class="num" id="stat-researching">0</span>Researching</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HOW TO USE -->
+  <section class="howto">
+    <div class="howto-eyebrow">Start here</div>
+    <p class="howto-lead">Supplements aren't magic, and they aren't one-size-fits-all. Most people are sold a stack by whoever has an affiliate link. This guide does the opposite: it breaks the whole landscape into plain categories, tells you how strong the actual evidence is, and lets you build a <strong>personal shortlist</strong> you can take to bloodwork and a doctor. Food first, test before you guess, and add one thing at a time.</p>
+    <div class="howto-steps">
+      <div class="howto-step">
+        <div class="howto-num">01</div>
+        <div class="howto-step-title">Browse</div>
+        <div class="howto-step-body">Open any category and tap a supplement to see what it does, where to get it from food, who it's for, and the catch.</div>
+      </div>
+      <div class="howto-step">
+        <div class="howto-num">02</div>
+        <div class="howto-step-title">Tag it</div>
+        <div class="howto-step-body">Mark each one In Stack, Considering, Researching, or Ruled Out. Dose guidance unlocks once it's in your stack — on purpose.</div>
+      </div>
+      <div class="howto-step">
+        <div class="howto-num">03</div>
+        <div class="howto-step-title">Build your stack</div>
+        <div class="howto-step-body">Your picks collect at the top and save automatically. Hit Export any time to copy the list or bring it to your doctor.</div>
+      </div>
+    </div>
+    <div class="howto-evidence">
+      <span class="howto-evidence-label">What the evidence colors mean:</span>
+      <span class="ev-inline ev-inline-strong">Strong</span> = solid, well-replicated human research &nbsp;·&nbsp;
+      <span class="ev-inline ev-inline-moderate">Moderate</span> = promising but mixed &nbsp;·&nbsp;
+      <span class="ev-inline ev-inline-limited">Limited</span> = thin or preliminary &nbsp;·&nbsp;
+      <span class="ev-inline ev-inline-experimental">Experimental</span> = early / emerging. A higher rating means the science is stronger — not that you personally need it.
+    </div>
+  </section>
+
+  <!-- CORE STACK -->
+  <div class="core-stack">
+    <div class="core-stack-header">
+      <div class="core-stack-label"><span class="dot">◆</span>CURRENT CORE STACK</div>
+      <div class="core-stack-count" id="core-count">0 supplements</div>
+    </div>
+    <div class="core-stack-chips" id="core-chips">
+      <span class="empty">Empty — tag supplements as "In Stack" to populate.</span>
+    </div>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <div class="legend-item"><span class="legend-dot" style="background:var(--green)"></span>Strong evidence</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--yellow)"></span>Moderate</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--orange)"></span>Limited</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--purple)"></span>Experimental</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--red)"></span>In Stack</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--blue)"></span>Considering</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--purple)"></span>Researching</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--gray)"></span>Ruled Out</div>
+  </div>
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <div class="toggle active" id="ev-toggle">
+      <div class="toggle-switch"></div>
+      <span>Evidence Tags</span>
+    </div>
+    <button class="btn btn-red" id="expand-all">Expand All</button>
+    <button class="btn" id="collapse-all">Collapse All</button>
+    <button class="btn btn-red" id="add-custom">+ Add Custom</button>
+    <button class="btn" id="export-btn">Export</button>
+    <button class="btn btn-ghost" id="reset-btn" style="margin-left:auto;color:var(--text-faint)">Reset All</button>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="search-row" id="search-row">
+    <span class="search-icon">⌕</span>
+    <input type="text" id="search-input" class="search-input" placeholder="Search by name or goal — try &quot;sleep&quot;, &quot;recovery&quot;, &quot;magnesium&quot;, &quot;testosterone&quot;" autocomplete="off" spellcheck="false">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">✕ Clear</button>
+  </div>
+
+  <!-- CATEGORIES -->
+  <div id="categories"></div>
+
+  <!-- NO RESULTS -->
+  <div class="no-results" id="no-results">
+    <strong>No matches.</strong><br>Try a broader term — a goal like "sleep" or "joints", or part of a supplement's name.
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-note">
+    <strong>This is education, not medical advice.</strong> The Fight Life isn't your doctor, and this guide doesn't prescribe anything. Evidence ratings reflect published peer-reviewed research (systematic reviews and meta-analyses) and can shift as new studies land. Dose ranges are general adult reference ranges, shown only for supplements you've tagged — they are not personalized guidance. Remember: more is not better, and "natural" does not mean "safe." Before starting anything, talk to a qualified professional and get bloodwork — <strong>especially if you're pregnant, nursing, under 18, on medication, or managing a health condition.</strong> Competing athletes: check every ingredient against your sport's banned list (WADA / USADA), because a few entries here are prohibited in competition. Food first, test before you guess, add one thing at a time. <em>Earn the life.</em>
+  </div>
+
+</div>
+
+<!-- DETAIL MODAL -->
+<div class="modal-backdrop" id="modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title-block">
+        <div class="m-name" id="m-name"></div>
+        <div class="m-sub" id="m-sub"></div>
+        <div class="m-tags" id="m-tags"></div>
+      </div>
+      <button class="modal-close" id="modal-close">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-footer">
+      <div class="save-indicator" id="save-indicator">✓ Saved</div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn" id="delete-btn" style="color:var(--text-faint);display:none">Delete Custom</button>
+        <button class="btn btn-red" id="close-btn-2">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADD CUSTOM MODAL -->
+<div class="modal-backdrop" id="custom-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title-block">
+        <div class="m-name">ADD CUSTOM SUPPLEMENT</div>
+        <div class="m-sub">Track something that isn't in the guide yet.</div>
+      </div>
+      <button class="modal-close" id="custom-close">✕</button>
+    </div>
+    <div class="modal-body custom-form">
+      <div class="m-field">
+        <div class="m-field-label">Name *</div>
+        <input type="text" id="custom-name" placeholder="e.g. Nattokinase">
+      </div>
+      <div class="m-field">
+        <div class="m-field-label">Category *</div>
+        <select id="custom-cat"></select>
+      </div>
+      <div class="m-field">
+        <div class="m-field-label">Subcategory (optional)</div>
+        <input type="text" id="custom-subcat" placeholder="e.g. Enzyme">
+      </div>
+      <div class="m-field">
+        <div class="m-field-label">Mechanism / What It Does</div>
+        <textarea id="custom-mechanism" rows="2" placeholder="Brief description of how it works."></textarea>
+      </div>
+      <div class="m-field">
+        <div class="m-field-label">Primary Use Case</div>
+        <textarea id="custom-usecase" rows="2" placeholder="What it's typically used for."></textarea>
+      </div>
+      <div class="m-field">
+        <div class="m-field-label">Notes / Source</div>
+        <textarea id="custom-notes" rows="2" placeholder="Where you heard about it, why you're tracking it."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div></div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn" id="custom-cancel">Cancel</button>
+        <button class="btn btn-red" id="custom-save">Add to Stack</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXPORT MODAL -->
+<div class="modal-backdrop" id="export-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title-block">
+        <div class="m-name">EXPORT STATE</div>
+        <div class="m-sub">Copy your list to save it, share it, or take it to your doctor.</div>
+      </div>
+      <button class="modal-close" id="export-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <textarea class="export-text" id="export-text" readonly></textarea>
+    </div>
+    <div class="modal-footer">
+      <div></div>
+      <button class="btn btn-red" id="copy-export">Copy to Clipboard</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============ STORAGE ============
+// Prefer the host storage API if present; otherwise persist to localStorage
+// so a reader's stack survives a page refresh on a self-hosted page.
+// Falls back to in-memory only if both are unavailable.
+const storage = (typeof window !== 'undefined' && window.storage) ? window.storage : (() => {
+  let ls = null;
+  try { const t = '__fl_test__'; localStorage.setItem(t, '1'); localStorage.removeItem(t); ls = localStorage; } catch (e) { ls = null; }
+  if (ls) {
+    return {
+      async get(k) { const v = ls.getItem(k); return v !== null ? { key: k, value: v } : null; },
+      async set(k, v) { ls.setItem(k, v); return { key: k, value: v }; },
+      async delete(k) { ls.removeItem(k); return { key: k, deleted: true }; }
+    };
+  }
+  const mem = {};
+  return {
+    async get(k) { return mem[k] !== undefined ? { key: k, value: mem[k] } : null; },
+    async set(k, v) { mem[k] = v; return { key: k, value: v }; },
+    async delete(k) { delete mem[k]; return { key: k, deleted: true }; }
+  };
+})();
+const STORAGE_KEY = 'fightlife-supplement-guide-v1';
+
+// ============ DATA ============
+const CATEGORIES = [
+  { id: 'vitamins', name: 'Vitamins', desc: 'Organic compounds essential for metabolism and cellular function. Fat-soluble vitamins (A, D, E, K) are stored in tissue and require fat for absorption. Water-soluble (B-complex, C) must be replenished regularly.' },
+  { id: 'minerals', name: 'Minerals', desc: 'Inorganic elements required for structural and functional roles — from bone formation to enzymatic catalysis to electrolyte balance. Macrominerals are needed in gram quantities; trace minerals in milligrams or less.' },
+  { id: 'amino-acids', name: 'Amino Acids & Derivatives', desc: 'Protein building blocks and their metabolic byproducts. Essential amino acids must come from diet; conditionally essential are produced endogenously but demand exceeds supply under stress. Functional derivatives are synthesized from amino acid precursors.' },
+  { id: 'fatty-acids', name: 'Essential Fatty Acids', desc: 'Polyunsaturated fats the body cannot synthesize — primarily long-chain omega-3s (EPA, DHA). Modern Western diets are typically depleted in omega-3 and overloaded in omega-6.' },
+  { id: 'whole-food', name: 'Whole Food / Organ-Based', desc: 'Concentrated nutrition from whole-food sources rather than isolated compounds. Retains cofactor relationships and micronutrient synergies that isolated supplementation can miss.' },
+  { id: 'adaptogens', name: 'Adaptogens', desc: 'Botanical compounds that modulate the stress response (HPA axis) and support homeostasis under physiological strain. Classified as "adaptogens" because they help the body adapt rather than forcing a single directional effect.' },
+  { id: 'nootropics', name: 'Nootropics & Cognitive', desc: 'Compounds that support cognitive function — attention, memory, executive function, neuroprotection. Ranges from well-studied stimulants to emerging neuroprotective agents.' },
+  { id: 'antioxidants', name: 'Antioxidants & Polyphenols', desc: 'Compounds that neutralize oxidative stress or upregulate endogenous antioxidant pathways (Nrf2, glutathione). Some work by scavenging free radicals directly; others trigger the body\'s own defense systems.' },
+  { id: 'gut', name: 'Gut Health', desc: 'Compounds supporting the microbiome, digestion, and intestinal barrier integrity. Gut health cascades into immunity, mood, and nutrient absorption.' },
+  { id: 'joints', name: 'Joint & Connective Tissue', desc: 'Structural support for cartilage, tendons, ligaments, and fascia. Combat sports and high-impact training create demand that baseline diet often doesn\'t meet.' },
+  { id: 'recovery', name: 'Recovery & Sleep', desc: 'Compounds supporting parasympathetic shift, sleep architecture (especially deep and REM), and tissue repair. Sleep is the master recovery variable.' },
+  { id: 'performance', name: 'Performance / Ergogenic', desc: 'Compounds with direct, acute effects on athletic output — power, endurance, or fatigue resistance. Often context-dependent (endurance vs power, trained vs untrained).' },
+  { id: 'hormones', name: 'Hormone Support', desc: 'Compounds that support endogenous hormone production — typically androgens, thyroid, or cortisol regulation. Rarely replace insufficiency on their own; work primarily by removing limiters.' },
+  { id: 'specialized', name: 'Specialized / Targeted', desc: 'Compounds for specific metabolic, longevity, or niche health goals. This bucket holds emerging and highly specialized compounds that don\'t fit cleanly elsewhere.' }
+];
+
+// Supplement database — every entry starts untagged so each reader builds their own stack
+const SUPPLEMENTS = [
+  // VITAMINS
+  { id: 'vit-d3', name: 'Vitamin D3 (Cholecalciferol)', cat: 'vitamins', sub: 'Fat-Soluble', ev: 'strong', mech: 'Binds to vitamin D receptors (VDR) expressed in nearly every tissue. Regulates calcium/phosphorus, immune modulation, and influences hundreds of genes including those governing muscle function and testosterone synthesis.', use: 'Bone health, immune function, mood regulation, hormonal support. Deficiency is widespread, especially in non-equatorial latitudes and for indoor workers.', food: 'Fatty fish (salmon, mackerel, sardines), egg yolks, sun exposure (10–30 min midday). Fortified dairy is minor.', interactions: 'Best absorbed with dietary fat. Pair with K2 (MK-7) to route calcium correctly. Excessive supplementation (>10,000 IU/day long-term without labs) can cause hypercalcemia.', dose: '2,000–5,000 IU/day typical; test 25(OH)D and target 40–60 ng/mL. Fat-soluble, so take with a meal containing fat.', athlete: 'Status directly correlates with testosterone levels and neuromuscular function in athletes. Deficiency is common in year-round indoor trainers.' },
+  { id: 'vit-k2', name: 'Vitamin K2 (MK-7)', cat: 'vitamins', sub: 'Fat-Soluble', ev: 'strong', mech: 'Activates matrix Gla-protein and osteocalcin, routing calcium out of arteries and into bones. Works synergistically with vitamin D3.', use: 'Cardiovascular calcium management, bone density, works as the counterpart to D3 supplementation.', food: 'Natto (extremely high), hard cheeses, egg yolks, grass-fed butter, organ meats. MK-4 is in meat; MK-7 is in fermented foods.', interactions: 'Interacts with warfarin and other anticoagulants — consult physician if on blood thinners. Fat-soluble.', dose: '100–200 mcg MK-7 daily with fat-containing meal. Often co-formulated with D3.', athlete: 'Relevant if supplementing D3 at moderate-to-high doses — pairing prevents misdirected calcium.' },
+  { id: 'vit-a', name: 'Vitamin A (Retinol / Preformed)', cat: 'vitamins', sub: 'Fat-Soluble', ev: 'strong', mech: 'Precursor to retinal (vision) and retinoic acid (gene expression). Critical for epithelial integrity, immune function, and reproductive health.', use: 'Vision, immune function, skin health. Most people get preformed vitamin A from animal sources or convert from beta-carotene inefficiently.', food: 'Liver (by far the richest source), egg yolks, dairy. Beta-carotene from orange/green vegetables converts to retinol at variable and often low rates.', interactions: 'Fat-soluble and stored in liver — excessive supplementation is toxic. Beef liver or dairy typically covers requirements without isolated supplementation.', dose: '2,300–3,000 IU/day from diet generally sufficient. Isolated supplementation rarely needed if eating liver or quality dairy.', athlete: null },
+  { id: 'vit-e', name: 'Vitamin E (Mixed Tocopherols)', cat: 'vitamins', sub: 'Fat-Soluble', ev: 'moderate', mech: 'Fat-soluble antioxidant protecting cell membranes from lipid peroxidation. "Vitamin E" is actually a family of 8 compounds (tocopherols and tocotrienols).', use: 'Antioxidant protection, particularly for cell membranes. Most research is on alpha-tocopherol alone, though mixed formulations are likely preferable.', food: 'Almonds, sunflower seeds, wheat germ, olive oil, avocado.', interactions: 'Isolated high-dose alpha-tocopherol can interfere with other tocopherols. Can increase bleeding risk at high doses.', dose: '15 mg (22 IU) daily RDA; supplementation typically 100–400 IU mixed tocopherols if used.', athlete: null },
+  { id: 'b-complex', name: 'B-Complex (Standard)', cat: 'vitamins', sub: 'Water-Soluble', ev: 'strong', mech: 'Eight B vitamins (B1, B2, B3, B5, B6, B7, B9, B12) act as cofactors in energy metabolism, DNA synthesis, neurotransmitter production, and methylation.', use: 'Energy metabolism support, stress response, neurological function. Water-soluble — excess is excreted.', food: 'Whole grains, meat, eggs, legumes, leafy greens. B12 is animal-source only.', interactions: 'Generally safe; urine may turn bright yellow (riboflavin). High-dose B6 long-term can cause neuropathy.', dose: 'Varies by formulation; typically 1x RDA of each with meals.', athlete: 'Training and stress deplete B vitamins faster. Most useful when training volume is high or under chronic stress.' },
+  { id: 'b-methyl', name: 'Methylated B-Complex (5-MTHF, Methyl-B12, P5P)', cat: 'vitamins', sub: 'Water-Soluble', ev: 'strong', mech: 'Pre-activated forms of folate (5-MTHF instead of folic acid), B12 (methylcobalamin instead of cyanocobalamin), and B6 (P5P instead of pyridoxine HCl). Bypasses conversion steps that are impaired in MTHFR polymorphisms.', use: 'Methylation support, neurotransmitter synthesis, homocysteine management. Particularly relevant for those with MTHFR C677T or A1298C variants (~30–50% of population carries at least one).', food: 'Natural folate in leafy greens, liver. Methylation cofactors are harder to get optimally from food alone.', interactions: 'Generally well-tolerated. Some experience "overmethylation" symptoms (anxiety, irritability) if genotype is already rapid-methylation — start low.', dose: '400–800 mcg 5-MTHF, 500–1000 mcg methyl-B12, 25–50 mg P5P. Morning with food.', athlete: 'Training elevates methylation demand (creatine synthesis, neurotransmitter turnover). Useful as an alternative to beef liver if liver doesn\'t fit the protocol.' },
+  { id: 'vit-c', name: 'Vitamin C (Ascorbic Acid)', cat: 'vitamins', sub: 'Water-Soluble', ev: 'strong', mech: 'Cofactor in collagen synthesis, antioxidant, supports iron absorption, modulates immune function. Humans cannot synthesize it.', use: 'Connective tissue synthesis (especially with collagen protocols), immune support, iron absorption from plant sources.', food: 'Citrus, bell peppers, kiwi, strawberries, broccoli. Most diets cover baseline.', interactions: 'Water-soluble — excess excreted. Very high doses (>2g) can cause GI distress or kidney stones in susceptible individuals.', dose: '75–500 mg typical. 50 mg taken with collagen pre-training may enhance tendon collagen synthesis (Shaw et al. 2017).', athlete: 'Useful timed with collagen protocols for tendon/ligament work — a specific tactical use case beyond general antioxidant claims.' },
+  { id: 'choline', name: 'Choline', cat: 'vitamins', sub: 'Water-Soluble', ev: 'strong', mech: 'Precursor to acetylcholine (the primary neurotransmitter of muscle contraction and memory) and phosphatidylcholine (cell membrane integrity).', use: 'Liver function, cognitive function, muscle contraction. Most people are below the adequate intake (550 mg/day for men).', food: 'Egg yolks (by far the best source — ~150 mg per yolk), liver, beef, soy. 2–3 whole eggs daily hits adequate intake.', interactions: 'Very high doses can cause fishy body odor (TMAO production).', dose: '550 mg/day adequate intake. Supplementation usually as Alpha-GPC or CDP-choline for cognitive use.', athlete: null },
+
+  // MINERALS
+  { id: 'magnesium', name: 'Magnesium', cat: 'minerals', sub: 'Macro', ev: 'strong', mech: 'Cofactor in 300+ enzymatic reactions including ATP production, muscle relaxation, protein synthesis, and GABA signaling. Forms vary in bioavailability and target tissue.', use: 'Sleep quality, muscle relaxation, stress buffering, glucose handling, hundreds of downstream roles. Deficiency is widespread in modern diets (depleted soils, refined foods).', food: 'Pumpkin seeds, spinach, almonds, dark chocolate, avocado. Hard water contributes some.', interactions: 'Oxide form is poorly absorbed and laxative. Glycinate = best for sleep and general use. L-Threonate = crosses blood-brain barrier for cognitive. Malate = daytime energy. Citrate = good absorption, mild laxative effect.', dose: '200–400 mg elemental magnesium daily. Glycinate or mixed forms before bed is the most common protocol.', athlete: 'Lost in sweat; demand is higher for athletes training in heat. Supplementation consistently shows sleep and recovery improvements in deficient populations.' },
+  { id: 'potassium', name: 'Potassium', cat: 'minerals', sub: 'Macro', ev: 'strong', mech: 'Primary intracellular electrolyte. Regulates cellular hydration, nerve signaling, muscle contraction, and blood pressure.', use: 'Electrolyte balance, blood pressure regulation, muscle function. Most Americans consume ~50% of the recommended intake.', food: 'Potatoes, bananas, leafy greens, avocado, coconut water, yogurt, beans, salmon.', interactions: 'Best from food — isolated high-dose potassium supplementation can be dangerous (hyperkalemia). Usually covered by diet if eating whole foods.', dose: '3,500–4,700 mg daily adequate intake (food-first). OTC supplements capped at 99 mg per dose for safety.', athlete: 'Lost in sweat alongside sodium. Relevant for hot-weather training.' },
+  { id: 'electrolytes', name: 'Electrolytes (Na/K/Mg)', cat: 'minerals', sub: 'Macro', ev: 'strong', mech: 'Sodium, potassium, and magnesium regulate intracellular/extracellular fluid balance, nerve conduction, and muscle contraction.', use: 'Hydration during training, heat adaptation, cramp prevention, post-workout recovery. Plain water doesn\'t rehydrate as effectively as water + electrolytes.', food: 'Salt, bananas, coconut water, leafy greens, tomato juice. Pre-made mixes (LMNT, Element, Redmond) skip added sugar.', interactions: 'Blanket salt restriction is often a poor fit for athletes sweating heavily in heat. Watch sugar content in commercial sports drinks.', dose: 'Context-dependent. On hot days or heavy-sweat sessions: roughly 1,000–2,000 mg added sodium on hard training days.', athlete: 'High relevance for combat sports and anyone training hard in heat. Sweat losses are significant, and plain water alone doesn\'t fully replace them.' },
+  { id: 'zinc', name: 'Zinc', cat: 'minerals', sub: 'Trace', ev: 'strong', mech: 'Cofactor in 300+ enzymes. Critical for immune function, testosterone synthesis, wound healing, DNA synthesis, and taste/smell.', use: 'Immune support, hormonal health, skin/tissue repair. Zinc deficiency is common in high-sweat-loss populations and vegetarians.', food: 'Oysters (by far the richest), red meat, pumpkin seeds, chickpeas, cashews.', interactions: 'Long-term supplementation without copper causes copper deficiency (anemia, neurological issues). Pair with 1–2 mg copper or cycle. Interferes with absorption of some antibiotics.', dose: '15–30 mg/day zinc picolinate, bisglycinate, or citrate. Not on empty stomach (nausea). Pair with copper if daily long-term.', athlete: 'Sweat losses are substantial. Low zinc correlates with reduced testosterone in deficient athletes (not supra-physiological boost).' },
+  { id: 'selenium', name: 'Selenium', cat: 'minerals', sub: 'Trace', ev: 'moderate', mech: 'Component of selenoproteins including glutathione peroxidase (antioxidant) and deiodinases (thyroid hormone activation).', use: 'Thyroid function, antioxidant system, immune function.', food: 'Brazil nuts (1–2 nuts covers daily intake), seafood, eggs, organ meats.', interactions: 'Narrow therapeutic window — more is not better. Excess selenium (>400 mcg/day chronic) is toxic.', dose: '55–200 mcg/day. Eating 1–2 Brazil nuts daily covers it without supplementation.', athlete: null },
+  { id: 'iodine', name: 'Iodine', cat: 'minerals', sub: 'Trace', ev: 'moderate', mech: 'Component of thyroid hormones T3 and T4. Essential for metabolic rate, neurological function, and development.', use: 'Thyroid hormone synthesis, metabolic regulation.', food: 'Iodized salt, seaweed (kelp, nori), seafood, dairy.', interactions: 'High-dose iodine can trigger thyroid dysfunction in susceptible individuals (Hashimoto\'s, Graves\'). Test first if any thyroid history.', dose: '150 mcg RDA. Most covered by iodized salt; supplementation only if tested deficient.', athlete: null },
+  { id: 'boron', name: 'Boron', cat: 'minerals', sub: 'Trace', ev: 'moderate', mech: 'Influences steroid hormone metabolism — modulates sex hormone-binding globulin (SHBG) and increases bioavailable testosterone and vitamin D.', use: 'Hormone optimization (free T, DHT), bone health, magnesium/vitamin D cofactor.', food: 'Raisins, prunes, almonds, avocado, chickpeas.', interactions: 'Safe within normal dietary ranges. Very high doses (>20 mg) can cause toxicity.', dose: '3–10 mg/day. Often included in testosterone-support formulations.', athlete: null },
+  { id: 'iron', name: 'Iron', cat: 'minerals', sub: 'Trace', ev: 'strong', mech: 'Core of hemoglobin (oxygen transport) and myoglobin (muscle oxygen storage). Also involved in energy production and immune function.', use: 'Oxygen transport, endurance, cognitive function. Supplement only if deficient — iron overload is serious.', food: 'Red meat, liver, shellfish, legumes, spinach. Heme iron (animal) absorbs far better than non-heme (plant).', interactions: 'Never supplement without confirmed deficiency — men rarely deficient. Constipation, GI distress common. Interferes with zinc, calcium absorption.', dose: 'Only if ferritin is below optimal range on labs. 18–65 mg/day elemental iron for confirmed deficiency.', athlete: 'Important check for female athletes and endurance athletes. Low ferritin tanks performance before full anemia appears.' },
+
+  // AMINO ACIDS
+  { id: 'creatine', name: 'Creatine Monohydrate', cat: 'amino-acids', sub: 'Functional / Derivatives', ev: 'strong', mech: 'Increases phosphocreatine stores in skeletal muscle and brain, buffering ATP regeneration during high-intensity work. Emerging evidence for neurological benefits (working memory, fatigue resistance, possibly protective against TBI effects).', use: 'Strength, power output, lean mass, muscular endurance, cognitive performance. The most researched ergogenic aid in existence.', food: 'Red meat (~1–2g per pound), herring, salmon. Vegetarians are essentially depleted.', interactions: 'Safe long-term across hundreds of studies. Temporary intramuscular water retention (~1–3 lbs). No loading phase required — daily dosing saturates stores in ~3–4 weeks. Myth: kidney damage (refuted in healthy populations).', dose: '3–5 g daily, any time of day. 10 g/day is the dose in emerging cognitive/neurological research.', athlete: 'Relevant across nearly every combat sport. Phosphocreatine-driven explosive output matters for striking, clinch, and short grappling exchanges. Cognitive benefits reduce fatigue-related decision errors.' },
+  { id: 'beta-alanine', name: 'Beta-Alanine', cat: 'amino-acids', sub: 'Functional / Derivatives', ev: 'strong', mech: 'Increases muscle carnosine — an intracellular buffer against H+ accumulation (lactic acid-driven pH drop) during high-intensity efforts lasting 1–4 minutes.', use: 'Muscular endurance in 60 sec–4 min efforts. Rounds in combat sports fall squarely in this window.', food: 'Meat and poultry (as carnosine, which releases beta-alanine).', interactions: 'Harmless paresthesia (skin tingling) at higher doses — split dose if bothersome.', dose: '3.2–6.4 g/day, split into 1.6 g doses. Takes 2–4 weeks of daily loading to saturate.', athlete: 'Particularly relevant for 3-minute rounds. Buffering capacity directly affects ability to push pace late in rounds.' },
+  { id: 'citrulline', name: 'L-Citrulline / Citrulline Malate', cat: 'amino-acids', sub: 'Functional / Derivatives', ev: 'strong', mech: 'Converts to arginine in the kidneys more efficiently than arginine supplementation itself. Raises plasma arginine and nitric oxide, improving blood flow. Malate component supports ATP production.', use: 'Pump, vasodilation, muscular endurance, reduced perceived exertion. Better choice than direct arginine.', food: 'Watermelon (highest), pumpkin, cucumber — but in small amounts relative to supplemental doses.', interactions: 'Generally safe. May lower blood pressure modestly.', dose: '6–8 g citrulline malate or 3–6 g L-citrulline, 30–60 min pre-training.', athlete: null },
+  { id: 'eaas', name: 'EAAs (Essential Amino Acids)', cat: 'amino-acids', sub: 'Essential', ev: 'strong', mech: 'Provides all 9 essential amino acids in the ratios needed for muscle protein synthesis. More complete than BCAAs (which are missing 6 of the 9).', use: 'Muscle protein synthesis during fasted training, rapid amino delivery, recovery. Often superior to BCAAs.', food: 'Complete proteins (meat, eggs, dairy, fish). A quality whey isolate contains all EAAs.', interactions: 'Safe. If already consuming adequate complete protein (0.8–1g/lb bodyweight), marginal benefit.', dose: '10–15 g pre- or intra-workout, especially if training fasted.', athlete: null },
+  { id: 'glycine', name: 'Glycine', cat: 'amino-acids', sub: 'Conditionally Essential', ev: 'strong', mech: 'Inhibitory neurotransmitter (lowers core temperature via peripheral vasodilation, aiding sleep onset). Cofactor in collagen synthesis (33% of collagen is glycine), glutathione production, and methylation.', use: 'Sleep quality (especially deep sleep), connective tissue support, liver detoxification, cognitive recovery.', food: 'Bone broth, skin/connective tissue on meat, gelatin, collagen peptides. Modern muscle-only meat consumption is low-glycine.', interactions: 'Very safe. Slightly sweet taste.', dose: '3 g pre-bed for sleep quality. 10–15 g split through day for collagen/detox support.', athlete: 'Under-consumed in modern diets (we eat muscle meat, not connective tissue). Particularly relevant for combat sports given the demand on tendons and ligaments.' },
+  { id: 'glutamine', name: 'L-Glutamine', cat: 'amino-acids', sub: 'Conditionally Essential', ev: 'moderate', mech: 'Most abundant free amino acid in the body. Primary fuel for enterocytes (gut lining cells) and immune cells. Plays a role in gut barrier integrity.', use: 'Gut barrier support, post-training immune support, recovery during heavy training periods. Weaker evidence for muscle building or straight performance benefit.', food: 'Meat, fish, dairy, eggs, beans, cabbage.', interactions: 'Safe. Evidence for direct performance enhancement is weak; evidence for gut-barrier and immune support under training stress is stronger.', dose: '5–10 g daily. Split dosing morning and post-training if supplementing.', athlete: 'Worth considering during intensified training blocks where gut symptoms or immune issues show up. Not a "must-have" for baseline.' },
+  { id: 'taurine', name: 'Taurine', cat: 'amino-acids', sub: 'Conditionally Essential', ev: 'strong', mech: 'Regulates cellular hydration, modulates calcium signaling in muscle and nerves, supports bile acid formation, has cardiovascular protective effects. Emerging research (2023, Nature) links it to longevity markers.', use: 'Cardiovascular health, muscle function, cellular hydration, longevity pathways, sleep.', food: 'Shellfish, dark meat poultry, beef. Plant-based diets are low in taurine.', interactions: 'Very safe — commonly found in energy drinks at 1–2g. No adverse effects at reasonable doses.', dose: '1–3 g daily. Can be taken any time.', athlete: null },
+  { id: 'collagen', name: 'Collagen Peptides (Hydrolyzed)', cat: 'amino-acids', sub: 'Functional / Derivatives', ev: 'moderate', mech: 'Hydrolyzed collagen provides amino acids (glycine, proline, hydroxyproline) used for connective tissue synthesis. Timed with vitamin C pre-training, may stimulate collagen deposition in tendons/ligaments (Shaw et al. 2017).', use: 'Tendon and ligament support, joint health, skin elasticity. Most specific tactical use: pre-training with vitamin C for connective tissue adaptation.', food: 'Bone broth, skin on meat, slow-cooked cuts with connective tissue.', interactions: 'Generally safe. Not a complete protein source on its own — supplement alongside adequate protein.', dose: '15 g hydrolyzed collagen + 50 mg vitamin C, 30–60 min pre-training for tendon/ligament work.', athlete: 'Highly relevant for combat sports due to joint and tendon stress. Timing matters more than total daily intake for connective tissue outcomes.' },
+
+  // FATTY ACIDS
+  { id: 'fish-oil', name: 'Fish Oil (EPA/DHA)', cat: 'fatty-acids', sub: null, ev: 'strong', mech: 'Long-chain omega-3 fatty acids (EPA, DHA) integrate into cell membranes, shifting the balance away from pro-inflammatory arachidonic acid derivatives. EPA is more anti-inflammatory; DHA is more structural (brain, retina).', use: 'Reducing systemic inflammation, cardiovascular support, brain and eye health, joint comfort, mood regulation.', food: 'Fatty fish (salmon, sardines, mackerel, anchovies). 2–3 servings per week meets most needs.', interactions: 'High doses can increase bleeding time — relevant for combat sports (bruising, surgery). Check for third-party testing (heavy metals, oxidation/rancidity — rancid fish oil is counterproductive).', dose: '2–3 g combined EPA+DHA daily. Verify actual EPA/DHA content, not total fish oil weight.', athlete: 'Relevant for training-induced inflammation, recovery, and cognitive resilience under fatigue. Combat sports adds a consideration around bleeding/bruising at higher doses.' },
+  { id: 'algae-oil', name: 'Algae Oil (EPA/DHA)', cat: 'fatty-acids', sub: null, ev: 'strong', mech: 'Plant-based source of EPA and DHA (fish get their omega-3s from algae — this goes directly to the source). Bypasses heavy metal and sustainability concerns with fish oil.', use: 'Same benefits as fish oil for those avoiding fish products or concerned about contamination.', food: 'Only found in microalgae; not in land plants.', interactions: 'Same as fish oil.', dose: '1–2 g combined EPA+DHA daily.', athlete: null },
+  { id: 'krill-oil', name: 'Krill Oil', cat: 'fatty-acids', sub: null, ev: 'moderate', mech: 'EPA/DHA bound to phospholipids (instead of triglycerides as in fish oil), potentially improving bioavailability. Contains astaxanthin naturally.', use: 'Alternative to fish oil with potentially better absorption per gram; higher cost.', food: 'Only from krill (small crustaceans).', interactions: 'Shellfish allergen — contraindicated for shellfish allergies. Sustainability concerns at scale.', dose: '1–2 g daily.', athlete: null },
+
+  // WHOLE FOOD / ORGAN
+  { id: 'beef-liver', name: 'Beef Liver (Desiccated)', cat: 'whole-food', sub: null, ev: 'strong', mech: 'Concentrated source of bioavailable preformed vitamin A (retinol), B12, folate, iron, choline, copper, and CoQ10 — in whole-food matrix with all cofactors intact.', use: 'Comprehensive micronutrient coverage without isolated supplementation. Often described as "nature\'s multivitamin" for good reason.', food: 'Fresh beef liver (4–6 oz, 1–2x per week covers most micronutrient needs). Desiccated capsules are an equivalent for those who can\'t eat liver.', interactions: 'Very high in preformed vitamin A — avoid combining with isolated high-dose vitamin A supplements. Safe from quality grass-fed sources.', dose: '3–6 capsules daily (typically ~3 g desiccated) or 4–6 oz fresh liver 1–2x weekly.', athlete: 'Strong whole-food choice for those who want to cover B-vitamins, iron, copper, and vitamin A in one step without isolated multivitamin complexity. Functional substitute for a methylated B-complex depending on genetics.' },
+  { id: 'colostrum', name: 'Colostrum (Bovine)', cat: 'whole-food', sub: null, ev: 'moderate', mech: 'First milk from cows post-birth, concentrated in immunoglobulins, growth factors (IGF-1, TGF-β), and lactoferrin. Supports gut barrier and immune function.', use: 'Gut barrier integrity, immune support, post-training recovery. Emerging evidence for leaky gut and endurance athlete immune dips.', food: 'Only from first-milk of mammals.', interactions: 'Dairy allergen — contraindicated for milk protein allergy. Lactose-free versions available.', dose: '5–20 g daily depending on formulation.', athlete: null },
+  { id: 'spirulina', name: 'Spirulina', cat: 'whole-food', sub: null, ev: 'moderate', mech: 'Blue-green algae high in protein, phycocyanin (a potent antioxidant), and iron. Phycocyanin specifically has anti-inflammatory and antioxidant properties.', use: 'Antioxidant support, complete plant protein, iron supplementation for vegetarians.', food: 'Only as a supplement (algae, not widely consumed as food).', interactions: 'Must be from a reputable source — can be contaminated with microcystins or heavy metals if poorly sourced.', dose: '1–5 g daily.', athlete: null },
+  { id: 'bone-broth', name: 'Bone Broth / Collagen Complex', cat: 'whole-food', sub: null, ev: 'limited', mech: 'Provides amino acids (glycine, proline), minerals, and gelatin from slow-cooked bones and connective tissue. Marketing far exceeds the evidence.', use: 'Source of glycine and collagen-building amino acids, warm nourishment, mineral broth. Nothing magical beyond what isolated collagen + glycine provides.', food: 'Homemade or commercial stocks from bones and connective tissue.', interactions: 'High histamine from long-cooked broths can trigger sensitivities. Sodium content can be high.', dose: 'N/A — whole food; consume 1–2 cups daily as desired.', athlete: null },
+
+  // ADAPTOGENS
+  { id: 'ashwagandha', name: 'Ashwagandha (KSM-66)', cat: 'adaptogens', sub: null, ev: 'strong', mech: 'Withanolides modulate HPA axis activity, lowering cortisol and shifting autonomic balance toward parasympathetic. Evidence for modest increases in testosterone in stressed/subfertile men.', use: 'Cortisol management, stress reduction, sleep quality, modest hormonal support. Strongest adaptogen evidence-wise.', food: 'Not a food source — root extract.', interactions: 'Avoid if hyperthyroid (can increase T3/T4). Potential interactions with sedatives, thyroid meds, immunosuppressants. Pregnancy contraindicated.', dose: '300–600 mg KSM-66 or Sensoril extract. Can be taken AM or PM.', athlete: 'Relevant when training load creates sustained elevated cortisol. Works better for stress management than as a pure "testosterone booster."' },
+  { id: 'rhodiola', name: 'Rhodiola Rosea', cat: 'adaptogens', sub: null, ev: 'moderate', mech: 'Rosavins and salidroside modulate serotonin, dopamine, and cortisol. Classic "energy" adaptogen — works better for fatigue than chronic stress.', use: 'Mental fatigue, stamina under stress, acute performance in fatigued states.', food: 'Not a food source.', interactions: 'Can be over-stimulating; taking late in day disrupts sleep. May interact with stimulants.', dose: '200–600 mg/day of standardized extract (3% rosavins, 1% salidroside). Morning.', athlete: null },
+  { id: 'cordyceps', name: 'Cordyceps', cat: 'adaptogens', sub: null, ev: 'moderate', mech: 'Mushroom extract (militaris or sinensis) that may enhance oxygen utilization and mitochondrial function. Some evidence for modest VO2max improvements.', use: 'Endurance, mitochondrial support, energy.', food: 'Not a typical food source.', interactions: 'Generally safe. Quality and species matters — militaris is more commonly studied and cultivated.', dose: '1–3 g extract daily.', athlete: null },
+  { id: 'tongkat', name: 'Tongkat Ali (Eurycoma longifolia)', cat: 'adaptogens', sub: null, ev: 'moderate', mech: 'Quassinoids and eurypeptides reduce SHBG, potentially increasing free testosterone. Also has anti-stress and anti-fatigue effects.', use: 'Hormonal support (free T), libido, stress modulation.', food: 'Not a food source.', interactions: 'Quality varies widely — look for standardized extracts (Physta, Tongkat Ali 200:1). Cycle recommended.', dose: '200–400 mg standardized extract daily.', athlete: null },
+  { id: 'shilajit', name: 'Shilajit', cat: 'adaptogens', sub: null, ev: 'limited', mech: 'Humic substance from Himalayan rock, contains fulvic acid and trace minerals. Proposed mechanisms include mitochondrial CoQ10 upregulation and modest testosterone support.', use: 'Mineral supplementation, energy, hormonal support.', food: 'Not a food source.', interactions: 'Quality and contamination concerns — must be purified and third-party tested (heavy metals common in unprocessed forms).', dose: '250–500 mg purified extract daily.', athlete: null },
+
+  // NOOTROPICS
+  { id: 'caffeine', name: 'Caffeine', cat: 'nootropics', sub: null, ev: 'strong', mech: 'Adenosine receptor antagonist — blocks the "tired" signal. Also modulates dopamine and epinephrine. Most studied ergogenic aid after creatine.', use: 'Alertness, endurance, power output, cognitive performance, fat oxidation.', food: 'Coffee, tea, cacao. Supplemental caffeine anhydrous is more precise for dosing.', interactions: 'Tolerance builds quickly — cycling improves potency. Half-life is 5–6 hours; afternoon doses affect sleep quality even if sleep onset feels normal. Interacts with stimulants, blood thinners.', dose: '3–6 mg/kg bodyweight, 30–60 min pre-training. For 180 lb athlete: 200–400 mg.', athlete: 'Well-established performance enhancer in combat sports — improves power output and reaction time acutely.' },
+  { id: 'l-theanine', name: 'L-Theanine', cat: 'nootropics', sub: null, ev: 'strong', mech: 'Non-protein amino acid from green tea. Crosses BBB, increases alpha brain waves, modulates GABA, glutamate, serotonin, and dopamine. Pairs with caffeine to blunt jitter and increase focus quality.', use: 'Calm focus (especially with caffeine), anxiety reduction, sleep quality without sedation.', food: 'Green tea (especially matcha, gyokuro).', interactions: 'Very safe, non-sedating. Commonly stacked 1:1 or 2:1 with caffeine (e.g., 200 mg L-theanine + 100 mg caffeine).', dose: '100–400 mg. Can be taken AM with caffeine or PM for sleep support.', athlete: null },
+  { id: 'alpha-gpc', name: 'Alpha-GPC', cat: 'nootropics', sub: null, ev: 'moderate', mech: 'Highly bioavailable choline source. Crosses BBB and elevates acetylcholine — the neurotransmitter of memory and muscle contraction. Small boosts to growth hormone acutely post-ingestion.', use: 'Cognitive function, power output (via acetylcholine signaling at neuromuscular junction), focus.', food: 'Small amounts in egg yolks and organ meats — supplementation reaches much higher levels.', interactions: 'Some emerging concerns about long-term use and cardiovascular markers (Alzheimer\'s-prevention trial) — evidence is mixed. Headaches possible if choline already adequate.', dose: '300–600 mg pre-training or for cognitive demand.', athlete: null },
+  { id: 'lions-mane', name: 'Lion\'s Mane (Hericium erinaceus)', cat: 'nootropics', sub: null, ev: 'moderate', mech: 'Hericenones and erinacines stimulate nerve growth factor (NGF) production. Potential neuroprotective and nerve regeneration applications.', use: 'Cognitive support, nerve health, mood. Particularly interesting for recovery from nerve impact (head trauma context).', food: 'Cooked mushroom (edible and culinary-quality).', interactions: 'Generally safe. Mushroom allergy rare but possible.', dose: '500–3,000 mg fruiting body extract daily (not mycelium-on-grain, which is weaker).', athlete: 'Relevant context for combat sports: concussion and sub-concussive impact research is early but suggestive for neuroprotective support.' },
+  { id: 'bacopa', name: 'Bacopa Monnieri', cat: 'nootropics', sub: null, ev: 'moderate', mech: 'Bacosides modulate serotonergic and cholinergic systems; antioxidant and anxiolytic effects. Requires consistent use (8–12 weeks) for full benefit — not acute.', use: 'Memory consolidation, learning, anxiety.', food: 'Not a food source.', interactions: 'Can cause GI upset initially (take with fat). Sedating for some.', dose: '300–600 mg standardized extract (50% bacosides) daily.', athlete: null },
+
+  // ANTIOXIDANTS
+  { id: 'coq10', name: 'CoQ10 / Ubiquinol', cat: 'antioxidants', sub: null, ev: 'strong', mech: 'Essential component of the mitochondrial electron transport chain — where ATP is made. Ubiquinol is the reduced (active) form; ubiquinone must be converted. Endogenous production declines with age and is depleted by statin drugs.', use: 'Mitochondrial support, cardiovascular health, energy in older adults or those on statins. Healthy young adults with no statin use see less benefit.', food: 'Organ meats, fatty fish, beef. Amounts are small relative to supplemental doses.', interactions: 'Fat-soluble; take with meal. Can reduce effectiveness of warfarin.', dose: '100–200 mg ubiquinol or 200–400 mg ubiquinone daily.', athlete: null },
+  { id: 'nac', name: 'NAC (N-Acetyl Cysteine)', cat: 'antioxidants', sub: null, ev: 'strong', mech: 'Direct precursor to glutathione — the body\'s master antioxidant. Also mucolytic (breaks up mucus) and supports liver detoxification. Clinical use for acetaminophen overdose.', use: 'Glutathione support, respiratory/mucus issues, liver support, mental health applications (OCD, compulsive behavior).', food: 'Cysteine from eggs, dairy, poultry, but acetylated form is not in food.', interactions: 'Generally safe. Sulfur smell. Regulatory status varies by country.', dose: '600–1,800 mg daily, often split dosing.', athlete: null },
+  { id: 'glutathione', name: 'Glutathione (Liposomal)', cat: 'antioxidants', sub: null, ev: 'moderate', mech: 'The body\'s master antioxidant. Direct supplementation has historically been limited by poor absorption; liposomal and S-acetyl forms are better. NAC supplementation often a more efficient route.', use: 'Oxidative stress reduction, liver detoxification, skin health.', food: 'Not a practical food source — most is broken down in digestion.', interactions: 'Liposomal and S-acetyl forms have better bioavailability than reduced glutathione. Quality/form matters significantly.', dose: '250–1,000 mg liposomal glutathione daily.', athlete: null },
+  { id: 'curcumin', name: 'Curcumin (Bioavailable Forms)', cat: 'antioxidants', sub: null, ev: 'strong', mech: 'Active compound in turmeric; anti-inflammatory via NF-kB inhibition and multiple pathways. Raw curcumin has terrible bioavailability — only specialized formulations (Meriva, BCM-95, Theracurmin, Longvida) work.', use: 'Joint comfort, systemic inflammation reduction, recovery.', food: 'Turmeric, but bioavailability is so low that whole turmeric provides minimal effect without black pepper or fat matrix.', interactions: 'Mild blood-thinning effect at high doses. Discontinue before surgery.', dose: 'Depends on formulation — 200–500 mg of bioavailable form (not plain curcumin).', athlete: 'Relevant for recovery from high training loads. Form matters — standard turmeric capsules are mostly marketing.' },
+  { id: 'astaxanthin', name: 'Astaxanthin', cat: 'antioxidants', sub: null, ev: 'moderate', mech: 'Carotenoid from microalgae (Haematococcus pluvialis). Crosses blood-brain and blood-retinal barriers. Reputed to be the most potent antioxidant carotenoid.', use: 'Eye health, skin UV protection, systemic antioxidant support.', food: 'Wild salmon, krill (gives them pink color).', interactions: 'Very safe. Fat-soluble — take with meal.', dose: '4–12 mg daily.', athlete: null },
+
+  // GUT HEALTH
+  { id: 'probiotics', name: 'Probiotics (Multi-Strain)', cat: 'gut', sub: null, ev: 'moderate', mech: 'Live bacterial strains that transiently colonize the gut, modulating microbiome composition, immune function, and intestinal barrier. Evidence is highly strain-specific, not generic.', use: 'Gut dysbiosis recovery, post-antibiotic recovery, specific conditions (IBS, certain immune issues). Not universally beneficial for healthy gut.', food: 'Fermented foods (yogurt, kefir, sauerkraut, kimchi, natto) — often superior to capsules for diversity.', interactions: 'Specific strains for specific conditions. Brand and strain matter enormously.', dose: 'Varies by formulation. Clinical doses typically 10–50 billion CFU.', athlete: null },
+  { id: 'psyllium', name: 'Psyllium Husk / Prebiotic Fiber', cat: 'gut', sub: null, ev: 'strong', mech: 'Soluble/insoluble fiber that feeds beneficial gut bacteria, normalizes bowel transit, binds cholesterol and bile acids, and moderates blood glucose response to meals.', use: 'Bowel regularity, microbiome support, cholesterol management, blood sugar control.', food: 'Psyllium husks, legumes, oats, onions, garlic, apples, chicory root.', interactions: 'Take with plenty of water (risk of obstruction otherwise). Can interfere with medication absorption — separate by 2 hours.', dose: '5–10 g psyllium husk daily. Most people are 20–30 g below the recommended daily fiber intake.', athlete: null },
+  { id: 'digestive-enzymes', name: 'Digestive Enzymes', cat: 'gut', sub: null, ev: 'limited', mech: 'Supplemental enzymes (amylase, protease, lipase, lactase) to support digestion. Clinically warranted for pancreatic insufficiency; discretionary for general use.', use: 'Symptomatic digestion support, large meal handling. Not first-line for healthy digestion.', food: 'Raw fruits (pineapple, papaya) contain some natural enzymes.', interactions: 'Generally safe. Quality varies.', dose: 'With meals as needed.', athlete: null },
+
+  // JOINTS
+  { id: 'glucosamine-chondroitin', name: 'Glucosamine + Chondroitin', cat: 'joints', sub: null, ev: 'moderate', mech: 'Components of cartilage matrix. Mechanism for oral supplementation translating to joint benefit is debated, but consistent use shows modest reduction in joint pain in some trials (especially OA).', use: 'Joint pain management, cartilage support for wear-and-tear conditions.', food: 'Shellfish shells (glucosamine source), cartilage (chondroitin).', interactions: 'Glucosamine contraindicated for shellfish allergy. Effects take 6–12 weeks to appear.', dose: '1,500 mg glucosamine sulfate + 1,200 mg chondroitin daily.', athlete: null },
+  { id: 'msm', name: 'MSM (Methylsulfonylmethane)', cat: 'joints', sub: null, ev: 'limited', mech: 'Organic sulfur compound. Proposed roles in collagen synthesis and anti-inflammation. Evidence is suggestive but not robust.', use: 'Joint comfort, connective tissue support.', food: 'Trace amounts in foods; degraded by cooking.', interactions: 'Generally safe.', dose: '1.5–6 g daily.', athlete: null },
+  { id: 'hyaluronic-acid', name: 'Hyaluronic Acid (Oral)', cat: 'joints', sub: null, ev: 'moderate', mech: 'Component of synovial fluid and skin extracellular matrix. Oral supplementation shows modest benefit for joint comfort and skin hydration in some trials.', use: 'Joint lubrication, skin hydration.', food: 'Bone broth provides some precursors.', interactions: 'Safe. Molecular weight and dose matter.', dose: '80–200 mg daily.', athlete: null },
+
+  // RECOVERY & SLEEP
+  { id: 'melatonin', name: 'Melatonin (Low Dose)', cat: 'recovery', sub: null, ev: 'strong', mech: 'Pineal hormone regulating circadian rhythm and sleep onset. Most OTC products are vastly overdosed (3–10 mg). Physiological doses (0.3–1 mg) work better with fewer side effects.', use: 'Sleep onset assistance, circadian resetting (travel, shift work), antioxidant activity.', food: 'Tart cherries, pistachios, small amounts in many foods.', interactions: 'Lower doses (0.3–1 mg) outperform higher doses in most studies. Grogginess at high doses. Shift-work applications well-documented.', dose: '0.3–1 mg, 30–60 min before sleep. Higher doses for acute circadian resetting only.', athlete: 'Highly relevant for shift workers and frequent travelers — 24-hour shifts, overnight work, and jet lag all disrupt circadian rhythm, which carries a real performance and health cost.' },
+  { id: 'apigenin', name: 'Apigenin', cat: 'recovery', sub: null, ev: 'moderate', mech: 'Flavonoid from chamomile and other plants. Weak benzodiazepine receptor ligand — mild calming without the cognitive cost of stronger GABAergics.', use: 'Sleep quality, mild anxiety reduction.', food: 'Chamomile tea, parsley, celery.', interactions: 'Mild. Avoid combining with strong sedatives or benzodiazepines.', dose: '50 mg pre-bed.', athlete: null },
+  { id: 'tart-cherry', name: 'Tart Cherry Extract', cat: 'recovery', sub: null, ev: 'moderate', mech: 'Anthocyanins reduce oxidative stress and inflammation post-exercise. Small natural melatonin content supports sleep.', use: 'Muscle soreness reduction, sleep support.', food: 'Tart cherry juice concentrate (Montmorency).', interactions: 'High sugar in juice form — powder/extract is cleaner.', dose: '480 mg extract or 8–16 oz juice.', athlete: null },
+
+  // PERFORMANCE
+  { id: 'sodium-bicarb', name: 'Sodium Bicarbonate', cat: 'performance', sub: null, ev: 'moderate', mech: 'Extracellular buffer — raises blood pH, helping clear H+ ions during high-intensity exercise. Complements beta-alanine (which buffers intracellularly).', use: 'Muscular endurance in 60 sec–8 min efforts.', food: 'Baking soda (but dosing is harsh).', interactions: 'GI distress is the main limitation — most people can\'t tolerate effective doses. Enteric-coated or timed protocols reduce symptoms.', dose: '0.3 g/kg bodyweight 60–90 min pre-exercise (with care for GI tolerance).', athlete: null },
+  { id: 'beetroot', name: 'Beetroot / Dietary Nitrates', cat: 'performance', sub: null, ev: 'moderate', mech: 'Dietary nitrates convert to nitric oxide, improving mitochondrial efficiency and blood flow. Modest endurance benefits in efforts lasting 5–30 minutes.', use: 'Endurance, blood flow, blood pressure.', food: 'Beets, leafy greens (arugula, spinach), beetroot juice.', interactions: 'Can stain urine/stool red (harmless). Avoid with PDE5 inhibitors (Viagra, Cialis) — additive blood pressure effect.', dose: '300–600 mg dietary nitrates (from ~500 ml beet juice), 2–3 hr pre-exercise.', athlete: null },
+
+  // HORMONE SUPPORT
+  { id: 'dhea', name: 'DHEA', cat: 'hormones', sub: null, ev: 'moderate', mech: 'Adrenal precursor that converts to testosterone and estrogen. Levels decline steeply with age.', use: 'Low-DHEA-context hormonal support, typically after age 35–40 with lab-confirmed low levels. Less useful for young men with normal levels.', food: 'Not available from food.', interactions: 'Banned by WADA and most sports organizations. Prescription in some countries. Not appropriate for young men without labs.', dose: 'Only with physician guidance based on labs.', athlete: null },
+
+  // SPECIALIZED
+  { id: 'berberine', name: 'Berberine', cat: 'specialized', sub: null, ev: 'strong', mech: 'Activates AMPK pathway, improving insulin sensitivity and glucose uptake. Often compared to metformin in effect size for glucose regulation.', use: 'Blood glucose management, insulin sensitivity, lipid markers, metabolic health.', food: 'Not from food — extracted from goldenseal, barberry, and other plants.', interactions: 'Can cause GI symptoms. Interacts with metformin, blood thinners, blood pressure meds. Pregnancy contraindicated.', dose: '500 mg 2–3x daily with meals.', athlete: null },
+  { id: 'tmg', name: 'TMG (Trimethylglycine / Betaine)', cat: 'specialized', sub: null, ev: 'moderate', mech: 'Methyl donor that lowers homocysteine and supports methylation cycle. Also modest ergogenic effects (power output).', use: 'Methylation support (especially with NMN/NR protocols or MTHFR variants), modest power/strength support.', food: 'Beets (where the name comes from), spinach, quinoa.', interactions: 'Generally safe. Can mildly raise LDL in some individuals.', dose: '1–3 g daily.', athlete: null },
+  { id: 'sulforaphane', name: 'Sulforaphane (Broccoli Sprouts)', cat: 'specialized', sub: null, ev: 'moderate', mech: 'Potent Nrf2 activator — upregulates endogenous antioxidant defense systems rather than acting as a direct antioxidant itself. Most potent dietary Nrf2 activator known.', use: 'Detoxification pathway support, systemic antioxidant capacity, research interest in cancer prevention and neuroprotection.', food: 'Broccoli sprouts (40–100x the concentration of mature broccoli). Myrosinase enzyme needed for conversion — heat destroys it.', interactions: 'Safe. Quality and stabilization varies in supplement form.', dose: '15–30 mg sulforaphane or 1 oz fresh broccoli sprouts daily.', athlete: null },
+  { id: 'ala', name: 'Alpha Lipoic Acid (ALA)', cat: 'specialized', sub: null, ev: 'moderate', mech: 'Both water- and fat-soluble antioxidant. Regenerates other antioxidants (C, E, glutathione). Some evidence for insulin sensitivity.', use: 'Antioxidant support, glucose handling, neuropathy.', food: 'Small amounts in organ meats, spinach, broccoli — supplementation reaches much higher levels.', interactions: 'Can cause hypoglycemia in diabetics. R-ALA isomer is more bioavailable than mixed R/S forms.', dose: '300–600 mg R-ALA or 600–1,200 mg mixed daily.', athlete: null }
+];
+
+// ============ STATE ============
+let state = {
+  statuses: {}, // { suppId: 'in-stack'|'considering'|'researching'|'ruled-out' }
+  notes: {},    // { suppId: 'text' }
+  custom: [],   // array of custom supplements
+  expanded: {}, // { catId: true/false }
+  evidenceOn: true,
+  search: '',   // current search query (not persisted)
+  currentId: null
+};
+
+async function loadState() {
+  try {
+    const r = await storage.get(STORAGE_KEY);
+    if (r && r.value) {
+      const loaded = JSON.parse(r.value);
+      state = { ...state, ...loaded };
+    }
+  } catch (e) { console.log('Load state: starting fresh', e); }
+}
+
+async function saveState() {
+  try {
+    const toSave = {
+      statuses: state.statuses,
+      notes: state.notes,
+      custom: state.custom,
+      expanded: state.expanded,
+      evidenceOn: state.evidenceOn
+    };
+    await storage.set(STORAGE_KEY, JSON.stringify(toSave));
+    flashSave();
+  } catch (e) { console.error('Save failed', e); }
+}
+
+function flashSave() {
+  const el = document.getElementById('save-indicator');
+  if (el) {
+    el.classList.add('show');
+    setTimeout(() => el.classList.remove('show'), 1200);
+  }
+}
+
+// ============ RENDER ============
+function allSupplements() {
+  return [...SUPPLEMENTS, ...state.custom];
+}
+
+function evidenceLabel(ev) {
+  if (!ev) return '';
+  return { strong: 'Strong', moderate: 'Moderate', limited: 'Limited', experimental: 'Experimental' }[ev] || ev;
+}
+
+function statusLabel(s) {
+  return { 'in-stack': 'In Stack', 'considering': 'Considering', 'researching': 'Researching', 'ruled-out': 'Ruled Out' }[s] || '';
+}
+
+function supplementMatches(s, q) {
+  if (!q) return true;
+  const cat = CATEGORIES.find(c => c.id === s.cat);
+  const hay = [s.name, s.sub || '', cat ? cat.name : '', s.use || '', s.mech || '']
+    .join(' ').toLowerCase();
+  return hay.includes(q);
+}
+
+function renderCategories() {
+  const container = document.getElementById('categories');
+  container.innerHTML = '';
+  const q = (state.search || '').trim().toLowerCase();
+  const supplementsByCategory = {};
+  allSupplements().forEach(s => {
+    if (!supplementsByCategory[s.cat]) supplementsByCategory[s.cat] = [];
+    supplementsByCategory[s.cat].push(s);
+  });
+  let totalShown = 0;
+  CATEGORIES.forEach((cat, idx) => {
+    const allSupps = supplementsByCategory[cat.id] || [];
+    if (allSupps.length === 0 && !state.custom.some(s => s.cat === cat.id)) return;
+    const supps = q ? allSupps.filter(s => supplementMatches(s, q)) : allSupps;
+    if (q && supps.length === 0) return; // hide non-matching categories while searching
+    totalShown += supps.length;
+    const taggedCount = supps.filter(s => state.statuses[s.id]).length;
+    const isExpanded = q ? true : state.expanded[cat.id]; // auto-expand while searching
+    const catDiv = document.createElement('div');
+    catDiv.className = 'category' + (isExpanded ? ' expanded' : '');
+    catDiv.innerHTML = `
+      <div class="cat-header" data-cat="${cat.id}">
+        <div class="cat-header-left">
+          <div class="cat-num">${String(idx + 1).padStart(2, '0')}</div>
+          <div class="cat-name">${cat.name}</div>
+        </div>
+        <div class="cat-header-right">
+          <div class="cat-count">${supps.length}${q ? ' match' + (supps.length === 1 ? '' : 'es') : ' supplements'}</div>
+          ${taggedCount > 0 ? `<div class="cat-tagged">${taggedCount} tagged</div>` : ''}
+          <div class="chevron">▸</div>
+        </div>
+      </div>
+      <div class="cat-body">
+        <div class="cat-desc">${cat.desc}</div>
+        <div class="supp-grid">
+          ${supps.map(s => renderCard(s)).join('')}
+        </div>
+      </div>
+    `;
+    container.appendChild(catDiv);
+  });
+  const noResults = document.getElementById('no-results');
+  if (noResults) noResults.classList.toggle('show', !!q && totalShown === 0);
+  attachCategoryListeners();
+  attachCardListeners();
+}
+
+function renderCard(s) {
+  const status = state.statuses[s.id];
+  const statusClass = status ? ` status-${status}` : '';
+  const hasNotes = state.notes[s.id] && state.notes[s.id].trim().length > 0;
+  const evClass = state.evidenceOn ? '' : ' hidden';
+  return `
+    <div class="supp-card${statusClass}" data-id="${s.id}">
+      ${hasNotes ? '<div class="has-notes">◈</div>' : ''}
+      <div class="supp-name">${s.name}</div>
+      ${s.sub ? `<div class="supp-sub">${s.sub}</div>` : ''}
+      <div class="supp-tags">
+        ${s.ev ? `<span class="evidence-pill evidence-${s.ev}${evClass}">${evidenceLabel(s.ev)}</span>` : ''}
+        ${status ? `<span class="status-pill status-${status}-pill">${statusLabel(status)}</span>` : ''}
+      </div>
+    </div>
+  `;
+}
+
+function renderCoreStack() {
+  const chips = document.getElementById('core-chips');
+  const count = document.getElementById('core-count');
+  const inStack = allSupplements().filter(s => state.statuses[s.id] === 'in-stack');
+  count.textContent = `${inStack.length} supplement${inStack.length === 1 ? '' : 's'}`;
+  if (inStack.length === 0) {
+    chips.innerHTML = '<span class="empty">Empty — tag supplements as "In Stack" to populate.</span>';
+    return;
+  }
+  chips.innerHTML = inStack.map(s =>
+    `<span class="core-chip" data-id="${s.id}">${s.name}<span class="x">✕</span></span>`
+  ).join('');
+  chips.querySelectorAll('.core-chip').forEach(chip => {
+    chip.addEventListener('click', (e) => {
+      if (e.target.classList.contains('x')) {
+        delete state.statuses[chip.dataset.id];
+        saveState();
+        renderAll();
+      } else {
+        openDetail(chip.dataset.id);
+      }
+    });
+  });
+}
+
+function renderStats() {
+  const all = allSupplements();
+  document.getElementById('stat-total').textContent = all.length;
+  document.getElementById('stat-stack').textContent = all.filter(s => state.statuses[s.id] === 'in-stack').length;
+  document.getElementById('stat-considering').textContent = all.filter(s => state.statuses[s.id] === 'considering').length;
+  document.getElementById('stat-researching').textContent = all.filter(s => state.statuses[s.id] === 'researching').length;
+}
+
+function renderAll() {
+  renderCategories();
+  renderCoreStack();
+  renderStats();
+}
+
+// ============ LISTENERS ============
+function attachCategoryListeners() {
+  document.querySelectorAll('.cat-header').forEach(h => {
+    h.addEventListener('click', () => {
+      const id = h.dataset.cat;
+      state.expanded[id] = !state.expanded[id];
+      saveState();
+      h.parentElement.classList.toggle('expanded');
+    });
+  });
+}
+
+function attachCardListeners() {
+  document.querySelectorAll('.supp-card').forEach(c => {
+    c.addEventListener('click', () => openDetail(c.dataset.id));
+  });
+}
+
+// ============ DETAIL MODAL ============
+function openDetail(id) {
+  const s = allSupplements().find(x => x.id === id);
+  if (!s) return;
+  state.currentId = id;
+  const cat = CATEGORIES.find(c => c.id === s.cat);
+  document.getElementById('m-name').textContent = s.name;
+  document.getElementById('m-sub').textContent = (cat ? cat.name : '') + (s.sub ? ` / ${s.sub}` : '');
+  const tags = document.getElementById('m-tags');
+  tags.innerHTML = '';
+  if (s.ev && state.evidenceOn) {
+    tags.innerHTML += `<span class="evidence-pill evidence-${s.ev}">${evidenceLabel(s.ev)} Evidence</span>`;
+  }
+  const currentStatus = state.statuses[id];
+  if (currentStatus) {
+    tags.innerHTML += `<span class="status-pill status-${currentStatus}-pill">${statusLabel(currentStatus)}</span>`;
+  }
+  if (s.isCustom) {
+    tags.innerHTML += `<span class="evidence-pill evidence-experimental">Custom Entry</span>`;
+  }
+
+  const showDose = currentStatus === 'in-stack' || currentStatus === 'considering';
+  const body = document.getElementById('modal-body');
+  body.innerHTML = `
+    <div class="m-status-block">
+      <div class="m-field-label">Your Status</div>
+      <div class="m-status-grid">
+        <button class="status-btn ${currentStatus === 'in-stack' ? 'active' : ''}" data-status="in-stack">In Stack</button>
+        <button class="status-btn ${currentStatus === 'considering' ? 'active' : ''}" data-status="considering">Considering</button>
+        <button class="status-btn ${currentStatus === 'researching' ? 'active' : ''}" data-status="researching">Researching</button>
+        <button class="status-btn ${currentStatus === 'ruled-out' ? 'active' : ''}" data-status="ruled-out">Ruled Out</button>
+      </div>
+    </div>
+
+    ${s.mech ? `<div class="m-field"><div class="m-field-label">Mechanism</div><div class="m-field-value">${s.mech}</div></div>` : ''}
+    ${s.use ? `<div class="m-field"><div class="m-field-label">Primary Use Case</div><div class="m-field-value">${s.use}</div></div>` : ''}
+    ${s.food ? `<div class="m-field"><div class="m-field-label">Food Sources</div><div class="m-field-value dim">${s.food}</div></div>` : ''}
+    ${s.interactions ? `<div class="m-field"><div class="m-field-label">Interactions / Caveats</div><div class="m-field-value dim">${s.interactions}</div></div>` : ''}
+    ${s.athlete ? `<div class="m-field athlete"><div class="m-field-label">Relevance for Athletes</div><div class="m-field-value">${s.athlete}</div></div>` : ''}
+
+    <div class="m-field dose-gated">
+      <div class="m-field-label">Typical Dose Range</div>
+      ${showDose && s.dose
+        ? `<div class="m-field-value">${s.dose}</div>`
+        : `<div class="dose-locked">Locked. Tag as "In Stack" or "Considering" to reveal dose guidance.${!s.dose ? ' (None specified for this entry.)' : ''}</div>`}
+    </div>
+
+    <div class="m-field">
+      <div class="m-field-label">Your Notes</div>
+      <textarea class="notes-area" id="notes-area" placeholder="Context, dose you're using, how you respond, labs to check, etc.">${state.notes[id] || ''}</textarea>
+    </div>
+  `;
+
+  // Status buttons
+  body.querySelectorAll('.status-btn').forEach(b => {
+    b.addEventListener('click', () => {
+      const st = b.dataset.status;
+      if (state.statuses[id] === st) {
+        delete state.statuses[id];
+      } else {
+        state.statuses[id] = st;
+      }
+      saveState();
+      openDetail(id); // re-render to update
+      renderCoreStack();
+      renderStats();
+      renderCategories();
+    });
+  });
+
+  // Notes autosave
+  const notesEl = document.getElementById('notes-area');
+  let noteTimer = null;
+  notesEl.addEventListener('input', () => {
+    clearTimeout(noteTimer);
+    noteTimer = setTimeout(() => {
+      state.notes[id] = notesEl.value;
+      saveState();
+      renderCategories();
+    }, 400);
+  });
+
+  // Delete button for custom entries
+  const deleteBtn = document.getElementById('delete-btn');
+  if (s.isCustom) {
+    deleteBtn.style.display = 'inline-block';
+    deleteBtn.onclick = () => {
+      if (confirm(`Delete custom entry "${s.name}"? This cannot be undone.`)) {
+        state.custom = state.custom.filter(x => x.id !== id);
+        delete state.statuses[id];
+        delete state.notes[id];
+        saveState();
+        closeDetail();
+        renderAll();
+      }
+    };
+  } else {
+    deleteBtn.style.display = 'none';
+  }
+
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeDetail() {
+  document.getElementById('modal').classList.remove('open');
+  state.currentId = null;
+}
+
+document.getElementById('modal-close').addEventListener('click', closeDetail);
+document.getElementById('close-btn-2').addEventListener('click', closeDetail);
+document.getElementById('modal').addEventListener('click', (e) => {
+  if (e.target.id === 'modal') closeDetail();
+});
+
+// ============ EVIDENCE TOGGLE ============
+document.getElementById('ev-toggle').addEventListener('click', () => {
+  state.evidenceOn = !state.evidenceOn;
+  document.getElementById('ev-toggle').classList.toggle('active', state.evidenceOn);
+  saveState();
+  renderCategories();
+  // Also update open modal if present
+  if (state.currentId) openDetail(state.currentId);
+});
+
+// ============ SEARCH ============
+const searchInput = document.getElementById('search-input');
+const searchRow = document.getElementById('search-row');
+const searchClear = document.getElementById('search-clear');
+let searchTimer = null;
+searchInput.addEventListener('input', () => {
+  state.search = searchInput.value;
+  searchRow.classList.toggle('has-query', searchInput.value.trim().length > 0);
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(renderCategories, 120);
+});
+searchInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') { searchClear.click(); }
+});
+searchClear.addEventListener('click', () => {
+  searchInput.value = '';
+  state.search = '';
+  searchRow.classList.remove('has-query');
+  renderCategories();
+  searchInput.focus();
+});
+
+// ============ EXPAND / COLLAPSE ALL ============
+document.getElementById('expand-all').addEventListener('click', () => {
+  CATEGORIES.forEach(c => { state.expanded[c.id] = true; });
+  saveState();
+  renderCategories();
+});
+document.getElementById('collapse-all').addEventListener('click', () => {
+  CATEGORIES.forEach(c => { state.expanded[c.id] = false; });
+  saveState();
+  renderCategories();
+});
+
+// ============ ADD CUSTOM ============
+const customModal = document.getElementById('custom-modal');
+document.getElementById('add-custom').addEventListener('click', () => {
+  const catSelect = document.getElementById('custom-cat');
+  catSelect.innerHTML = CATEGORIES.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+  document.getElementById('custom-name').value = '';
+  document.getElementById('custom-subcat').value = '';
+  document.getElementById('custom-mechanism').value = '';
+  document.getElementById('custom-usecase').value = '';
+  document.getElementById('custom-notes').value = '';
+  customModal.classList.add('open');
+});
+document.getElementById('custom-close').addEventListener('click', () => customModal.classList.remove('open'));
+document.getElementById('custom-cancel').addEventListener('click', () => customModal.classList.remove('open'));
+customModal.addEventListener('click', (e) => {
+  if (e.target.id === 'custom-modal') customModal.classList.remove('open');
+});
+document.getElementById('custom-save').addEventListener('click', () => {
+  const name = document.getElementById('custom-name').value.trim();
+  if (!name) { alert('Name required'); return; }
+  const newId = 'custom-' + Date.now();
+  const entry = {
+    id: newId,
+    name: name,
+    cat: document.getElementById('custom-cat').value,
+    sub: document.getElementById('custom-subcat').value.trim() || null,
+    ev: null,
+    mech: document.getElementById('custom-mechanism').value.trim(),
+    use: document.getElementById('custom-usecase').value.trim(),
+    food: '',
+    interactions: '',
+    dose: '',
+    athlete: null,
+    isCustom: true
+  };
+  const userNotes = document.getElementById('custom-notes').value.trim();
+  state.custom.push(entry);
+  if (userNotes) state.notes[newId] = userNotes;
+  state.statuses[newId] = 'researching';
+  state.expanded[entry.cat] = true;
+  saveState();
+  customModal.classList.remove('open');
+  renderAll();
+});
+
+// ============ EXPORT ============
+const exportModal = document.getElementById('export-modal');
+document.getElementById('export-btn').addEventListener('click', () => {
+  const text = buildExport();
+  document.getElementById('export-text').value = text;
+  exportModal.classList.add('open');
+});
+document.getElementById('export-close').addEventListener('click', () => exportModal.classList.remove('open'));
+exportModal.addEventListener('click', (e) => { if (e.target.id === 'export-modal') exportModal.classList.remove('open'); });
+document.getElementById('copy-export').addEventListener('click', async () => {
+  const text = document.getElementById('export-text').value;
+  try {
+    await navigator.clipboard.writeText(text);
+    const btn = document.getElementById('copy-export');
+    const old = btn.textContent;
+    btn.textContent = '✓ Copied';
+    setTimeout(() => btn.textContent = old, 1500);
+  } catch (e) {
+    document.getElementById('export-text').select();
+    alert('Clipboard blocked — text selected, use Cmd/Ctrl+C');
+  }
+});
+
+function buildExport() {
+  const all = allSupplements();
+  const grouped = { 'in-stack': [], 'considering': [], 'researching': [], 'ruled-out': [] };
+  all.forEach(s => {
+    const st = state.statuses[s.id];
+    if (st && grouped[st]) grouped[st].push(s);
+  });
+  const date = new Date().toISOString().split('T')[0];
+  let out = `THE FIGHT LIFE — MY SUPPLEMENT STACK\nExported: ${date}\n${'='.repeat(50)}\n\n`;
+  const labels = { 'in-stack': 'CORE STACK', 'considering': 'CONSIDERING', 'researching': 'RESEARCHING', 'ruled-out': 'RULED OUT' };
+  Object.keys(labels).forEach(key => {
+    const items = grouped[key];
+    if (items.length === 0) return;
+    out += `${labels[key]} (${items.length})\n${'-'.repeat(labels[key].length + 10)}\n`;
+    items.forEach(s => {
+      const cat = CATEGORIES.find(c => c.id === s.cat);
+      out += `• ${s.name}`;
+      if (cat) out += ` [${cat.name}${s.sub ? ' / ' + s.sub : ''}]`;
+      if (s.ev) out += ` (${evidenceLabel(s.ev)})`;
+      out += '\n';
+      if (state.notes[s.id]) {
+        state.notes[s.id].split('\n').forEach(line => {
+          out += `    ${line}\n`;
+        });
+      }
+    });
+    out += '\n';
+  });
+  return out;
+}
+
+// ============ RESET ============
+document.getElementById('reset-btn').addEventListener('click', async () => {
+  if (!confirm('Reset ALL data? Status tags, notes, and custom entries will be cleared.')) return;
+  if (!confirm('Are you sure? This cannot be undone.')) return;
+  state = {
+    statuses: {},
+    notes: {},
+    custom: [],
+    expanded: {},
+    evidenceOn: true,
+    search: '',
+    currentId: null
+  };
+  await storage.delete(STORAGE_KEY);
+  document.getElementById('ev-toggle').classList.add('active');
+  const si = document.getElementById('search-input');
+  if (si) { si.value = ''; document.getElementById('search-row').classList.remove('has-query'); }
+  renderAll();
+});
+
+// ============ INIT ============
+(async () => {
+  await loadState();
+  document.getElementById('ev-toggle').classList.toggle('active', state.evidenceOn);
+  renderAll();
+})();
+</script>
+</body>
+</html>

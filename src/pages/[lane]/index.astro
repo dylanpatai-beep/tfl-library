@@ -1,0 +1,222 @@
+---
+import Base from '../../layouts/Base.astro';
+import { LANES, FIELD_ORDER, getLane } from '../../lib/lanes';
+import { getLaneEntries } from '../../lib/content';
+
+export function getStaticPaths() {
+  return LANES.map((lane) => ({ params: { lane: lane.id } }));
+}
+
+const lane = getLane(Astro.params.lane!);
+const entries = await getLaneEntries(lane);
+
+// Chip groups: only values that actually exist in visible entries,
+// ordered the way the schema defines them. Groups with one value are
+// information, not a filter — skip them.
+const chipGroups = lane.filters
+  .map(({ field, label }) => {
+    const present = new Set(entries.map((e: any) => String(e.data[field])));
+    const order = FIELD_ORDER[field] ?? [...present].sort();
+    return { field, label, values: order.filter((v) => present.has(v)) };
+  })
+  .filter((g) => g.values.length > 1);
+
+const fmt = (v: string) => v.replace(/-/g, ' ');
+---
+<Base
+  title={`${lane.name} — The Fight Life Library`}
+  description={lane.def}
+  active={lane.id}
+>
+  <section class="lane-page" data-lane={lane.id} data-fields={lane.filters.map((f) => f.field).join(',')}>
+    <div class="watermark">{lane.num}</div>
+    <div class="lane-inner">
+      <div class="sec-label"><span class="num">{lane.num}</span> / {lane.sub}</div>
+      <div class="lane-head">
+        <h1>{lane.name}<span class="accent">.</span></h1>
+        <p class="lane-desc">{lane.desc}</p>
+      </div>
+
+      {lane.tool && (
+        <a href={lane.tool.href} class="tool-banner">
+          <div>
+            <div class="tb-label">INTERACTIVE TOOL</div>
+            <div class="tb-title">{lane.tool.label}</div>
+            <p class="tb-desc">{lane.tool.desc}</p>
+          </div>
+          <span class="tb-cta">OPEN →</span>
+        </a>
+      )}
+
+      {entries.length === 0 ? (
+        <div class="empty-state">
+          <div class="es-label"><span class="dot"></span>STOCKING THIS SHELF</div>
+          <div class="es-title">FIRST ENTRIES ARE ON THE WAY.</div>
+          <p>
+            This lane is being built in the open — entries land here as they get written.
+            Catch them first in the newsletter at <a href="https://thefightlife.fit" rel="noopener">thefightlife.fit</a>.
+          </p>
+        </div>
+      ) : (
+        <>
+          <div class="toolbar">
+            <div class="search-wrap">
+              <svg class="search-icon" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <circle cx="6.5" cy="6.5" r="4.5"/><path d="M10 10 L14 14"/>
+              </svg>
+              <input
+                type="search"
+                class="search-input"
+                id="lane-search"
+                placeholder={`Search ${lane.name}`}
+                aria-label={`Search ${lane.name}`}
+                autocomplete="off"
+              />
+            </div>
+            {chipGroups.length > 0 && (
+              <div class="chip-groups">
+                {chipGroups.map((group) => (
+                  <div class="chip-group" role="group" aria-label={group.label}>
+                    <span class="cg-label">{group.label}</span>
+                    {group.values.map((value) => (
+                      <button type="button" class="chip" data-field={group.field} data-value={value} aria-pressed="false">
+                        {fmt(value)}
+                      </button>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div class="result-count" aria-live="polite">
+            SHOWING <span class="n" id="visible-count">{entries.length}</span> OF {entries.length}
+          </div>
+
+          <div class="entry-list">
+            {entries.map((entry: any, i: number) => (
+              <a
+                href={`/${lane.id}/${entry.id}/`}
+                class="entry-row"
+                data-search={[entry.data.title, entry.data.summary, ...entry.data.tags].join(' ').toLowerCase()}
+                {...Object.fromEntries(lane.filters.map((f) => [`data-f-${f.field}`, String(entry.data[f.field])]))}
+              >
+                <span class="er-num">{String(i + 1).padStart(2, '0')}</span>
+                <span>
+                  <h3>{entry.data.title}</h3>
+                  <span class="er-summary">{entry.data.summary}</span>
+                </span>
+                <span class="er-side">
+                  <span class="er-badges">
+                    {entry.data.status === 'draft' && <span class="badge draft">Draft</span>}
+                    {lane.badges(entry.data).map((b) => <span class={b.cls ? `badge ${b.cls}` : 'badge'}>{b.text}</span>)}
+                  </span>
+                  <span class="er-arrow">→</span>
+                </span>
+              </a>
+            ))}
+          </div>
+
+          <div class="no-match" id="no-match">
+            <div class="nm-title">NOTHING ON THE SHELF FOR THAT.</div>
+            <p>Try fewer filters or a different word. New entries land regularly.</p>
+          </div>
+        </>
+      )}
+    </div>
+  </section>
+</Base>
+
+<script>
+  // Client-side filtering: chips narrow by frontmatter fields, the search box
+  // matches title/summary/tags instantly and (when the built Pagefind index
+  // exists) also matches full entry text.
+  const page = document.querySelector<HTMLElement>('.lane-page');
+  if (page && document.querySelector('.entry-list')) {
+    const laneId = page.dataset.lane!;
+    const fields = (page.dataset.fields || '').split(',').filter(Boolean);
+    const rows = [...document.querySelectorAll<HTMLAnchorElement>('.entry-row')];
+    const chips = [...document.querySelectorAll<HTMLButtonElement>('.chip')];
+    const input = document.querySelector<HTMLInputElement>('#lane-search');
+    const countEl = document.querySelector('#visible-count');
+    const noMatch = document.querySelector('#no-match');
+
+    const active: Record<string, string | null> = {};
+    let query = '';
+    let bodyMatches: Set<string> = new Set();
+
+    // Pagefind is generated at build time; in dev it simply isn't there.
+    // The import is constructed at runtime so the bundler can't rewrite it.
+    let pagefindApi: any = null;
+    async function loadPagefind() {
+      if (pagefindApi !== null) return pagefindApi;
+      try {
+        pagefindApi = await new Function("return import('/pagefind/pagefind.js')")();
+        await pagefindApi.init?.();
+      } catch {
+        pagefindApi = false;
+      }
+      return pagefindApi;
+    }
+
+    const path = (href: string) => new URL(href, location.origin).pathname.replace(/\/$/, '');
+
+    function apply() {
+      let visible = 0;
+      for (const row of rows) {
+        const fieldsOk = fields.every((f) => {
+          const want = active[f];
+          return !want || row.getAttribute(`data-f-${f}`) === want;
+        });
+        const textOk =
+          query === '' ||
+          (row.dataset.search || '').includes(query) ||
+          bodyMatches.has(path(row.href));
+        const show = fieldsOk && textOk;
+        row.style.display = show ? '' : 'none';
+        if (show) visible++;
+      }
+      if (countEl) countEl.textContent = String(visible);
+      noMatch?.classList.toggle('show', visible === 0);
+    }
+
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const field = chip.dataset.field!;
+        const value = chip.dataset.value!;
+        const turnOn = active[field] !== value;
+        active[field] = turnOn ? value : null;
+        chips
+          .filter((c) => c.dataset.field === field)
+          .forEach((c) => {
+            const on = turnOn && c === chip;
+            c.classList.toggle('active', on);
+            c.setAttribute('aria-pressed', String(on));
+          });
+        apply();
+      });
+    });
+
+    let timer: ReturnType<typeof setTimeout>;
+    input?.addEventListener('input', () => {
+      clearTimeout(timer);
+      timer = setTimeout(async () => {
+        query = input.value.trim().toLowerCase();
+        bodyMatches = new Set();
+        if (query.length >= 2) {
+          const pf = await loadPagefind();
+          if (pf) {
+            try {
+              const res = await pf.search(query, { filters: { lane: laneId } });
+              const datas = await Promise.all(
+                res.results.slice(0, 50).map((r: any) => r.data())
+              );
+              datas.forEach((d: any) => bodyMatches.add(path(d.url)));
+            } catch { /* index unavailable — title/summary/tag matching still works */ }
+          }
+        }
+        apply();
+      }, 120);
+    });
+  }
+</script>

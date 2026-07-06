@@ -1,0 +1,70 @@
+---
+import '@fontsource/bebas-neue';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/500.css';
+import '@fontsource/jetbrains-mono/600.css';
+import '../styles/global.css';
+import { LANES } from '../lib/lanes';
+
+interface Props {
+  title: string;
+  description: string;
+  /** lane id to highlight in the nav */
+  active?: string;
+}
+const { title, description, active } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta name="theme-color" content="#0A0A0A" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="sitemap" href="/sitemap-index.xml" />
+  <title>{title}</title>
+  <script is:inline>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+<header class="brandbar">
+  <a href="/" class="home"><span class="mark">●</span>&nbsp;&nbsp;THE FIGHT LIFE <span class="wordmark">— LIBRARY</span></a>
+  <nav aria-label="Lanes">
+    {LANES.map((lane) => (
+      <a href={`/${lane.id}/`} class={active === lane.id ? 'active' : undefined}>{lane.name}</a>
+    ))}
+  </nav>
+</header>
+
+<main id="main">
+  <slot />
+</main>
+
+<footer>
+  <div><span class="mark">●</span>&nbsp;&nbsp;THE FIGHT LIFE / LIBRARY</div>
+  <div class="sign">EARN THE LIFE.</div>
+  <div><a href="https://thefightlife.fit" rel="noopener">THEFIGHTLIFE.FIT ↗</a>&nbsp;&nbsp;·&nbsp;&nbsp;@DYLANPATAI</div>
+</footer>
+
+<script>
+  // Scroll-triggered reveal, same pattern as the pillars site
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+</script>
+
+</body>
+</html>

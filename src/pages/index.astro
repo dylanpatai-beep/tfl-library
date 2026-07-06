@@ -1,17 +1,60 @@
 ---
+import Base from '../layouts/Base.astro';
+import { LANES } from '../lib/lanes';
+import { getLaneEntries } from '../lib/content';
 
+const counts: Record<string, number> = {};
+for (const lane of LANES) {
+  counts[lane.id] = (await getLaneEntries(lane)).length;
+}
 ---
+<Base
+  title="The Fight Life — Library"
+  description="The Fight Life reference library: recipes, supplements, techniques, and mobility & S&C. What I actually cook, take, drill, and train — written down so you can use it."
+>
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-breadcrumb">
+        THEFIGHTLIFE.FIT <span class="sep">→</span> <span class="current">LIBRARY</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="line">THE FIGHT LIFE</span>
+        <span class="line">LIBRARY.</span>
+      </h1>
+      <div class="hero-tagline">
+        <span class="bar"></span>
+        <span class="text">EARN THE LIFE.</span>
+      </div>
+      <p class="hero-lede">
+        The reference shelf. What I actually <strong>cook</strong>, <strong>take</strong>, <strong>drill</strong>, and <strong>train</strong> — written down so you can use it. No accounts. No fluff. No recycled advice.
+      </p>
+    </div>
+  </section>
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+  <section class="lanes">
+    <div class="lanes-wrap">
+      <div class="sec-label reveal"><span class="num">04</span> / LANES</div>
+      <div class="lanes-grid">
+        {LANES.map((lane, i) => (
+          <a href={`/${lane.id}/`} class={`lane-card reveal reveal-d${i + 1}`}>
+            <div class="lc-top">
+              <div class="lc-num">{lane.num}</div>
+              <div class="lc-icon">
+                <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" set:html={lane.icon} />
+              </div>
+            </div>
+            <div>
+              <div class="lc-name">{lane.name}</div>
+              <div class="lc-def">{lane.def}</div>
+            </div>
+            <div class="lc-foot">
+              <span class="lc-count"><span class="n">{String(counts[lane.id]).padStart(2, '0')}</span> {counts[lane.id] === 1 ? 'ENTRY' : 'ENTRIES'}</span>
+              <span class="lc-cta">BROWSE →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
