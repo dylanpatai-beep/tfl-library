@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && pagefind --site dist",
+    "build": "node tools/extract-field-guide.mjs && astro build && pagefind --site dist",
     "new": "node tools/new-entry.mjs",
     "preview": "astro preview",
     "astro": "astro"

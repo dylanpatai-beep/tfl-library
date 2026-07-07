@@ -1,5 +1,7 @@
 # build output
 dist/
+# generated at build by tools/extract-field-guide.mjs
+public/api/field-guide.json
 # generated types
 .astro/
 
