@@ -41,6 +41,11 @@ public writing in Dylan's voice (peer not guru, direct, no "level up"/"game-chan
   self-contained HTML authored outside this repo. Its category/evidence taxonomy is
   mirrored by the supplements schema — **if the guide's taxonomy changes, update
   `content.config.ts` + `FIELD_ORDER` in `lanes.ts` to match.**
+- `public/energy-calculator/index.html` — the Energy Calculator (BMR + NEAT + per-session
+  MET costing), surfaced as the Mobility & S&C tool banner. Same deal as the Field Guide:
+  self-contained HTML authored outside this repo, dropped in whole. Source of truth lives
+  in the command center at `2 Make/newsletter/tfl-energy-calculator.html` — edit it there
+  and re-copy, don't fork it here.
 - `.github/workflows/deploy.yml` — build + deploy to GitHub Pages on push to main.
 
 ## Rules

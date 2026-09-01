@@ -149,6 +149,11 @@ export const LANES: Lane[] = [
       { label: 'Level', value: fmt(d.level) },
       { label: 'Equipment', value: d.equipment?.length ? d.equipment.join(', ') : 'none' },
     ],
+    tool: {
+      href: '/energy-calculator/',
+      label: 'Energy Calculator',
+      desc: 'What your body actually costs — resting burn, the day outside the gym, and every session priced on its own MET value. Three numbers instead of one vague activity multiplier.',
+    },
   },
 ];
 

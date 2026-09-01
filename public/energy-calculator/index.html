@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<!--
+  THE FIGHT LIFE — ENERGY CALCULATOR
+  Single-file, no dependencies (except Google Fonts, with system fallbacks).
+
+  EMBED ON THE LIBRARY SITE
+    Option A — paste the style block, the .tfl-calc markup, and the script block
+               into an existing page. Everything is namespaced under .tfl-calc.
+    Option B — host this file as-is (e.g. /tools/energy-calculator.html) and iframe it:
+               <iframe src="/tools/energy-calculator.html" style="width:100%;border:0;height:1800px" title="TFL Energy Calculator"></iframe>
+
+  EMBED IN THE NEWSLETTER
+    Email clients strip JavaScript. Host the page, then link to it from a button.
+    Don't try to inline this in Beehiiv — it will render dead.
+
+  METHOD
+    BMR .............. Mifflin-St Jeor (1990)
+    Daily life ....... NEAT/occupational multiplier, EXERCISE EXCLUDED
+    Training ......... MET-based, NET of resting metabolism (MET - 1), per session
+    Range ............ +/-10% honesty band on the total
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Energy Calculator — The Fight Life</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+.tfl-calc *,.tfl-calc *::before,.tfl-calc *::after{box-sizing:border-box}
+.tfl-calc{
+  --red:#CC0000; --red-lit:#FF2020; --black:#0A0A0A;
+  --panel:#121212; --panel-2:#181818; --line:#282828; --line-lit:#3A3A3A;
+  --white:#FFFFFF; --gray:#9B9B9B; --dim:#6E6E6E;
+  --chrome:#B8BEC4; --blue:#3C6199; --gold:#B8912F;
+  --display:'Bebas Neue','Oswald','Arial Narrow',Impact,sans-serif;
+  --body:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  background:var(--black); color:var(--white); font-family:var(--body);
+  max-width:760px; margin:0 auto; padding:28px 20px 44px;
+  -webkit-font-smoothing:antialiased; line-height:1.5;
+}
+body{margin:0;background:#0A0A0A}
+
+/* ---------- header ---------- */
+.tfl-calc .brand{font-family:var(--display);font-size:15px;letter-spacing:.34em;color:var(--red);margin:0 0 6px}
+.tfl-calc h1{font-family:var(--display);font-size:clamp(44px,10vw,72px);line-height:.9;letter-spacing:.01em;margin:0}
+.tfl-calc .rule{height:1px;background:linear-gradient(90deg,var(--gold),transparent 62%);margin:16px 0 12px}
+.tfl-calc .lede{color:var(--gray);font-size:14.5px;max-width:56ch;margin:0 0 30px}
+.tfl-calc .lede b{color:var(--white);font-weight:600}
+
+/* ---------- sections ---------- */
+.tfl-calc .block{border-top:1px solid var(--line);padding:22px 0 4px}
+.tfl-calc .block-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin-bottom:14px;flex-wrap:wrap}
+.tfl-calc h2{font-family:var(--display);font-size:24px;letter-spacing:.13em;margin:0;color:var(--white)}
+.tfl-calc .hint{color:var(--dim);font-size:12.5px;margin:-6px 0 14px;max-width:60ch}
+
+/* ---------- fields ---------- */
+.tfl-calc .fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:12px}
+.tfl-calc label{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;font-weight:600}
+.tfl-calc input[type=number],.tfl-calc select{
+  width:100%;background:var(--panel);border:1px solid var(--line);color:var(--white);
+  font-family:var(--body);font-size:16px;font-weight:500;padding:11px 12px;border-radius:2px;appearance:none;
+}
+.tfl-calc select{background-image:linear-gradient(45deg,transparent 50%,var(--gray) 50%),linear-gradient(135deg,var(--gray) 50%,transparent 50%);
+  background-position:calc(100% - 17px) 50%,calc(100% - 12px) 50%;background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:34px}
+.tfl-calc input:focus-visible,.tfl-calc select:focus-visible,.tfl-calc button:focus-visible{outline:2px solid var(--red-lit);outline-offset:2px}
+.tfl-calc input[type=number]::-webkit-outer-spin-button,.tfl-calc input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.tfl-calc .split{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+
+/* ---------- toggles / chips ---------- */
+.tfl-calc .toggle{display:inline-flex;border:1px solid var(--line);border-radius:2px;overflow:hidden}
+.tfl-calc .toggle button{background:transparent;border:0;color:var(--gray);font-family:var(--body);font-size:11px;font-weight:700;
+  letter-spacing:.12em;padding:7px 13px;cursor:pointer}
+.tfl-calc .toggle button[aria-pressed=true]{background:var(--red);color:var(--white)}
+.tfl-calc .chips{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,168px),1fr));gap:8px}
+.tfl-calc .chip{text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:2px;padding:12px 13px;cursor:pointer;
+  color:var(--gray);font-family:var(--body);transition:border-color .12s,background .12s}
+.tfl-calc .chip:hover{border-color:var(--line-lit)}
+.tfl-calc .chip strong{display:block;color:var(--white);font-size:13.5px;font-weight:600;margin-bottom:3px}
+.tfl-calc .chip span{font-size:11.5px;line-height:1.35;display:block}
+.tfl-calc .chip[aria-pressed=true]{border-color:var(--red);background:#1A0C0C}
+.tfl-calc .chip[aria-pressed=true] strong{color:var(--red-lit)}
+
+/* ---------- training rows ---------- */
+.tfl-calc .row{display:grid;grid-template-columns:1fr 84px 84px;gap:8px;align-items:end;
+  background:var(--panel);border:1px solid var(--line);border-left:2px solid var(--red);padding:12px;margin-bottom:8px;border-radius:2px}
+.tfl-calc .row .wide{grid-column:1/-1}
+.tfl-calc .row-foot{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:10px;
+  border-top:1px solid var(--line);margin-top:2px;padding-top:9px}
+.tfl-calc .row-cost{font-size:12px;color:var(--gray)}
+.tfl-calc .row-cost b{font-family:var(--display);font-size:17px;color:var(--white);letter-spacing:.04em;font-weight:400}
+.tfl-calc .kill{background:none;border:0;color:var(--dim);font-family:var(--body);font-size:11px;font-weight:700;
+  letter-spacing:.12em;cursor:pointer;padding:4px 2px}
+.tfl-calc .kill:hover{color:var(--red-lit)}
+.tfl-calc .add{width:100%;background:transparent;border:1px dashed var(--line-lit);color:var(--gray);font-family:var(--display);
+  font-size:17px;letter-spacing:.16em;padding:12px;cursor:pointer;border-radius:2px}
+.tfl-calc .add:hover{border-color:var(--red);color:var(--red-lit)}
+.tfl-calc .week{font-size:12px;color:var(--gray)}
+.tfl-calc .week b{color:var(--white);font-weight:600}
+
+/* ---------- results ---------- */
+.tfl-calc .card{margin-top:30px;background:var(--panel-2);border:1px solid var(--line);border-top:2px solid var(--gold);padding:26px 22px}
+.tfl-calc .empty{color:var(--dim);font-size:13.5px;text-align:center;padding:20px 0}
+.tfl-calc .big-label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gray);font-weight:600}
+.tfl-calc .big{font-family:var(--display);font-size:clamp(64px,17vw,104px);line-height:.85;letter-spacing:.01em;margin:6px 0 2px}
+.tfl-calc .big em{font-style:normal;font-size:.3em;letter-spacing:.1em;color:var(--gray);margin-left:8px}
+.tfl-calc .band{font-size:12.5px;color:var(--gray)}
+.tfl-calc .band b{color:var(--chrome);font-weight:600}
+
+.tfl-calc .bar{display:flex;height:12px;margin:22px 0 12px;overflow:hidden;background:var(--panel)}
+.tfl-calc .bar i{display:block;height:100%;transition:width .25s ease}
+.tfl-calc .legend{display:grid;gap:9px}
+.tfl-calc .leg{display:grid;grid-template-columns:9px 1fr auto;gap:11px;align-items:center;font-size:13px}
+.tfl-calc .leg i{width:9px;height:9px;display:block}
+.tfl-calc .leg span{color:var(--gray)}
+.tfl-calc .leg b{font-weight:600;font-variant-numeric:tabular-nums}
+
+.tfl-calc .target{margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
+.tfl-calc .target-num{font-family:var(--display);font-size:clamp(40px,10vw,58px);line-height:.9;color:var(--red-lit);margin:5px 0 0}
+.tfl-calc .target-num em{font-style:normal;font-size:.3em;letter-spacing:.1em;color:var(--gray);margin-left:7px}
+.tfl-calc .macros{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:18px}
+.tfl-calc .macro{background:var(--panel);border:1px solid var(--line);padding:13px 12px;text-align:center}
+.tfl-calc .macro b{display:block;font-family:var(--display);font-size:30px;line-height:1;letter-spacing:.02em}
+.tfl-calc .macro span{display:block;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gray);margin-top:5px;font-weight:600}
+.tfl-calc .macro small{display:block;font-size:11px;color:var(--dim);margin-top:3px}
+.tfl-calc .flag{margin-top:16px;border-left:2px solid var(--red);background:#170B0B;padding:11px 13px;font-size:12.5px;color:#E8C0C0}
+.tfl-calc .copy{margin-top:20px;width:100%;background:var(--red);border:0;color:#fff;font-family:var(--display);font-size:19px;
+  letter-spacing:.16em;padding:14px;cursor:pointer;border-radius:2px}
+.tfl-calc .copy:hover{background:var(--red-lit)}
+
+/* ---------- method ---------- */
+.tfl-calc details{margin-top:26px;border-top:1px solid var(--line);padding-top:18px}
+.tfl-calc summary{font-family:var(--display);font-size:20px;letter-spacing:.13em;cursor:pointer;color:var(--gray);list-style:none}
+.tfl-calc summary::-webkit-details-marker{display:none}
+.tfl-calc summary::before{content:"+ ";color:var(--red)}
+.tfl-calc details[open] summary::before{content:"− "}
+.tfl-calc details p{font-size:13px;color:var(--gray);max-width:66ch}
+.tfl-calc details b{color:var(--white);font-weight:600}
+.tfl-calc footer{margin-top:30px;border-top:1px solid var(--line);padding-top:16px;font-size:11.5px;color:var(--dim);
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.tfl-calc footer b{font-family:var(--display);font-size:14px;letter-spacing:.28em;color:var(--red);font-weight:400}
+@media (max-width:420px){.tfl-calc .row{grid-template-columns:1fr 1fr}.tfl-calc .row .wide{grid-column:1/-1}}
+@media (prefers-reduced-motion:reduce){.tfl-calc *{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="tfl-calc">
+
+  <p class="brand">THE FIGHT LIFE</p>
+  <h1>ENERGY<br>CALCULATOR</h1>
+  <div class="rule"></div>
+  <p class="lede">Most calculators multiply your resting burn by one vague "activity level" and call it a day — which is why they miss by hundreds of calories on anyone who actually trains. This one splits it: <b>what your body costs at rest</b>, <b>what your day costs outside the gym</b>, and <b>what each session on the mats actually costs</b>.</p>
+
+  <!-- ============ THE BODY ============ -->
+  <section class="block">
+    <div class="block-head">
+      <h2>THE BODY</h2>
+      <div class="toggle" role="group" aria-label="Units">
+        <button type="button" id="u-imp" aria-pressed="true">LB / FT</button>
+        <button type="button" id="u-met" aria-pressed="false">KG / CM</button>
+      </div>
+    </div>
+    <div class="fields">
+      <div>
+        <label for="sex">Sex</label>
+        <select id="sex"><option value="m">Male</option><option value="f">Female</option></select>
+      </div>
+      <div>
+        <label for="age">Age</label>
+        <input type="number" id="age" inputmode="numeric" min="14" max="90" value="30">
+      </div>
+      <div id="wrap-imp-w">
+        <label for="lb">Weight (lb)</label>
+        <input type="number" id="lb" inputmode="decimal" min="60" max="500" value="165">
+      </div>
+      <div id="wrap-met-w" hidden>
+        <label for="kg">Weight (kg)</label>
+        <input type="number" id="kg" inputmode="decimal" min="30" max="230" value="75">
+      </div>
+      <div id="wrap-imp-h">
+        <label for="ft">Height</label>
+        <div class="split">
+          <input type="number" id="ft" inputmode="numeric" min="3" max="8" value="5" aria-label="Feet">
+          <input type="number" id="in" inputmode="numeric" min="0" max="11" value="10" aria-label="Inches">
+        </div>
+      </div>
+      <div id="wrap-met-h" hidden>
+        <label for="cm">Height (cm)</label>
+        <input type="number" id="cm" inputmode="numeric" min="120" max="230" value="178">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ OUTSIDE THE GYM ============ -->
+  <section class="block">
+    <div class="block-head"><h2>OUTSIDE THE GYM</h2></div>
+    <p class="hint">Your job, your errands, your steps — everything except training. Pick honestly. Training gets added separately below, so don't count it twice.</p>
+    <div class="chips" id="neat">
+      <button type="button" class="chip" data-neat="1.20" aria-pressed="false"><strong>Desk</strong><span>Seated most of the day. Under ~5k steps.</span></button>
+      <button type="button" class="chip" data-neat="1.32" aria-pressed="true"><strong>Light</strong><span>Some walking and errands. ~5–8k steps.</span></button>
+      <button type="button" class="chip" data-neat="1.45" aria-pressed="false"><strong>On your feet</strong><span>Standing or moving most of the day. ~8–12k.</span></button>
+      <button type="button" class="chip" data-neat="1.60" aria-pressed="false"><strong>Physical job</strong><span>Labor, trades, shift work. 12k+ steps.</span></button>
+    </div>
+  </section>
+
+  <!-- ============ THE WORK ============ -->
+  <section class="block">
+    <div class="block-head"><h2>THE WORK</h2><span class="week" id="week-total"></span></div>
+    <p class="hint">Add every session you train in a normal week. Each one is costed off its own intensity, your bodyweight, and how long it runs — not a blanket guess.</p>
+    <div id="rows"></div>
+    <button type="button" class="add" id="add">+ ADD A SESSION</button>
+  </section>
+
+  <!-- ============ THE GOAL ============ -->
+  <section class="block">
+    <div class="block-head"><h2>THE GOAL</h2></div>
+    <div class="chips" id="goal">
+      <button type="button" class="chip" data-adj="-0.20" aria-pressed="false"><strong>Make weight</strong><span>Camp cut. −20%. Fastest, hardest on output.</span></button>
+      <button type="button" class="chip" data-adj="-0.10" aria-pressed="false"><strong>Lean down</strong><span>Slow cut. −10%. Keeps the tank full.</span></button>
+      <button type="button" class="chip" data-adj="0" aria-pressed="true"><strong>Hold &amp; perform</strong><span>Maintain. Train hard, recover harder.</span></button>
+      <button type="button" class="chip" data-adj="0.10" aria-pressed="false"><strong>Build</strong><span>+10%. Add size and strength.</span></button>
+    </div>
+  </section>
+
+  <!-- ============ RESULTS ============ -->
+  <div class="card" id="card">
+    <p class="big-label">Total daily burn</p>
+    <p class="big" id="tdee">—<em>KCAL</em></p>
+    <p class="band" id="band"></p>
+
+    <div class="bar" id="bar">
+      <i style="background:var(--chrome);width:0"></i><i style="background:var(--blue);width:0"></i><i style="background:var(--red);width:0"></i>
+    </div>
+    <div class="legend">
+      <div class="leg"><i style="background:var(--chrome)"></i><span>Staying alive — resting metabolism</span><b id="v-bmr">—</b></div>
+      <div class="leg"><i style="background:var(--blue)"></i><span>Living your day — work, steps, digestion</span><b id="v-neat">—</b></div>
+      <div class="leg"><i style="background:var(--red)"></i><span>Training — averaged across the week</span><b id="v-train">—</b></div>
+    </div>
+
+    <div class="target">
+      <p class="big-label" id="target-label">Eat to hold</p>
+      <p class="target-num" id="target">—<em>KCAL / DAY</em></p>
+      <div class="macros">
+        <div class="macro"><b id="m-p">—</b><span>Protein</span><small id="m-ps">—</small></div>
+        <div class="macro"><b id="m-c">—</b><span>Carbs</span><small id="m-cs">—</small></div>
+        <div class="macro"><b id="m-f">—</b><span>Fat</span><small id="m-fs">—</small></div>
+      </div>
+      <div class="flag" id="flag" hidden></div>
+    </div>
+
+    <button type="button" class="copy" id="copy">COPY MY NUMBERS</button>
+  </div>
+
+  <details>
+    <summary>HOW THIS IS CALCULATED</summary>
+    <p><b>Resting burn.</b> Mifflin-St Jeor (1990) — the equation that holds up best when you don't have a body-fat reading. It lands within 10% of a lab measurement for roughly 4 out of 5 people. No calipers, no scale, no guesswork about your lean mass.</p>
+    <p><b>Your day.</b> A non-exercise multiplier applied to resting burn. These are deliberately lower than the multipliers you've seen elsewhere (1.2 / 1.375 / 1.55 / 1.725), because those bake training into the same number — which is how people end up double-counting their sessions and wondering why the scale won't move.</p>
+    <p><b>Training.</b> Each session is priced with METs from the Compendium of Physical Activities: <b>(MET − 1) × 0.0175 × kg × minutes</b>. That −1 matters. A MET already includes the calories you'd have burned sitting still, and those are already in the two numbers above. Subtracting it is the difference between an estimate and a fantasy. Weekly total is spread across seven days, because your body doesn't run on a training-day-only budget.</p>
+    <p><b>Afterburn.</b> Real, and smaller than the internet claims — usually under 10% of the session itself. It's inside the range rather than added on top as false precision.</p>
+    <p><b>The range.</b> Every input here is an estimate, so the output is too. The band is the honest version. <b>Use the middle as a starting point, eat there for two weeks, and let the scale and your training quality tell you where your real number is.</b> That feedback beats any calculator, including this one.</p>
+    <p><b>Macros.</b> Protein 2.2 g/kg cutting, 2.0 g/kg otherwise — high enough to hold muscle in a deficit. Fat 0.8–1.0 g/kg for hormones and joints. Carbs take the rest, because carbs are what pay for rounds. If you're carrying significant extra weight, run the macros off your goal weight instead.</p>
+  </details>
+
+  <footer>
+    <span>Estimates for healthy adults. Not medical or nutrition advice. Cutting for a fight? Do it with your coach.</span>
+    <b>THE FIGHT LIFE</b>
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var root = document.querySelector('.tfl-calc');
+  var $ = function(id){ return document.getElementById(id); };
+
+  var ACTS = [
+    ['Fight sports', [
+      ['Muay Thai — technique, pads, drilling', 8.0],
+      ['Muay Thai — hard sparring / clinch', 10.5],
+      ['Bag work — rounds', 8.0],
+      ['Boxing — sparring', 9.5],
+      ['BJJ / wrestling — live rolling', 10.0],
+      ['BJJ / wrestling — drilling', 6.0]
+    ]],
+    ['Strength', [
+      ['Lifting — hypertrophy, 8–15 reps', 5.0],
+      ['Lifting — heavy / powerlifting', 6.0],
+      ['Circuits — barbell / functional', 8.0]
+    ]],
+    ['Conditioning', [
+      ['Interval conditioning / HIIT', 9.0],
+      ['Jump rope', 11.0],
+      ['Running — easy (~10 min/mi)', 9.8],
+      ['Running — hard / intervals', 12.5],
+      ['Zone 2 — bike, row, steady state', 7.0],
+      ['Swimming — laps', 8.3],
+      ['Hiking', 6.0]
+    ]],
+    ['Recovery', [
+      ['Walking — deliberate, brisk', 4.0],
+      ['Mobility / yoga / stretching', 2.8]
+    ]]
+  ];
+
+  var units = 'imp', neat = 1.32, adj = 0, rows = [], nextId = 1;
+
+  function buildSelect(sel, met){
+    ACTS.forEach(function(group){
+      var og = document.createElement('optgroup');
+      og.label = group[0];
+      group[1].forEach(function(a){
+        var o = document.createElement('option');
+        o.value = a[1]; o.textContent = a[0];
+        if (Math.abs(a[1] - met) < 0.001 && !og.querySelector('[selected]')) { o.selected = true; }
+        og.appendChild(o);
+      });
+      sel.appendChild(og);
+    });
+    sel.value = String(met);
+  }
+
+  function addRow(met, mins, per){
+    var id = nextId++;
+    var el = document.createElement('div');
+    el.className = 'row';
+    el.innerHTML =
+      '<div class="wide"><label for="a'+id+'">Session</label><select id="a'+id+'"></select></div>' +
+      '<div><label for="d'+id+'">Minutes</label><input type="number" id="d'+id+'" inputmode="numeric" min="5" max="360" value="'+mins+'"></div>' +
+      '<div><label for="n'+id+'">Per week</label><input type="number" id="n'+id+'" inputmode="numeric" min="0" max="14" value="'+per+'"></div>' +
+      '<div class="row-foot"><span class="row-cost">Costs <b id="c'+id+'">—</b> kcal per session</span>' +
+      '<button type="button" class="kill" id="k'+id+'">REMOVE</button></div>';
+    $('rows').appendChild(el);
+    buildSelect(el.querySelector('#a'+id), met);
+    var rec = { id:id, el:el };
+    rows.push(rec);
+    el.addEventListener('input', calc);
+    el.addEventListener('change', calc);
+    $('k'+id).addEventListener('click', function(){
+      rows = rows.filter(function(r){ return r.id !== id; });
+      el.remove();
+      calc();
+    });
+    return rec;
+  }
+
+  function num(id, fb){ var v = parseFloat($(id).value); return isFinite(v) ? v : fb; }
+  function fmt(n){ return Math.round(n).toLocaleString('en-US'); }
+
+  function calc(){
+    var kg = units === 'imp' ? num('lb',0) * 0.45359237 : num('kg',0);
+    var cm = units === 'imp' ? (num('ft',0) * 12 + num('in',0)) * 2.54 : num('cm',0);
+    var age = num('age',0);
+    var ok = kg > 25 && cm > 110 && age >= 14 && age <= 95;
+
+    var bmr = 10*kg + 6.25*cm - 5*age + ($('sex').value === 'm' ? 5 : -161);
+    var neatKcal = bmr * (neat - 1);
+
+    var weekly = 0, weekMin = 0, weekSess = 0;
+    rows.forEach(function(r){
+      var met  = parseFloat(r.el.querySelector('select').value) || 0;
+      var mins = parseFloat(r.el.querySelector('[id^=d]').value) || 0;
+      var per  = parseFloat(r.el.querySelector('[id^=n]').value) || 0;
+      var one  = Math.max(0, (met - 1) * 0.0175 * kg * mins);
+      r.el.querySelector('[id^=c]').textContent = ok ? fmt(one) : '—';
+      weekly += one * per; weekMin += mins * per; weekSess += per;
+    });
+    var train = weekly / 7;
+
+    $('week-total').innerHTML = weekSess
+      ? '<b>' + fmt(weekSess) + '</b> sessions · <b>' + (weekMin/60).toFixed(1) + '</b> hrs · <b>' + fmt(weekly) + '</b> kcal / week'
+      : '';
+
+    if (!ok){
+      $('tdee').innerHTML = '—<em>KCAL</em>';
+      $('band').textContent = 'Fill in your body stats above to run the numbers.';
+      $('target').innerHTML = '—<em>KCAL / DAY</em>';
+      ['v-bmr','v-neat','v-train','m-p','m-c','m-f','m-ps','m-cs','m-fs'].forEach(function(i){ $(i).textContent = '—'; });
+      Array.prototype.forEach.call($('bar').children, function(b){ b.style.width = '0'; });
+      $('flag').hidden = true;
+      return;
+    }
+
+    var tdee = bmr + neatKcal + train;
+    var lo = tdee * 0.90, hi = tdee * 1.10;
+
+    $('tdee').innerHTML = fmt(tdee) + '<em>KCAL</em>';
+    $('band').innerHTML = 'Realistic range: <b>' + fmt(lo) + ' – ' + fmt(hi) + '</b> kcal/day. Start in the middle, adjust from two weeks of real data.';
+
+    var parts = [bmr, neatKcal, train];
+    Array.prototype.forEach.call($('bar').children, function(b,i){ b.style.width = (parts[i]/tdee*100) + '%'; });
+    $('v-bmr').textContent   = fmt(bmr)       + ' kcal';
+    $('v-neat').textContent  = fmt(neatKcal)  + ' kcal';
+    $('v-train').textContent = fmt(train)     + ' kcal';
+
+    var target = tdee * (1 + adj);
+    var floored = false;
+    if (target < bmr){ target = bmr; floored = true; }
+
+    $('target-label').textContent = adj < 0 ? 'Eat to cut' : (adj > 0 ? 'Eat to build' : 'Eat to hold');
+    $('target').innerHTML = fmt(target) + '<em>KCAL / DAY</em>';
+
+    var pG = kg * (adj < 0 ? 2.2 : 2.0);
+    var fG = kg * (adj < 0 ? 0.8 : 1.0);
+    var cG = Math.max(0, (target - pG*4 - fG*9) / 4);
+    $('m-p').textContent = fmt(pG) + 'g'; $('m-ps').textContent = fmt(pG*4) + ' kcal';
+    $('m-c').textContent = fmt(cG) + 'g'; $('m-cs').textContent = fmt(cG*4) + ' kcal';
+    $('m-f').textContent = fmt(fG) + 'g'; $('m-fs').textContent = fmt(fG*9) + ' kcal';
+
+    var msg = '';
+    if (floored){
+      msg = 'That deficit drops you below your resting burn. Held there, recovery and performance go first. Pull the deficit back or add training days instead.';
+    } else if (adj <= -0.20 && train > 400){
+      msg = 'A 20% cut on this training load is a camp-only number. Watch your sparring quality — if it drops off, that is the signal to eat more, not push harder.';
+    } else if (train > 1100){
+      msg = 'That is a very high weekly load. Estimates get shakier up here — weigh in weekly and trust the trend over the formula.';
+    } else if (cG < kg * 2){
+      msg = 'Carbs are running low for this workload. Rounds are paid for in glycogen — consider a smaller deficit or more fat trimmed instead.';
+    }
+    $('flag').hidden = !msg;
+    $('flag').textContent = msg;
+  }
+
+  // ---- toggles
+  function setUnits(u){
+    units = u;
+    $('u-imp').setAttribute('aria-pressed', String(u === 'imp'));
+    $('u-met').setAttribute('aria-pressed', String(u === 'met'));
+    $('wrap-imp-w').hidden = $('wrap-imp-h').hidden = (u !== 'imp');
+    $('wrap-met-w').hidden = $('wrap-met-h').hidden = (u === 'imp');
+    if (u === 'met'){
+      $('kg').value = (num('lb',165) * 0.45359237).toFixed(1);
+      $('cm').value = Math.round((num('ft',5)*12 + num('in',10)) * 2.54);
+    } else {
+      $('lb').value = Math.round(num('kg',75) / 0.45359237);
+      var t = Math.round(num('cm',178) / 2.54);
+      $('ft').value = Math.floor(t/12); $('in').value = t % 12;
+    }
+    calc();
+  }
+  $('u-imp').addEventListener('click', function(){ setUnits('imp'); });
+  $('u-met').addEventListener('click', function(){ setUnits('met'); });
+
+  function group(containerId, attr, set){
+    $(containerId).addEventListener('click', function(e){
+      var b = e.target.closest('.chip'); if (!b) return;
+      Array.prototype.forEach.call(this.querySelectorAll('.chip'), function(c){ c.setAttribute('aria-pressed','false'); });
+      b.setAttribute('aria-pressed','true');
+      set(parseFloat(b.dataset[attr]));
+      calc();
+    });
+  }
+  group('neat','neat', function(v){ neat = v; });
+  group('goal','adj',  function(v){ adj  = v; });
+
+  $('add').addEventListener('click', function(){ addRow(8.0, 60, 1); calc(); });
+  ['sex','age','lb','kg','ft','in','cm'].forEach(function(id){
+    $(id).addEventListener('input', calc);
+    $(id).addEventListener('change', calc);
+  });
+
+  $('copy').addEventListener('click', function(){
+    var btn = this;
+    var txt = 'THE FIGHT LIFE — MY NUMBERS\n' +
+      'Total daily burn: ' + $('tdee').textContent.replace('KCAL',' kcal') + '\n' +
+      'Range: ' + $('band').textContent.replace('Realistic range: ','').split('.')[0] + '\n' +
+      'Resting: ' + $('v-bmr').textContent + ' | Daily life: ' + $('v-neat').textContent + ' | Training: ' + $('v-train').textContent + '\n' +
+      $('target-label').textContent + ': ' + $('target').textContent.replace('KCAL / DAY',' kcal/day') + '\n' +
+      'Protein ' + $('m-p').textContent + ' | Carbs ' + $('m-c').textContent + ' | Fat ' + $('m-f').textContent + '\n' +
+      'thefightlife.fit';
+    function done(){ btn.textContent = 'COPIED'; setTimeout(function(){ btn.textContent = 'COPY MY NUMBERS'; }, 1600); }
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(done, done);
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = txt; root.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); } catch(err){}
+      ta.remove(); done();
+    }
+  });
+
+  addRow(8.0, 90, 3);
+  addRow(5.0, 60, 2);
+  calc();
+})();
+</script>
+</body>
+</html>
