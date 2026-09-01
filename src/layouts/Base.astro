@@ -13,7 +13,7 @@ import { LANES } from '../lib/lanes';
 interface Props {
   title: string;
   description: string;
-  /** lane id to highlight in the nav */
+  /** lane id to highlight in the nav — also scopes the page's pillar accent */
   active?: string;
 }
 const { title, description, active } = Astro.props;
@@ -26,16 +26,20 @@ const { title, description, active } = Astro.props;
   <meta name="description" content={description} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
-  <meta name="theme-color" content="#0A0A0A" />
+  <meta name="theme-color" content="#0B0C0F" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="sitemap" href="/sitemap-index.xml" />
   <title>{title}</title>
   <script is:inline>document.documentElement.classList.add('js');</script>
 </head>
-<body>
+<!-- One accent per page. A frame that shows two pillars shows neither. -->
+<body data-pillar={active}>
 
 <header class="brandbar">
-  <a href="/" class="home"><span class="mark">●</span>&nbsp;&nbsp;THE FIGHT LIFE <span class="wordmark">— LIBRARY</span></a>
+  <a href="/" class="home">
+    <span class="typechip"><span class="tc-plate">THE FIGHT LIFE</span></span>
+    <span class="tc-sub">LIBRARY</span>
+  </a>
   <nav aria-label="Lanes">
     {LANES.map((lane) => (
       <a href={`/${lane.id}/`} class={active === lane.id ? 'active' : undefined}>{lane.name}</a>
@@ -48,9 +52,18 @@ const { title, description, active } = Astro.props;
 </main>
 
 <footer>
-  <div><span class="mark">●</span>&nbsp;&nbsp;THE FIGHT LIFE / LIBRARY</div>
-  <div class="sign">EARN THE LIFE.</div>
-  <div><a href="https://thefightlife.fit" rel="noopener">THEFIGHTLIFE.FIT ↗</a>&nbsp;&nbsp;·&nbsp;&nbsp;@DYLANPATAI</div>
+  <div class="foot-rule"></div>
+  <div class="foot-row">
+    <div class="signoff">THEFIGHTLIFE</div>
+    <div class="sign">EARN THE LIFE.</div>
+    <div class="foot-end">
+      <span class="wheel" aria-hidden="true">
+        <i style="background:#3366F0"></i><i style="background:#D91F2C"></i>
+        <i style="background:#FFD400"></i><i style="background:#14A24E"></i>
+      </span>
+      <a href="https://thefightlife.fit" rel="noopener">THEFIGHTLIFE.FIT &#8599;</a>
+    </div>
+  </div>
 </footer>
 
 <script>

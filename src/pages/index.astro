@@ -16,11 +16,11 @@ for (const lane of LANES) {
     <div class="hero-grid"></div>
     <div class="hero-content">
       <div class="hero-breadcrumb">
-        THEFIGHTLIFE.FIT <span class="sep">→</span> <span class="current">LIBRARY</span>
+        THEFIGHTLIFE.FIT <span class="sep">&#8594;</span> <span class="current">LIBRARY</span>
       </div>
       <h1 class="hero-title">
         <span class="line">THE FIGHT LIFE</span>
-        <span class="line">LIBRARY.</span>
+        <span class="line">LIBRARY<span class="gold">.</span></span>
       </h1>
       <div class="hero-tagline">
         <span class="bar"></span>
@@ -32,14 +32,26 @@ for (const lane of LANES) {
     </div>
   </section>
 
-  <section class="lanes">
+  <section class="lanes" id="lanes">
     <div class="lanes-wrap">
       <div class="sec-label reveal"><span class="num">04</span> / LANES</div>
+      {/* The four in a row. One skeleton; the accent slot is all that changes. */}
       <div class="lanes-grid">
         {LANES.map((lane, i) => (
-          <a href={`/${lane.id}/`} class={`lane-card reveal reveal-d${i + 1}`}>
-            <div class="lc-top">
-              <div class="lc-num">{lane.num}</div>
+          <a
+            href={`/${lane.id}/`}
+            class={`lane-card frame reveal reveal-d${i + 1}`}
+            style={`--accent:${lane.pillar.accent};--accent-rgb:${lane.pillar.rgb};--on-accent:${lane.pillar.onAccent}`}
+          >
+            <div class="f-wash"></div>
+            <div class="f-num">{lane.pillar.num}</div>
+            <div class="f-corner tl"><i></i><i></i><i></i></div>
+            <div class="f-corner tr"><i></i><i></i><i></i></div>
+
+            <div class="lc-head">
+              <div class="f-kicker">
+                <span>{lane.sub}</span>
+              </div>
               <div class="lc-icon">
                 <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" set:html={lane.icon} />
               </div>
@@ -49,8 +61,12 @@ for (const lane of LANES) {
               <div class="lc-def">{lane.def}</div>
             </div>
             <div class="lc-foot">
-              <span class="lc-count"><span class="n">{String(counts[lane.id]).padStart(2, '0')}</span> {counts[lane.id] === 1 ? 'ENTRY' : 'ENTRIES'}</span>
-              <span class="lc-cta">BROWSE →</span>
+              <span class="signoff">THEFIGHTLIFE</span>
+              <span class="lc-count">
+                <span class="n">{String(counts[lane.id]).padStart(2, '0')}</span>
+                {counts[lane.id] === 1 ? 'ENTRY' : 'ENTRIES'}
+              </span>
+              <span class="lc-cta">BROWSE &#8594;</span>
             </div>
           </a>
         ))}

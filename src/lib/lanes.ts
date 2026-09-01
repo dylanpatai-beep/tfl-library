@@ -4,6 +4,27 @@
  * meta strip on entry pages. Add or change a lane here, nowhere else.
  */
 
+/**
+ * A pillar accent. One flat hex per pillar, full strength — never a tint or a
+ * shade. The numeral is the Performance Hierarchy made visible (skill first,
+ * chemistry last) and is permanent on every frame.
+ *
+ * The accent is allowed in four places and nowhere else: the chip, the corner
+ * rules, the wash, and the numeral. Two of those apply it at 15-20% opacity,
+ * which the brand doc prescribes explicitly — that is not a tint, it is the
+ * one hex at reduced strength in a named placement.
+ */
+export interface Pillar {
+  /** 01-04. The hierarchy numeral, not the lane's position in the nav. */
+  num: string;
+  /** The flat accent hex. */
+  accent: string;
+  /** Type colour that sits ON the accent, per that pillar's contrast rule. */
+  onAccent: string;
+  /** The accent as "r, g, b" — for the wash and the numeral only. */
+  rgb: string;
+}
+
 export interface MetaCell {
   label: string;
   value: string;
@@ -19,7 +40,8 @@ export interface Badge {
 export interface Lane {
   /** URL segment and collection name */
   id: 'recipes' | 'supplements' | 'techniques' | 'mobility';
-  num: string;
+  /** The lane's pillar: numeral + accent. Drives every accent on its pages. */
+  pillar: Pillar;
   name: string;
   /** Short mono sub-line under the lane name */
   sub: string;
@@ -61,7 +83,9 @@ export const FIELD_ORDER: Record<string, string[]> = {
 export const LANES: Lane[] = [
   {
     id: 'recipes',
-    num: '01',
+    // Occupies pillar 03's slot (yellow) but keeps its own THE FUEL identity —
+    // the brand doc calls 03 "The Corner"; this lane is the fuel side of it.
+    pillar: { num: '03', accent: '#FFD400', onAccent: '#0B0C0F', rgb: '255, 212, 0' },
     name: 'Recipes',
     sub: 'THE FUEL / COOKED, NOT ORDERED',
     def: 'Food you make with your own hands. Cut-friendly, camp-tested, firehouse-proof.',
@@ -82,7 +106,8 @@ export const LANES: Lane[] = [
   },
   {
     id: 'supplements',
-    num: '02',
+    // 04 · THE STACK
+    pillar: { num: '04', accent: '#14A24E', onAccent: '#0B0C0F', rgb: '20, 162, 78' },
     name: 'Supplements',
     sub: 'THE STACK / EVIDENCE FIRST',
     def: 'The stack, evidence first. Adjusted from bloodwork — not influencer videos.',
@@ -110,7 +135,8 @@ export const LANES: Lane[] = [
   },
   {
     id: 'techniques',
-    num: '03',
+    // 01 · THE ART
+    pillar: { num: '01', accent: '#3366F0', onAccent: '#F7F8FA', rgb: '51, 102, 240' },
     name: 'Techniques',
     sub: 'THE ART / FROM THE ROOM',
     def: 'Breakdowns from the training room. Muay Thai as the root — boxing, grappling, MMA as the branches.',
@@ -131,7 +157,8 @@ export const LANES: Lane[] = [
   },
   {
     id: 'mobility',
-    num: '04',
+    // 02 · THE VEHICLE
+    pillar: { num: '02', accent: '#D91F2C', onAccent: '#F7F8FA', rgb: '217, 31, 44' },
     name: 'Mobility & S&C',
     sub: 'THE VEHICLE / KEPT AVAILABLE',
     def: 'The systems that keep the body available for training. Mobility, strength, conditioning.',

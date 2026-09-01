@@ -7,24 +7,34 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0A0A0A;
-  --panel: #141414;
-  --panel-2: #1A1A1A;
-  --panel-hover: #1F1F1F;
-  --border: #242424;
-  --border-strong: #333;
-  --red: #CC0000;
-  --red-dim: #7A0000;
-  --red-glow: rgba(204, 0, 0, 0.15);
-  --text: #F5F5F5;
-  --text-dim: #999;
-  --text-faint: #555;
-  --green: #00C853;
-  --yellow: #FFD600;
-  --orange: #FF6D00;
-  --purple: #9C27B0;
-  --blue: #2196F3;
-  --gray: #555;
+  /* Brand Foundation v1.3 — constants, then this tool's one accent. */
+  --bg: #0B0C0F;
+  --panel: #101216;
+  --panel-2: #15181D;
+  --panel-hover: #1B1F25;
+  --border: #23262C;
+  --border-strong: #343941;
+  --text: #F7F8FA;
+  --text-dim: #8A929E;
+  --text-faint: #5C6470;
+  --gray: #5C6470;
+  --gold: #C9A227;                 /* fallback only; gold is a gradient */
+  --gold-grad: linear-gradient(180deg, #F7E7A6 0%, #C9A227 55%, #8C6B1F 100%);
+
+  /* 04 · THE STACK — the Supplements pillar. Green is 5.9:1 and cleared at
+     any size, so it is allowed as type here; red and blue would not be. */
+  --accent: #14A24E;
+  --accent-dim: rgba(20, 162, 78, 0.45);
+  --accent-glow: rgba(20, 162, 78, 0.14);
+  --on-accent: #0B0C0F;          /* green takes dark type */
+
+  /* The evidence scale, mapped onto the brand wheel in its fixed order:
+     04 green, 03 yellow, 05 orange, 06 purple. Four levels, no more. */
+  --green: #14A24E;
+  --yellow: #FFD400;
+  --orange: #F07000;
+  --purple: #8B2FD6;
+  --blue: #3366F0;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { background: var(--bg); color: var(--text); }
@@ -55,7 +65,7 @@ header {
   display: inline-block;
   width: 32px;
   height: 3px;
-  background: var(--red);
+  background: var(--accent);
   margin-right: 10px;
   vertical-align: middle;
 }
@@ -66,7 +76,7 @@ h1 {
   line-height: 1;
   display: inline;
 }
-h1 .accent { color: var(--red); }
+h1 .accent { color: var(--accent); }
 .tagline {
   color: var(--text-dim);
   font-size: 13px;
@@ -83,7 +93,7 @@ h1 .accent { color: var(--red); }
   letter-spacing: 0.1em;
 }
 .meta-stats .num {
-  color: var(--red);
+  color: var(--accent);
   font-family: 'Bebas Neue', sans-serif;
   font-size: 22px;
   letter-spacing: 0.04em;
@@ -95,7 +105,7 @@ h1 .accent { color: var(--red); }
 .howto {
   background: var(--panel);
   border: 1px solid var(--border);
-  border-left: 3px solid var(--red);
+  border-left: 3px solid var(--accent);
   padding: 22px 24px;
   margin-bottom: 16px;
 }
@@ -103,7 +113,7 @@ h1 .accent { color: var(--red); }
   font-family: 'Bebas Neue', sans-serif;
   font-size: 14px;
   letter-spacing: 0.18em;
-  color: var(--red);
+  color: var(--accent);
   margin-bottom: 8px;
 }
 .howto-lead {
@@ -129,7 +139,7 @@ h1 .accent { color: var(--red); }
   font-family: 'Bebas Neue', sans-serif;
   font-size: 13px;
   letter-spacing: 0.12em;
-  color: var(--red);
+  color: var(--accent);
   margin-bottom: 6px;
 }
 .howto-step-title {
@@ -177,7 +187,7 @@ h1 .accent { color: var(--red); }
   margin-bottom: 16px;
   transition: border-color 0.15s;
 }
-.search-row:focus-within { border-color: var(--red-dim); }
+.search-row:focus-within { border-color: var(--accent-dim); }
 .search-icon { color: var(--text-dim); font-size: 18px; flex-shrink: 0; }
 .search-input {
   flex: 1;
@@ -222,7 +232,7 @@ h1 .accent { color: var(--red); }
 .core-stack {
   background: var(--panel);
   border: 1px solid var(--border);
-  border-left: 3px solid var(--red);
+  border-left: 3px solid var(--accent);
   padding: 16px 20px;
   margin-bottom: 16px;
 }
@@ -239,7 +249,7 @@ h1 .accent { color: var(--red); }
   color: var(--text);
 }
 .core-stack-label .dot {
-  color: var(--red);
+  color: var(--accent);
   margin-right: 6px;
 }
 .core-stack-count {
@@ -264,8 +274,8 @@ h1 .accent { color: var(--red); }
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--red-glow);
-  border: 1px solid var(--red-dim);
+  background: rgba(201, 162, 39, 0.12);
+  border: 1px solid rgba(201, 162, 39, 0.45);
   color: var(--text);
   padding: 6px 10px;
   font-size: 12px;
@@ -273,7 +283,7 @@ h1 .accent { color: var(--red); }
   cursor: pointer;
   transition: all 0.15s ease;
 }
-.core-chip:hover { background: rgba(204, 0, 0, 0.3); border-color: var(--red); }
+.core-chip:hover { background: rgba(201, 162, 39, 0.26); border-color: var(--gold); }
 .core-chip .x {
   color: var(--text-dim);
   font-size: 14px;
@@ -303,8 +313,8 @@ h1 .accent { color: var(--red); }
   font-family: inherit;
 }
 .btn:hover { background: var(--panel-hover); border-color: var(--border-strong); }
-.btn.btn-red { border-color: var(--red-dim); }
-.btn.btn-red:hover { background: var(--red-glow); border-color: var(--red); }
+.btn.btn-red { border-color: var(--accent-dim); }
+.btn.btn-red:hover { background: var(--accent-glow); border-color: var(--accent); }
 .btn.btn-ghost { background: transparent; }
 .toggle {
   display: inline-flex;
@@ -337,7 +347,7 @@ h1 .accent { color: var(--red); }
   background: var(--text-dim);
   transition: all 0.15s;
 }
-.toggle.active .toggle-switch { background: var(--red); }
+.toggle.active .toggle-switch { background: var(--accent); }
 .toggle.active .toggle-switch::after { left: 18px; background: var(--text); }
 
 /* CATEGORY */
@@ -349,7 +359,7 @@ h1 .accent { color: var(--red); }
   transition: border-color 0.15s;
 }
 .category:hover { border-color: var(--border-strong); }
-.category.expanded { border-color: var(--red-dim); }
+.category.expanded { border-color: var(--accent-dim); }
 .cat-header {
   display: flex;
   justify-content: space-between;
@@ -366,7 +376,7 @@ h1 .accent { color: var(--red); }
 }
 .cat-num {
   font-family: 'Bebas Neue', sans-serif;
-  color: var(--red);
+  color: var(--accent);
   font-size: 14px;
   letter-spacing: 0.1em;
 }
@@ -388,8 +398,8 @@ h1 .accent { color: var(--red); }
 }
 .cat-tagged {
   font-size: 11px;
-  background: var(--red-glow);
-  border: 1px solid var(--red-dim);
+  background: rgba(201, 162, 39, 0.12);
+  border: 1px solid rgba(201, 162, 39, 0.45);
   color: var(--text);
   padding: 2px 8px;
   letter-spacing: 0.05em;
@@ -399,7 +409,7 @@ h1 .accent { color: var(--red); }
   font-size: 16px;
   transition: transform 0.2s;
 }
-.category.expanded .chevron { transform: rotate(90deg); color: var(--red); }
+.category.expanded .chevron { transform: rotate(90deg); color: var(--accent); }
 
 .cat-body {
   display: none;
@@ -431,11 +441,11 @@ h1 .accent { color: var(--red); }
   min-height: 80px;
 }
 .supp-card:hover {
-  border-color: var(--red-dim);
+  border-color: var(--accent-dim);
   background: var(--panel-hover);
   transform: translateY(-1px);
 }
-.supp-card.status-in-stack { border-left: 3px solid var(--red); }
+.supp-card.status-in-stack { background: var(--gold-grad) left / 3px 100% no-repeat, var(--panel-2); }
 .supp-card.status-considering { border-left: 3px solid var(--blue); }
 .supp-card.status-researching { border-left: 3px solid var(--purple); }
 .supp-card.status-ruled-out { border-left: 3px solid var(--gray); opacity: 0.6; }
@@ -479,7 +489,7 @@ h1 .accent { color: var(--red); }
   letter-spacing: 0.1em;
   font-weight: 600;
 }
-.status-in-stack-pill { background: var(--red); color: var(--text); }
+.status-in-stack-pill { background: var(--gold-grad); color: #0B0C0F; }
 .status-considering-pill { background: var(--blue); color: var(--text); }
 .status-researching-pill { background: var(--purple); color: var(--text); }
 .status-ruled-out-pill { background: var(--gray); color: var(--text); }
@@ -508,7 +518,7 @@ h1 .accent { color: var(--red); }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 .modal {
   background: var(--panel);
-  border: 1px solid var(--red-dim);
+  border: 1px solid var(--accent-dim);
   max-width: 720px;
   width: 100%;
   max-height: 90vh;
@@ -555,14 +565,14 @@ h1 .accent { color: var(--red); }
   flex-shrink: 0;
   font-family: inherit;
 }
-.modal-close:hover { color: var(--text); border-color: var(--red); }
+.modal-close:hover { color: var(--text); border-color: var(--accent); }
 .modal-body { padding: 20px 24px; }
 .m-field { margin-bottom: 18px; }
 .m-field-label {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 12px;
   letter-spacing: 0.12em;
-  color: var(--red);
+  color: var(--accent);
   margin-bottom: 6px;
 }
 .m-field-value {
@@ -572,8 +582,8 @@ h1 .accent { color: var(--red); }
 }
 .m-field-value.dim { color: var(--text-dim); }
 .m-field.athlete {
-  background: rgba(204, 0, 0, 0.06);
-  border-left: 2px solid var(--red);
+  background: rgba(20, 162, 78, 0.06);
+  border-left: 2px solid var(--accent);
   padding: 10px 14px;
 }
 .m-field.dose-gated {
@@ -615,7 +625,7 @@ h1 .accent { color: var(--red); }
   font-family: inherit;
 }
 .status-btn:hover { color: var(--text); border-color: var(--text-dim); }
-.status-btn.active[data-status="in-stack"] { background: var(--red); border-color: var(--red); color: var(--text); }
+.status-btn.active[data-status="in-stack"] { background: var(--gold-grad); border-color: var(--gold); color: #0B0C0F; }
 .status-btn.active[data-status="considering"] { background: var(--blue); border-color: var(--blue); color: var(--text); }
 .status-btn.active[data-status="researching"] { background: var(--purple); border-color: var(--purple); color: var(--text); }
 .status-btn.active[data-status="ruled-out"] { background: var(--gray); border-color: var(--gray); color: var(--text); }
@@ -631,7 +641,7 @@ h1 .accent { color: var(--red); }
   line-height: 1.5;
   resize: vertical;
 }
-.notes-area:focus { outline: none; border-color: var(--red-dim); }
+.notes-area:focus { outline: none; border-color: var(--accent-dim); }
 .modal-footer {
   padding: 14px 24px;
   border-top: 1px solid var(--border);
@@ -666,7 +676,7 @@ h1 .accent { color: var(--red); }
 }
 .custom-form .m-field input:focus,
 .custom-form .m-field select:focus,
-.custom-form .m-field textarea:focus { outline: none; border-color: var(--red-dim); }
+.custom-form .m-field textarea:focus { outline: none; border-color: var(--accent-dim); }
 
 /* EXPORT MODAL */
 .export-text {
@@ -717,7 +727,7 @@ h1 .accent { color: var(--red); }
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--border-strong); }
-::-webkit-scrollbar-thumb:hover { background: var(--red-dim); }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-dim); }
 </style>
 </head>
 <body>
@@ -788,7 +798,7 @@ h1 .accent { color: var(--red); }
     <div class="legend-item"><span class="legend-dot" style="background:var(--yellow)"></span>Moderate</div>
     <div class="legend-item"><span class="legend-dot" style="background:var(--orange)"></span>Limited</div>
     <div class="legend-item"><span class="legend-dot" style="background:var(--purple)"></span>Experimental</div>
-    <div class="legend-item"><span class="legend-dot" style="background:var(--red)"></span>In Stack</div>
+    <div class="legend-item"><span class="legend-dot" style="background:linear-gradient(180deg,#F7E7A6,#C9A227 55%,#8C6B1F)"></span>In Stack</div>
     <div class="legend-item"><span class="legend-dot" style="background:var(--blue)"></span>Considering</div>
     <div class="legend-item"><span class="legend-dot" style="background:var(--purple)"></span>Researching</div>
     <div class="legend-item"><span class="legend-dot" style="background:var(--gray)"></span>Ruled Out</div>

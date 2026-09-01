@@ -1,32 +1,68 @@
 /* ==========================================================================
    THE FIGHT LIFE — LIBRARY
-   Brand system ported from fight-life-os-pillars.html (the OS pillars site).
-   Tokens are the single source of truth — change colors here, nowhere else.
+   Brand Foundation v1.3 (Design.pdf, mark final 2026-08-14).
+
+   Two layers. The CONSTANTS are the brand and never move — ground, type,
+   surface, gold, platinum. One ACCENT varies and is set by pillar.
+
+   The accent is allowed in four placements and nowhere else:
+     A · the chip      B · the corner rules
+     C · the wash      D · the numeral
+   Plus three functional affordances that are fills or rules, never type:
+   the active filter chip, the focus ring, and the row hover wash.
+
+   Red (3.9:1) and blue (4.0:1) sit under the small-type floor, so no accent
+   is ever set as body or label type anywhere in this file. Small labels use
+   --type-muted; hairlines that mark closure use gold.
    ========================================================================== */
 
 :root {
-  --fight-red: #CC0000;
-  --fight-red-dim: #7A0000;
-  --black: #0A0A0A;
-  --ink: #141414;
-  --coal: #1E1E1E;
-  --ash: #2A2A2A;
-  --smoke: #4A4A4A;
-  --steel: #8A8A8A;
-  --bone: #E8E6E1;
-  --paper: #F5F3EE;
+  /* --- 01 CONSTANTS · five, never handed to a pillar ------------------- */
+  --ground: #0B0C0F;        /* everything sits on this */
+  --type: #F7F8FA;          /* all headlines and body copy      18.4:1 */
+  --type-muted: #8A929E;    /* secondary body copy               6.2:1 */
+  --hairline: #5C6470;      /* hairlines and inactive marks */
+  --surface: #0A2A6B;       /* navy. A field, never a pillar chip 1.5:1 */
+
+  /* Both metals are gradients or they are not the metal.
+     Together they never exceed ~4% of a surface; gold goes outermost. */
+  --gold: linear-gradient(180deg, #F7E7A6 0%, #C9A227 55%, #8C6B1F 100%);
+  --gold-flat: #C9A227;     /* fallback only — never a design choice  8.1:1 */
+  --platinum: linear-gradient(180deg, #FBFAF8 0%, #DEDCD7 55%, #A9A6A0 100%);
+  --platinum-hair: linear-gradient(
+    160deg, rgba(251, 250, 248, 0.5) 0%, rgba(222, 220, 215, 0.3) 45%,
+    rgba(169, 166, 160, 0.16) 100%);
+
+  /* Grounds derived from --ground, for panels and rules. Not brand colours. */
+  --ink: #101216;
+  --coal: #15181D;
+  --ash: #23262C;
+
+  /* --- 02 PILLAR ACCENT · overridden per lane -------------------------- */
+  /* Default is platinum, so a page with no pillar shows no pillar. */
+  --accent: #DEDCD7;
+  --accent-rgb: 222, 220, 215;
+  --on-accent: #0B0C0F;
+
   --display: 'Bebas Neue', sans-serif;
   --body: 'Inter', sans-serif;
   --mono: 'JetBrains Mono', monospace;
 }
+
+/* Lane scopes. Set on <body> so the frame, the chip and the numeral all
+   inherit one accent — a frame that shows two pillars shows neither. */
+body[data-pillar='recipes']     { --accent: #FFD400; --accent-rgb: 255, 212, 0;  --on-accent: #0B0C0F; }
+body[data-pillar='supplements'] { --accent: #14A24E; --accent-rgb: 20, 162, 78;  --on-accent: #0B0C0F; }
+body[data-pillar='techniques']  { --accent: #3366F0; --accent-rgb: 51, 102, 240; --on-accent: #F7F8FA; }
+body[data-pillar='mobility']    { --accent: #D91F2C; --accent-rgb: 217, 31, 44;  --on-accent: #F7F8FA; }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 html { scroll-behavior: smooth; }
 
 body {
-  background: var(--black);
-  color: var(--bone);
+  background: var(--ground);
+  color: var(--type);
   font-family: var(--body);
   font-weight: 400;
   line-height: 1.5;
@@ -34,7 +70,8 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* --- Noise & atmosphere overlay --- */
+/* Atmosphere. Kept — the ground is what carries the brand, so it gets grain
+   rather than colour. */
 body::before {
   content: '';
   position: fixed;
@@ -50,7 +87,60 @@ main { position: relative; z-index: 2; }
 
 a { color: inherit; }
 
-::selection { background: var(--fight-red); color: var(--paper); }
+/* Navy is excellent as a field with white type on it (12.7:1). */
+::selection { background: var(--surface); color: var(--type); }
+
+/* ==========================================================================
+   METALS
+   Gold marks achievement and closure — section rules, the sign-off tick,
+   the footer edge. It is earned, never decorative, and never flat.
+   ========================================================================== */
+.gold-rule {
+  height: 1px;
+  background: var(--gold);
+  border: 0;
+  flex: none;
+}
+.gold-tick { width: 3px; height: 13px; background: var(--gold); flex: none; }
+
+/* Gold as type, for the few closure marks that are lettering. */
+.gold { color: var(--gold-flat); }
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .gold {
+    background-image: var(--gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+/* ==========================================================================
+   THE TYPE CHIP  ·  00 D · UNDER THE FLOOR
+   Chamfered navy plate, gold edge, display caps. Every use below the 120px
+   floor — which is every use on this site, since the badge is a raster master
+   that would fill in at nav size.
+   ========================================================================== */
+.typechip { position: relative; display: inline-flex; align-items: stretch; }
+.typechip .tc-plate {
+  background: var(--surface);
+  color: var(--type);
+  font-family: var(--display);
+  font-size: 1.0625rem;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  padding: 0.42rem 0.66rem 0.28rem;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
+}
+.typechip::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  bottom: -3px;
+  right: -4px;
+  width: 3px;
+  background: var(--gold);
+}
 
 /* ==========================================================================
    BRAND BAR (fixed top)
@@ -59,7 +149,7 @@ a { color: inherit; }
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 40;
-  padding: 1.25rem 2rem;
+  padding: 1.1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -68,18 +158,19 @@ a { color: inherit; }
   font-size: 0.625rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--steel);
-  background: linear-gradient(180deg, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.75) 60%, rgba(10,10,10,0) 100%);
+  color: var(--type-muted);
+  background: linear-gradient(180deg, rgba(11,12,15,0.94) 0%, rgba(11,12,15,0.78) 60%, rgba(11,12,15,0) 100%);
 }
-.brandbar .mark { color: var(--fight-red); font-weight: 600; }
 .brandbar .home {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
   text-decoration: none;
-  color: var(--steel);
-  transition: color 0.3s ease;
+  color: var(--type-muted);
   white-space: nowrap;
 }
-.brandbar .home .wordmark { color: var(--bone); }
-.brandbar .home:hover { color: var(--bone); }
+.brandbar .home .tc-sub { transition: color 0.3s ease; }
+.brandbar .home:hover .tc-sub { color: var(--type); }
 .brandbar nav {
   display: flex;
   gap: 1.5rem;
@@ -89,14 +180,21 @@ a { color: inherit; }
 }
 .brandbar nav a {
   text-decoration: none;
-  color: var(--steel);
+  color: var(--type-muted);
   transition: color 0.3s ease;
   white-space: nowrap;
+  position: relative;
 }
-.brandbar nav a:hover { color: var(--bone); }
-.brandbar nav a.active { color: var(--fight-red); font-weight: 600; }
-/* On small screens the fixed bar would wrap over content — make it a
-   normal header instead: brand on top, lane links in a row below. */
+.brandbar nav a:hover { color: var(--type); }
+/* The active lane is marked with its own accent as a rule, not as type. */
+.brandbar nav a.active { color: var(--type); }
+.brandbar nav a.active::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -6px;
+  height: 2px;
+  background: var(--accent);
+}
 @media (max-width: 700px) {
   .brandbar {
     position: static;
@@ -104,7 +202,7 @@ a { color: inherit; }
     align-items: flex-start;
     gap: 0.85rem;
     padding: 1.1rem 1.25rem;
-    background: var(--black);
+    background: var(--ground);
     border-bottom: 1px solid var(--ash);
   }
   .brandbar nav { justify-content: flex-start; gap: 0.7rem 1.2rem; }
@@ -114,13 +212,13 @@ a { color: inherit; }
    SHARED PRIMITIVES
    ========================================================================== */
 
-/* Mono section label with red tick — the sec-label pattern */
+/* Mono section label. The rule is a gold hairline — closure, not decoration. */
 .sec-label {
   font-family: var(--mono);
   font-size: 0.625rem;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--smoke);
+  color: var(--type-muted);
   margin-bottom: 2rem;
   display: flex;
   align-items: center;
@@ -130,27 +228,26 @@ a { color: inherit; }
   content: '';
   width: 40px;
   height: 1px;
-  background: var(--fight-red);
+  background: var(--gold);
   flex: none;
 }
-.sec-label .num { color: var(--fight-red); font-weight: 600; }
+.sec-label .num { color: var(--type); font-weight: 600; }
 
-/* Watermark numeral behind lane pages */
-.watermark {
-  position: absolute;
-  font-family: var(--display);
-  font-size: min(50vw, 34rem);
-  line-height: 1;
-  color: var(--ink);
-  top: 6rem;
-  right: -3vw;
-  z-index: 0;
-  pointer-events: none;
-  user-select: none;
+/* The sign-off: gold hairline tick over the mono wordmark. Fixed in every
+   frame — it does not change per pillar, it is the recognition. */
+.signoff {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--type-muted);
 }
+.signoff::before { content: ''; width: 3px; height: 13px; background: var(--gold); flex: none; }
 
-/* Scroll reveal (kept subtle for a reference tool).
-   Gated behind html.js so content is never hidden when JS is off. */
+/* Scroll reveal. Gated behind html.js so content is never hidden with JS off. */
 html.js .reveal {
   opacity: 0;
   transform: translateY(16px);
@@ -174,7 +271,115 @@ html.js .reveal.in { opacity: 1; transform: translateY(0); }
 }
 
 /* ==========================================================================
-   HOME — HERO
+   THE FRAME  ·  03 WHERE THE ACCENT GOES / 04 ONE SKELETON, ONE SLOT CHANGES
+   Chamfered platinum edge + corner rules + wash + numeral. One accent.
+   ========================================================================== */
+.frame {
+  --ch: 26px;
+  position: relative;
+  background: var(--ground);
+  isolation: isolate;
+  overflow: hidden;
+}
+/* Chamfered platinum hairline: the metal layer, then the ground 1px inside it. */
+.frame::before,
+.frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.frame::before {
+  background: var(--platinum-hair);
+  clip-path: polygon(var(--ch) 0, 100% 0, 100% 100%, 0 100%, 0 var(--ch));
+}
+.frame::after {
+  inset: 1px;
+  background: var(--ground);
+  clip-path: polygon(calc(var(--ch) - 1px) 0, 100% 0, 100% 100%, 0 100%, 0 calc(var(--ch) - 1px));
+  z-index: 0;
+}
+.frame > * { position: relative; z-index: 2; }
+
+/* C · THE WASH — 100deg, 16-20% accent to nothing by half-frame.
+   Held to the top band so it is never behind the headline. */
+.f-wash {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  /* Sized to die above the headline block, never behind it. */
+  height: var(--wash-h, 96px);
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(100deg, rgba(var(--accent-rgb), 0.18) 0%, rgba(var(--accent-rgb), 0) 50%);
+  /* Fade out vertically too, so the band dies rather than ending on an edge. */
+  -webkit-mask-image: linear-gradient(180deg, #000 42%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 42%, transparent 100%);
+  /* Follow the chamfer so the wash never spills past the frame's edge. */
+  clip-path: polygon(calc(var(--ch) - 1px) 0, 100% 0, 100% 100%, 0 100%, 0 calc(var(--ch) - 1px));
+}
+
+/* D · THE NUMERAL — pillar number, bottom-right, 15-20% accent. Permanent. */
+.f-num {
+  position: absolute;
+  right: 1.5rem;
+  bottom: 0.4rem;
+  z-index: 1;
+  font-family: var(--display);
+  font-size: clamp(5rem, 12vw, 9.5rem);
+  line-height: 0.78;
+  letter-spacing: 0.01em;
+  color: rgba(var(--accent-rgb), 0.17);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* B · THE CORNER RULES — three diagonals top-left, three horizontals
+   top-right. Accent leads, platinum follows. */
+.f-corner { position: absolute; z-index: 2; pointer-events: none; }
+.f-corner i { position: absolute; display: block; height: 1px; }
+.f-corner.tl { top: 16px; left: 16px; width: 46px; height: 46px; }
+.f-corner.tl i {
+  width: 30px;
+  left: 0;
+  transform: rotate(-45deg);
+  transform-origin: 0 50%;
+}
+.f-corner.tl i:nth-child(1) { top: 22px; background: var(--accent); }
+.f-corner.tl i:nth-child(2) { top: 30px; background: var(--platinum); opacity: 0.5; }
+.f-corner.tl i:nth-child(3) { top: 38px; background: var(--platinum); opacity: 0.28; }
+.f-corner.tr { top: 20px; right: 20px; width: 42px; height: 14px; }
+.f-corner.tr i { right: 0; }
+.f-corner.tr i:nth-child(1) { top: 0;    width: 42px; background: var(--accent); }
+.f-corner.tr i:nth-child(2) { top: 5px;  width: 30px; background: var(--platinum); opacity: 0.5; }
+.f-corner.tr i:nth-child(3) { top: 10px; width: 20px; background: var(--platinum); opacity: 0.28; }
+
+/* A · THE CHIP — episode, week or day number. Solid fill, type per the
+   pillar's rule. Never navy: navy shares a hue with pillar 01. */
+.f-chip {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-family: var(--display);
+  font-size: 0.9375rem;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  padding: 0.34rem 0.5rem 0.2rem;
+  vertical-align: middle;
+}
+.f-kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--type-muted);
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   HOME — HERO   (no pillar: constants only)
    ========================================================================== */
 .hero {
   position: relative;
@@ -191,8 +396,8 @@ html.js .reveal.in { opacity: 1; transform: translateY(0); }
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(204,0,0,0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(204,0,0,0.06) 1px, transparent 1px);
+    linear-gradient(rgba(92,100,112,0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(92,100,112,0.14) 1px, transparent 1px);
   background-size: 80px 80px;
   mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
   -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
@@ -204,21 +409,21 @@ html.js .reveal.in { opacity: 1; transform: translateY(0); }
   font-family: var(--mono);
   font-size: 0.75rem;
   letter-spacing: 0.25em;
-  color: var(--steel);
+  color: var(--type-muted);
   text-transform: uppercase;
   margin-bottom: 3.5rem;
   opacity: 0;
   animation: fadeUp 0.8s ease-out 0.15s forwards;
 }
-.hero-breadcrumb .sep { color: var(--fight-red); margin: 0 0.75rem; }
-.hero-breadcrumb .current { color: var(--bone); }
+.hero-breadcrumb .sep { color: var(--hairline); margin: 0 0.75rem; }
+.hero-breadcrumb .current { color: var(--type); }
 
 .hero-title {
   font-family: var(--display);
   font-size: clamp(4rem, 13vw, 14rem);
   line-height: 0.88;
   letter-spacing: 0.01em;
-  color: var(--bone);
+  color: var(--type);
   margin-bottom: 1rem;
 }
 .hero-title .line {
@@ -228,7 +433,7 @@ html.js .reveal.in { opacity: 1; transform: translateY(0); }
   animation: fadeUp 1s ease-out forwards;
 }
 .hero-title .line:nth-child(1) { animation-delay: 0.3s; }
-.hero-title .line:nth-child(2) { animation-delay: 0.45s; color: var(--fight-red); }
+.hero-title .line:nth-child(2) { animation-delay: 0.45s; }
 
 .hero-tagline {
   display: flex;
@@ -238,12 +443,12 @@ html.js .reveal.in { opacity: 1; transform: translateY(0); }
   opacity: 0;
   animation: fadeUp 1s ease-out 0.8s forwards;
 }
-.hero-tagline .bar { width: 80px; height: 2px; background: var(--fight-red); flex: none; }
+.hero-tagline .bar { width: 80px; height: 2px; background: var(--gold); flex: none; }
 .hero-tagline .text {
   font-family: var(--display);
   font-size: clamp(1.5rem, 3vw, 2.5rem);
   letter-spacing: 0.15em;
-  color: var(--bone);
+  color: var(--type);
 }
 
 .hero-lede {
@@ -251,167 +456,161 @@ html.js .reveal.in { opacity: 1; transform: translateY(0); }
   max-width: 560px;
   font-size: 1.0625rem;
   line-height: 1.7;
-  color: var(--steel);
+  color: var(--type-muted);
   opacity: 0;
   animation: fadeUp 1s ease-out 1s forwards;
 }
-.hero-lede strong { color: var(--bone); font-weight: 600; }
+.hero-lede strong { color: var(--type); font-weight: 600; }
 
 @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
 /* ==========================================================================
-   HOME — LANE CARDS (pillar-card pattern)
+   HOME — THE FOUR IN A ROW
+   One skeleton, one slot changes. Each card is its own frame carrying
+   exactly one pillar.
    ========================================================================== */
-.lanes {
-  position: relative;
-  padding: 4rem 6rem 8rem;
-  z-index: 2;
-}
+.lanes { position: relative; padding: 4rem 6rem 8rem; z-index: 2; }
 @media (max-width: 900px) { .lanes { padding: 3rem 1.5rem 6rem; } }
 .lanes-wrap { max-width: 1400px; margin: 0 auto; }
 
-.lanes-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  background: var(--ash);
-  border: 1px solid var(--ash);
-}
+.lanes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 @media (max-width: 900px) { .lanes-grid { grid-template-columns: 1fr; } }
 
 .lane-card {
-  background: var(--black);
-  padding: 3.5rem 3rem;
-  position: relative;
-  transition: background 0.4s ease;
-  cursor: pointer;
-  min-height: 320px;
+  --wash-h: 124px;
+  padding: 2.75rem 2.5rem 2.25rem;
+  min-height: 340px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   text-decoration: none;
   color: inherit;
-  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
-@media (max-width: 700px) { .lane-card { padding: 2.5rem 1.5rem; min-height: 260px; } }
-.lane-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 2px;
-  background: var(--fight-red);
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.lane-card:hover::before { transform: scaleX(1); }
-.lane-card:hover { background: var(--ink); }
+@media (max-width: 700px) { .lane-card { padding: 2.25rem 1.5rem 1.75rem; min-height: 280px; } }
+.lane-card:hover { transform: translateY(-3px); }
+.f-wash { opacity: 0.85; transition: opacity 0.4s ease; }
+.lane-card:hover .f-wash { opacity: 1; }
 
-.lane-card .lc-top { display: flex; justify-content: space-between; align-items: flex-start; }
-.lane-card .lc-num {
-  font-family: var(--display);
-  font-size: 5rem;
-  line-height: 1;
-  color: var(--fight-red);
+.lane-card .lc-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 2.25rem;
 }
-.lane-card .lc-icon { width: 44px; height: 44px; color: var(--steel); transition: color 0.4s ease; }
+.lane-card .lc-icon { width: 40px; height: 40px; color: var(--hairline); transition: color 0.4s ease; flex: none; }
 .lane-card .lc-icon svg { width: 100%; height: 100%; }
-.lane-card:hover .lc-icon { color: var(--fight-red); }
+.lane-card:hover .lc-icon { color: var(--type-muted); }
 .lane-card .lc-name {
   font-family: var(--display);
-  font-size: clamp(2.5rem, 4.5vw, 3.75rem);
+  font-size: clamp(2.25rem, 4.2vw, 3.5rem);
   line-height: 0.95;
   letter-spacing: 0.03em;
-  color: var(--bone);
-  margin: 2rem 0 1rem;
+  color: var(--type);
+  margin-bottom: 0.9rem;
 }
 .lane-card .lc-def {
-  font-size: 1rem;
-  color: var(--steel);
+  font-size: 0.9375rem;
+  color: var(--type-muted);
   line-height: 1.6;
   max-width: 380px;
 }
 .lane-card .lc-foot {
-  margin-top: 2rem;
+  margin-top: auto;
+  padding-top: 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
   font-family: var(--mono);
   font-size: 0.625rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--smoke);
+  color: var(--type-muted);
 }
-.lane-card .lc-count { color: var(--smoke); }
-.lane-card .lc-count .n { color: var(--fight-red); font-weight: 600; }
+.lane-card .lc-count .n { color: var(--type); font-weight: 600; }
 .lane-card .lc-cta { transition: color 0.3s ease; }
-.lane-card:hover .lc-cta { color: var(--fight-red); }
+.lane-card:hover .lc-cta { color: var(--type); }
 
 /* ==========================================================================
    LANE INDEX PAGES
    ========================================================================== */
-.lane-page {
-  position: relative;
-  padding: 9rem 6rem 6rem;
-  min-height: 100vh;
-  overflow: hidden;
-}
-@media (max-width: 900px) { .lane-page { padding: 7rem 1.5rem 4rem; } }
+.lane-page { position: relative; padding: 8rem 6rem 6rem; min-height: 100vh; }
+@media (max-width: 900px) { .lane-page { padding: 6.5rem 1.5rem 4rem; } }
 .lane-inner { position: relative; z-index: 2; max-width: 1100px; margin: 0 auto; }
 
-.lane-head { margin-bottom: 3.5rem; }
+/* The lane header is a frame — the page 06 layout, at page scale. */
+.lane-head {
+  padding: 3rem 2.75rem 2.25rem;
+  margin-bottom: 3rem;
+}
+@media (max-width: 700px) { .lane-head { padding: 2.5rem 1.5rem 1.75rem; } }
+.lane-head .lh-kicker { margin-bottom: 1.5rem; }
 .lane-head h1 {
   font-family: var(--display);
-  font-size: clamp(3.5rem, 9vw, 8rem);
+  font-size: clamp(3rem, 8vw, 6.5rem);
   line-height: 0.9;
   letter-spacing: 0.02em;
-  color: var(--bone);
+  color: var(--type);
 }
-.lane-head h1 .accent { color: var(--fight-red); }
+.lane-head h1 .accent { color: var(--gold-flat); }
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .lane-head h1 .accent {
+    background-image: var(--gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+}
 .lane-head .lane-desc {
   margin-top: 1.25rem;
   max-width: 560px;
   font-size: 1rem;
   line-height: 1.7;
-  color: var(--steel);
+  color: var(--type-muted);
 }
+.lane-head .signoff { margin-top: 2rem; }
 
-/* Featured tool banner (e.g. the Supplement Field Guide) */
+/* Featured tool banner */
 .tool-banner {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 2rem;
   border: 1px solid var(--ash);
-  border-left: 2px solid var(--fight-red);
-  background: linear-gradient(135deg, var(--coal) 0%, rgba(204, 0, 0, 0.07) 100%);
+  border-left: 2px solid var(--accent);
+  background: linear-gradient(100deg, rgba(var(--accent-rgb), 0.09) 0%, rgba(var(--accent-rgb), 0) 55%), var(--ink);
   padding: 1.75rem 2rem;
   margin-bottom: 3rem;
   text-decoration: none;
   color: inherit;
   transition: border-color 0.3s ease, transform 0.3s ease;
 }
-.tool-banner:hover { border-color: var(--fight-red); transform: translateY(-2px); }
+.tool-banner:hover { border-color: var(--hairline); border-left-color: var(--accent); transform: translateY(-2px); }
 .tool-banner .tb-label {
   font-family: var(--mono);
   font-size: 0.5625rem;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--fight-red);
+  color: var(--type-muted);
   font-weight: 600;
   margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
 }
+.tool-banner .tb-label::before { content: ''; width: 3px; height: 11px; background: var(--gold); flex: none; }
 .tool-banner .tb-title {
   font-family: var(--display);
   font-size: clamp(1.75rem, 3vw, 2.5rem);
   letter-spacing: 0.04em;
-  color: var(--bone);
+  color: var(--type);
   margin-bottom: 0.5rem;
 }
 .tool-banner .tb-desc {
   font-size: 0.9375rem;
-  color: var(--steel);
+  color: var(--type-muted);
   line-height: 1.55;
   max-width: 560px;
 }
@@ -419,11 +618,11 @@ html.js .reveal.in { opacity: 1; transform: translateY(0); }
   font-family: var(--mono);
   font-size: 0.6875rem;
   letter-spacing: 0.25em;
-  color: var(--steel);
+  color: var(--type-muted);
   white-space: nowrap;
   transition: color 0.3s ease;
 }
-.tool-banner:hover .tb-cta { color: var(--fight-red); }
+.tool-banner:hover .tb-cta { color: var(--type); }
 @media (max-width: 700px) {
   .tool-banner { flex-direction: column; align-items: flex-start; padding: 1.5rem 1.25rem; }
 }
@@ -443,7 +642,7 @@ html.js .reveal.in { opacity: 1; transform: translateY(0); }
   width: 100%;
   background: var(--ink);
   border: 1px solid var(--ash);
-  color: var(--bone);
+  color: var(--type);
   font-family: var(--mono);
   font-size: 0.8125rem;
   letter-spacing: 0.08em;
@@ -451,8 +650,8 @@ html.js .reveal.in { opacity: 1; transform: translateY(0); }
   outline: none;
   transition: border-color 0.3s ease;
 }
-.search-input::placeholder { color: var(--smoke); text-transform: uppercase; letter-spacing: 0.15em; font-size: 0.6875rem; }
-.search-input:focus { border-color: var(--fight-red); }
+.search-input::placeholder { color: var(--hairline); text-transform: uppercase; letter-spacing: 0.15em; font-size: 0.6875rem; }
+.search-input:focus { border-color: var(--accent); }
 .search-wrap .search-icon {
   position: absolute;
   left: 0.9rem;
@@ -460,7 +659,7 @@ html.js .reveal.in { opacity: 1; transform: translateY(0); }
   transform: translateY(-50%);
   width: 15px;
   height: 15px;
-  color: var(--smoke);
+  color: var(--hairline);
   pointer-events: none;
 }
 
@@ -471,7 +670,7 @@ html.js .reveal.in { opacity: 1; transform: translateY(0); }
   font-size: 0.5625rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--smoke);
+  color: var(--hairline);
   min-width: 88px;
 }
 .chip {
@@ -479,17 +678,20 @@ html.js .reveal.in { opacity: 1; transform: translateY(0); }
   font-size: 0.625rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--steel);
+  color: var(--type-muted);
   background: transparent;
   border: 1px solid var(--ash);
   padding: 0.45rem 0.9rem;
   cursor: pointer;
   transition: all 0.25s ease;
 }
-.chip:hover { border-color: var(--steel); color: var(--bone); }
+.chip:hover { border-color: var(--hairline); color: var(--type); }
+/* Active state is a fill and a rule, never accent type — red and blue are
+   both under the small-type floor. */
 .chip.active {
-  border-color: var(--fight-red);
-  color: var(--fight-red);
+  border-color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.16);
+  color: var(--type);
   font-weight: 600;
 }
 
@@ -498,12 +700,12 @@ html.js .reveal.in { opacity: 1; transform: translateY(0); }
   font-size: 0.625rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--smoke);
+  color: var(--type-muted);
   margin-bottom: 1.5rem;
 }
-.result-count .n { color: var(--fight-red); font-weight: 600; }
+.result-count .n { color: var(--type); font-weight: 600; }
 
-/* Entry rows — the sub-item pattern */
+/* Entry rows */
 .entry-list { display: flex; flex-direction: column; }
 .entry-row {
   border-top: 1px solid var(--ash);
@@ -525,17 +727,17 @@ html.js .reveal.in { opacity: 1; transform: translateY(0); }
   left: 0; top: 0;
   height: 100%;
   width: 0;
-  background: var(--fight-red);
-  opacity: 0.04;
+  background: linear-gradient(100deg, rgba(var(--accent-rgb), 0.14) 0%, rgba(var(--accent-rgb), 0) 50%);
   transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .entry-row:hover::before { width: 100%; }
 .entry-row:hover { padding-left: 1.25rem; }
+.entry-row > * { position: relative; }
 .entry-row .er-num {
   font-family: var(--mono);
   font-size: 0.6875rem;
   letter-spacing: 0.15em;
-  color: var(--fight-red);
+  color: var(--hairline);
   font-weight: 600;
 }
 .entry-row h3 {
@@ -543,52 +745,44 @@ html.js .reveal.in { opacity: 1; transform: translateY(0); }
   font-size: clamp(1.5rem, 2.5vw, 2rem);
   letter-spacing: 0.04em;
   font-weight: 400;
-  color: var(--bone);
+  color: var(--type);
   margin-bottom: 0.3rem;
 }
 .entry-row .er-summary {
   font-size: 0.9375rem;
-  color: var(--steel);
+  color: var(--type-muted);
   line-height: 1.55;
   max-width: 560px;
 }
-.entry-row .er-side {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.6rem;
-}
-.entry-row .er-badges {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
+.entry-row .er-side { display: flex; flex-direction: column; align-items: flex-end; gap: 0.6rem; }
+.entry-row .er-badges { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: flex-end; }
 .badge {
   font-family: var(--mono);
   font-size: 0.5625rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--steel);
+  color: var(--type-muted);
   border: 1px solid var(--ash);
   padding: 0.3rem 0.6rem;
   white-space: nowrap;
 }
-.badge.draft { border-color: var(--fight-red); color: var(--fight-red); font-weight: 600; }
-/* Evidence colors — same scale as the Supplement Field Guide */
-.badge.ev-strong { color: #00C853; border-color: rgba(0, 200, 83, 0.45); }
-.badge.ev-moderate { color: #FFD600; border-color: rgba(255, 214, 0, 0.45); }
-.badge.ev-limited { color: #FF6D00; border-color: rgba(255, 109, 0, 0.45); }
-.badge.ev-experimental { color: #9C27B0; border-color: rgba(156, 39, 176, 0.5); }
+.badge.draft { border-color: var(--accent); color: var(--type); font-weight: 600; }
+/* Evidence scale — shared with the Supplement Field Guide. Four levels, no
+   more. Mapped onto the brand wheel: green and yellow are pillars 04 and 03,
+   orange and purple are 05 and 06, the next two in sequence. */
+.badge.ev-strong { color: #14A24E; border-color: rgba(20, 162, 78, 0.45); }
+.badge.ev-moderate { color: #FFD400; border-color: rgba(255, 212, 0, 0.45); }
+.badge.ev-limited { color: #F07000; border-color: rgba(240, 112, 0, 0.5); }
+.badge.ev-experimental { color: #8B2FD6; border-color: rgba(139, 47, 214, 0.5); }
 .entry-row .er-arrow {
   font-family: var(--mono);
   font-size: 0.75rem;
-  color: var(--smoke);
+  color: var(--hairline);
   opacity: 0;
   transform: translateX(-10px);
   transition: all 0.4s ease;
 }
-.entry-row:hover .er-arrow { opacity: 1; transform: translateX(0); color: var(--fight-red); }
+.entry-row:hover .er-arrow { opacity: 1; transform: translateX(0); color: var(--type); }
 @media (max-width: 700px) {
   .entry-row { grid-template-columns: 40px 1fr; }
   .entry-row .er-side { display: none; }
@@ -601,26 +795,22 @@ html.js .reveal.in { opacity: 1; transform: translateY(0); }
   font-family: var(--display);
   font-size: clamp(2rem, 4vw, 3rem);
   letter-spacing: 0.04em;
-  color: var(--bone);
+  color: var(--type);
   margin-bottom: 0.75rem;
 }
 .no-match p, .empty-state p {
-  color: var(--steel);
+  color: var(--type-muted);
   font-size: 0.9375rem;
   line-height: 1.6;
   max-width: 480px;
 }
-.empty-state {
-  border-top: 1px solid var(--ash);
-  border-bottom: 1px solid var(--ash);
-  padding: 5rem 0;
-}
+.empty-state { border-top: 1px solid var(--ash); border-bottom: 1px solid var(--ash); padding: 5rem 0; }
 .empty-state .es-label {
   font-family: var(--mono);
   font-size: 0.625rem;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--fight-red);
+  color: var(--type-muted);
   font-weight: 600;
   margin-bottom: 1.5rem;
   display: flex;
@@ -629,24 +819,19 @@ html.js .reveal.in { opacity: 1; transform: translateY(0); }
 }
 .empty-state .es-label .dot {
   width: 6px; height: 6px;
-  background: var(--fight-red);
+  background: var(--accent);
   border-radius: 50%;
   animation: pulse 2s ease-in-out infinite;
 }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-.empty-state a { color: var(--bone); text-decoration-color: var(--fight-red); text-underline-offset: 3px; }
-.empty-state a:hover { color: var(--fight-red); }
+.empty-state a { color: var(--type); text-decoration-color: var(--gold-flat); text-underline-offset: 3px; }
+.empty-state a:hover { text-decoration-color: var(--type); }
 
 /* ==========================================================================
    ENTRY DETAIL PAGES
    ========================================================================== */
-.entry-page {
-  position: relative;
-  padding: 9rem 6rem 6rem;
-  min-height: 100vh;
-  overflow: hidden;
-}
-@media (max-width: 900px) { .entry-page { padding: 7rem 1.5rem 4rem; } }
+.entry-page { position: relative; padding: 8rem 6rem 6rem; min-height: 100vh; }
+@media (max-width: 900px) { .entry-page { padding: 6.5rem 1.5rem 4rem; } }
 .entry-inner { position: relative; z-index: 2; max-width: 820px; margin: 0 auto; }
 
 .crumb {
@@ -654,29 +839,33 @@ html.js .reveal.in { opacity: 1; transform: translateY(0); }
   font-size: 0.625rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--steel);
-  margin-bottom: 3rem;
+  color: var(--type-muted);
+  margin-bottom: 2rem;
 }
-.crumb a { color: var(--steel); text-decoration: none; transition: color 0.3s ease; }
-.crumb a:hover { color: var(--bone); }
-.crumb .sep { color: var(--fight-red); margin: 0 0.6rem; }
-.crumb .current { color: var(--bone); }
+.crumb a { color: var(--type-muted); text-decoration: none; transition: color 0.3s ease; }
+.crumb a:hover { color: var(--type); }
+.crumb .sep { color: var(--hairline); margin: 0 0.6rem; }
+.crumb .current { color: var(--type); }
 
+/* The entry header is the same frame skeleton as a lane card. */
+.entry-head { padding: 2.75rem 2.5rem 2rem; margin-bottom: 3rem; }
+@media (max-width: 700px) { .entry-head { padding: 2.25rem 1.5rem 1.5rem; } }
+.entry-head .eh-kicker { margin-bottom: 1.4rem; }
 .entry-title {
   font-family: var(--display);
-  font-size: clamp(2.75rem, 7vw, 5.5rem);
+  font-size: clamp(2.5rem, 6.5vw, 5rem);
   line-height: 0.92;
   letter-spacing: 0.02em;
-  color: var(--bone);
-  margin-bottom: 1.25rem;
+  color: var(--type);
+  margin-bottom: 1.1rem;
 }
 .entry-lede {
-  font-size: 1.125rem;
+  font-size: 1.0625rem;
   line-height: 1.7;
-  color: var(--steel);
+  color: var(--type-muted);
   max-width: 640px;
-  margin-bottom: 2.5rem;
 }
+.entry-head .signoff { margin-top: 1.75rem; }
 
 .meta-strip {
   display: flex;
@@ -685,19 +874,14 @@ html.js .reveal.in { opacity: 1; transform: translateY(0); }
   background: var(--ink);
   margin-bottom: 3.5rem;
 }
-.meta-cell {
-  padding: 1rem 1.5rem;
-  border-right: 1px solid var(--ash);
-  flex: 1 1 auto;
-  min-width: 120px;
-}
+.meta-cell { padding: 1rem 1.5rem; border-right: 1px solid var(--ash); flex: 1 1 auto; min-width: 120px; }
 .meta-cell:last-child { border-right: none; }
 .meta-cell .mc-label {
   font-family: var(--mono);
   font-size: 0.5625rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--fight-red);
+  color: var(--type-muted);
   font-weight: 600;
   margin-bottom: 0.35rem;
 }
@@ -705,21 +889,21 @@ html.js .reveal.in { opacity: 1; transform: translateY(0); }
   font-family: var(--mono);
   font-size: 0.8125rem;
   letter-spacing: 0.05em;
-  color: var(--bone);
+  color: var(--type);
   text-transform: uppercase;
 }
-.meta-cell .mc-value a { color: var(--bone); text-decoration-color: var(--fight-red); text-underline-offset: 3px; }
-.meta-cell .mc-value a:hover { color: var(--fight-red); }
+.meta-cell .mc-value a { color: var(--type); text-decoration-color: var(--gold-flat); text-underline-offset: 3px; }
+.meta-cell .mc-value a:hover { text-decoration-color: var(--type); }
 
 /* Markdown body */
-.prose { font-size: 1.0313rem; line-height: 1.75; color: var(--bone); }
+.prose { font-size: 1.0313rem; line-height: 1.75; color: var(--type); }
 .prose > * + * { margin-top: 1.25rem; }
 .prose h2 {
   font-family: var(--display);
   font-size: clamp(1.875rem, 3.5vw, 2.5rem);
   letter-spacing: 0.04em;
   font-weight: 400;
-  color: var(--bone);
+  color: var(--type);
   margin-top: 3rem;
   padding-top: 2rem;
   border-top: 1px solid var(--ash);
@@ -729,20 +913,20 @@ html.js .reveal.in { opacity: 1; transform: translateY(0); }
   font-size: 1.5rem;
   letter-spacing: 0.05em;
   font-weight: 400;
-  color: var(--bone);
+  color: var(--type);
   margin-top: 2rem;
 }
-.prose p { color: #C9C6BF; }
-.prose strong { color: var(--bone); font-weight: 600; }
-.prose a { color: var(--bone); text-decoration-color: var(--fight-red); text-decoration-thickness: 1px; text-underline-offset: 3px; }
-.prose a:hover { color: var(--fight-red); }
-.prose ul, .prose ol { padding-left: 1.4rem; color: #C9C6BF; }
+.prose p { color: #D6DAE0; }
+.prose strong { color: var(--type); font-weight: 600; }
+.prose a { color: var(--type); text-decoration-color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.prose a:hover { text-decoration-color: var(--type); }
+.prose ul, .prose ol { padding-left: 1.4rem; color: #D6DAE0; }
 .prose li { margin-top: 0.5rem; }
-.prose li::marker { color: var(--fight-red); }
+.prose li::marker { color: var(--type-muted); }
 .prose blockquote {
-  border-left: 2px solid var(--fight-red);
+  border-left: 2px solid var(--accent);
   padding: 0.5rem 0 0.5rem 1.5rem;
-  color: var(--steel);
+  color: var(--type-muted);
   font-style: italic;
 }
 .prose code {
@@ -752,12 +936,7 @@ html.js .reveal.in { opacity: 1; transform: translateY(0); }
   border: 1px solid var(--ash);
   padding: 0.1em 0.4em;
 }
-.prose pre {
-  background: var(--ink);
-  border: 1px solid var(--ash);
-  padding: 1.25rem;
-  overflow-x: auto;
-}
+.prose pre { background: var(--ink); border: 1px solid var(--ash); padding: 1.25rem; overflow-x: auto; }
 .prose pre code { background: none; border: none; padding: 0; }
 .prose img { max-width: 100%; height: auto; border: 1px solid var(--ash); }
 .prose hr { border: none; border-top: 1px solid var(--ash); margin: 2.5rem 0; }
@@ -767,15 +946,15 @@ html.js .reveal.in { opacity: 1; transform: translateY(0); }
   font-size: 0.625rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--fight-red);
+  color: var(--type-muted);
   text-align: left;
   padding: 0.75rem 1rem;
   border: 1px solid var(--ash);
   background: var(--ink);
 }
-.prose td { padding: 0.75rem 1rem; border: 1px solid var(--ash); color: #C9C6BF; }
+.prose td { padding: 0.75rem 1rem; border: 1px solid var(--ash); color: #D6DAE0; }
 
-/* Entry footer: tags, source, back link */
+/* Entry footer */
 .entry-foot {
   margin-top: 4rem;
   padding-top: 2rem;
@@ -790,7 +969,7 @@ html.js .reveal.in { opacity: 1; transform: translateY(0); }
   font-size: 0.5625rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--smoke);
+  color: var(--hairline);
   margin-right: 0.5rem;
 }
 .back-link {
@@ -798,14 +977,14 @@ html.js .reveal.in { opacity: 1; transform: translateY(0); }
   font-size: 0.6875rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--steel);
+  color: var(--type-muted);
   text-decoration: none;
   transition: color 0.3s ease;
 }
-.back-link:hover { color: var(--fight-red); }
+.back-link:hover { color: var(--type); }
 
 /* ==========================================================================
-   404
+   404   (no pillar: constants only)
    ========================================================================== */
 .lost {
   position: relative;
@@ -822,40 +1001,59 @@ html.js .reveal.in { opacity: 1; transform: translateY(0); }
   font-family: var(--display);
   font-size: clamp(3.5rem, 10vw, 9rem);
   line-height: 0.9;
-  color: var(--bone);
+  color: var(--type);
   margin-bottom: 1.5rem;
 }
-.lost h1 .accent { color: var(--fight-red); }
-.lost p { color: var(--steel); font-size: 1.0625rem; max-width: 480px; margin-bottom: 2.5rem; }
+.lost h1 .accent { color: var(--gold-flat); }
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .lost h1 .accent {
+    background-image: var(--gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+}
+.lost p { color: var(--type-muted); font-size: 1.0625rem; max-width: 480px; margin-bottom: 2.5rem; }
+.lost .lost-num {
+  position: absolute;
+  right: -2vw;
+  bottom: 2rem;
+  font-family: var(--display);
+  font-size: min(46vw, 30rem);
+  line-height: 0.78;
+  color: var(--ink);
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+}
 
 /* ==========================================================================
-   FOOTER
+   FOOTER — gold hairline over the mono URL. Fixed in every frame.
    ========================================================================== */
 footer {
   position: relative;
   z-index: 2;
-  background: var(--black);
-  padding: 4rem 6rem 3rem;
+  background: var(--ground);
+  padding: 3rem 6rem;
   border-top: 1px solid var(--ash);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   font-family: var(--mono);
   font-size: 0.6875rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--smoke);
-  flex-wrap: wrap;
-  gap: 1.5rem;
+  color: var(--type-muted);
 }
-@media (max-width: 700px) { footer { padding: 3rem 1.5rem; } }
-footer .mark { color: var(--fight-red); font-weight: 600; }
-footer .sign { color: var(--bone); }
-footer a { color: var(--smoke); text-decoration: none; transition: color 0.3s ease; }
-footer a:hover { color: var(--bone); }
+@media (max-width: 700px) { footer { padding: 2.5rem 1.5rem; } }
+footer .foot-rule { height: 1px; background: var(--gold); margin-bottom: 1.75rem; }
+footer .foot-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; }
+footer .sign { color: var(--type); }
+footer a { color: var(--type-muted); text-decoration: none; transition: color 0.3s ease; }
+footer a:hover { color: var(--type); }
+/* The wheel, in order — primaries then secondaries. Marks, not type. */
+footer .foot-end { display: flex; align-items: center; gap: 1.1rem; }
+footer .wheel { display: flex; gap: 5px; align-items: center; }
+footer .wheel i { width: 8px; height: 8px; display: block; }
 
-/* With a static header on small screens, pages don't need clearance for a
-   floating bar — pull the top padding back in. */
 @media (max-width: 700px) {
   .hero { padding-top: 3.5rem; min-height: 60vh; }
   .lane-page, .entry-page, .lost { padding-top: 3rem; }

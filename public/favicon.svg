@@ -1,4 +1,16 @@
+<!-- The type chip, reduced: chamfered navy plate + gold edge, on the ground.
+     Constants only — no pillar accent, because the site is not one pillar.
+     The sub-floor monogram the brand doc lists as STILL OWED goes here when
+     it exists; this is the chip's silhouette, not an invented mark. -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
-  <rect width="128" height="128" rx="20" fill="#0A0A0A"/>
-  <circle cx="64" cy="64" r="34" fill="#CC0000"/>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F7E7A6"/>
+      <stop offset="0.55" stop-color="#C9A227"/>
+      <stop offset="1" stop-color="#8C6B1F"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" fill="#0B0C0F"/>
+  <path d="M22 34 H92 V78 L78 94 H22 Z" fill="#0A2A6B"/>
+  <rect x="98" y="38" width="8" height="60" fill="url(#g)"/>
 </svg>

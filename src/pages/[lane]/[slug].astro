@@ -8,22 +8,21 @@ export async function getStaticPaths() {
   const paths = [];
   for (const lane of LANES) {
     const entries = await getLaneEntries(lane);
-    for (const entry of entries) {
-      paths.push({ params: { lane: lane.id, slug: entry.id }, props: { entry } });
-    }
+    entries.forEach((entry, i) => {
+      paths.push({ params: { lane: lane.id, slug: entry.id }, props: { entry, serial: i + 1 } });
+    });
   }
   return paths;
 }
 
 const lane = getLane(Astro.params.lane!);
-const { entry } = Astro.props;
+const { entry, serial } = Astro.props;
 const { Content } = await render(entry);
 const d = entry.data;
 const dateStr = d.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' });
 ---
 <Base title={`${d.title} — ${lane.name} — The Fight Life Library`} description={d.summary} active={lane.id}>
   <section class="entry-page">
-    <div class="watermark">{lane.num}</div>
     <div class="entry-inner">
       <nav class="crumb" aria-label="Breadcrumb">
         <a href="/">LIBRARY</a>
@@ -37,8 +36,22 @@ const dateStr = d.date.toLocaleDateString('en-US', { year: 'numeric', month: 'sh
         <div class="sec-label"><span class="num">DRAFT</span> / DEV ONLY — NOT ON THE LIVE SITE</div>
       )}
 
-      <h1 class="entry-title">{d.title}</h1>
-      <p class="entry-lede">{d.summary}</p>
+      {/* Same frame skeleton as a lane card. The chip carries the entry's
+          serial — the doc's "NO 07" case. */}
+      <div class="entry-head frame">
+        <div class="f-wash"></div>
+        <div class="f-num">{lane.pillar.num}</div>
+        <div class="f-corner tl"><i></i><i></i><i></i></div>
+        <div class="f-corner tr"><i></i><i></i><i></i></div>
+
+        <div class="f-kicker eh-kicker">
+          <span class="f-chip">NO {String(serial).padStart(2, '0')}</span>
+          <span>{lane.sub}</span>
+        </div>
+        <h1 class="entry-title">{d.title}</h1>
+        <p class="entry-lede">{d.summary}</p>
+        <div class="signoff">THEFIGHTLIFE</div>
+      </div>
 
       <div class="meta-strip">
         {lane.meta(d).map((cell) => (

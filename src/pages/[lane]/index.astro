@@ -29,12 +29,19 @@ const fmt = (v: string) => v.replace(/-/g, ' ');
   active={lane.id}
 >
   <section class="lane-page" data-lane={lane.id} data-fields={lane.filters.map((f) => f.field).join(',')}>
-    <div class="watermark">{lane.num}</div>
     <div class="lane-inner">
-      <div class="sec-label"><span class="num">{lane.num}</span> / {lane.sub}</div>
-      <div class="lane-head">
+      {/* The frame: corner rules, wash, numeral. No chip — a lane index has
+          no episode/week/day serial to carry, and the numeral is permanent. */}
+      <div class="lane-head frame">
+        <div class="f-wash"></div>
+        <div class="f-num">{lane.pillar.num}</div>
+        <div class="f-corner tl"><i></i><i></i><i></i></div>
+        <div class="f-corner tr"><i></i><i></i><i></i></div>
+
+        <div class="f-kicker lh-kicker"><span>{lane.sub}</span></div>
         <h1>{lane.name}<span class="accent">.</span></h1>
         <p class="lane-desc">{lane.desc}</p>
+        <div class="signoff">THEFIGHTLIFE</div>
       </div>
 
       {lane.tool && (
