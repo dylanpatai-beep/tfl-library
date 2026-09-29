@@ -40,9 +40,12 @@ On a cut, this is the lunch that keeps me honest. No stove, no reheating, nothin
 
 ## Macros per serving
 
-| Per serving | Calories | Protein | Carbs | Fat |
-|---|---|---|---|---|
-| Half the salad + 3 rice cakes | 310 | 38 g | 29 g | 4 g |
+| Per serving: Half the salad + 3 rice cakes | |
+|---|---|
+| Calories | 310 |
+| Protein | 38 g |
+| Carbs | 29 g |
+| Fat | 4 g |
 
 Worked out from the ingredient weights above using standard USDA values (a drained 5 oz can is about 4 oz of tuna).
 

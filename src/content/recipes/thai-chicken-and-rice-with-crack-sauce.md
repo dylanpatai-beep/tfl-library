@@ -55,9 +55,12 @@ This is the meal-prep bowl that doesn't get old by Thursday. The sauce hits swee
 
 ## Macros per serving
 
-| Per bowl | Calories | Protein | Carbs | Fat |
-|---|---|---|---|---|
-| 1 of 4 (1 cup rice) | 670 | 47 g | 67 g | 24 g |
+| Per bowl: 1 of 4 (1 cup rice) | |
+|---|---|
+| Calories | 670 |
+| Protein | 47 g |
+| Carbs | 67 g |
+| Fat | 24 g |
 
 Worked out from the ingredient weights above using standard USDA values, with regular ground chicken. Swap in 99% lean ground chicken breast and a bowl comes out around 590 calories, 60 g protein, and 9 g fat.
 

@@ -43,9 +43,12 @@ The sweet tooth doesn't take camp off. Sweet potato does the job butter and most
 
 ## Macros per serving
 
-| Per square | Calories | Protein | Carbs | Fat |
-|---|---|---|---|---|
-| 1 of 9 | 140 | 9 g | 21 g | 4 g |
+| Per square: 1 of 9 | |
+|---|---|
+| Calories | 140 |
+| Protein | 9 g |
+| Carbs | 21 g |
+| Fat | 4 g |
 
 Worked out from the ingredient weights above using standard USDA values. The protein powder is figured at 120 calories and 24 g protein per 30 g scoop. Check your tub's label and adjust.
 
