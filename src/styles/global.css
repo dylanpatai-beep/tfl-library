@@ -954,6 +954,106 @@ html.js .reveal.in { opacity: 1; transform: translateY(0); }
 }
 .prose td { padding: 0.75rem 1rem; border: 1px solid var(--ash); color: #D6DAE0; }
 
+/* Printable download banner — the tool banner, holding download links. */
+.dl-banner:hover { transform: none; }
+.dl-banner .dl-links { display: flex; flex-direction: column; gap: 0.9rem; align-items: flex-end; }
+.dl-banner .tb-cta {
+  text-decoration: none;
+  border: 1px solid var(--ash);
+  padding: 0.7rem 1rem;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+.dl-banner .tb-cta:hover { color: var(--type); border-color: var(--hairline); }
+@media (max-width: 700px) {
+  .dl-banner .dl-links { flex-direction: row; flex-wrap: wrap; align-items: flex-start; gap: 0.6rem; }
+}
+
+/* layout: program — numbered lists become a session sheet, one row per
+   exercise. Scoped to entries that opt in, so no other entry changes. */
+.prose[data-layout='program'] ol {
+  list-style: none;
+  padding: 0;
+  counter-reset: ex;
+  border: 1px solid var(--ash);
+  background: var(--ink);
+}
+.prose[data-layout='program'] ol > li {
+  counter-increment: ex;
+  position: relative;
+  margin: 0;
+  padding: 0.95rem 1.25rem 0.95rem 3.5rem;
+  border-top: 1px solid var(--ash);
+  line-height: 1.6;
+}
+.prose[data-layout='program'] ol > li:first-child { border-top: none; }
+/* Row number in mono muted — never the accent, it is small type. */
+.prose[data-layout='program'] ol > li::before {
+  content: counter(ex, decimal-leading-zero);
+  position: absolute;
+  left: 1.1rem;
+  top: 1.15rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  letter-spacing: 0.1em;
+  color: var(--type-muted);
+}
+.prose[data-layout='program'] ol em { color: var(--type-muted); }
+.prose[data-layout='program'] h2 + ol { margin-top: 1.5rem; }
+/* Heavy A / Heavy B jump here; clear the fixed brand bar. Long day titles
+   wrap on phones, so tighten their leading. */
+.prose[data-layout='program'] h2 { scroll-margin-top: 5.5rem; line-height: 1.1; }
+@media (max-width: 700px) {
+  .prose[data-layout='program'] ol > li { padding: 0.85rem 0.9rem 0.85rem 2.6rem; font-size: 0.975rem; }
+  .prose[data-layout='program'] ol > li::before { left: 0.75rem; top: 1.05rem; }
+}
+
+/* layout: program — "The Week": the list after the #the-week heading
+   becomes a 7-day map. Rows on phones, seven columns from 820px up.
+   Heavy days (the cells that link to a Day section) get a raised field. */
+.prose[data-layout='program'] #the-week + ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  border: 1px solid var(--ash);
+  background: var(--ash);
+  gap: 1px;
+}
+.prose[data-layout='program'] #the-week + ul > li {
+  position: relative;
+  margin: 0;
+  background: var(--ink);
+  padding: 0.8rem 1rem 0.8rem 4.75rem;
+  line-height: 1.45;
+  color: #D6DAE0;
+}
+.prose[data-layout='program'] #the-week + ul > li strong {
+  position: absolute;
+  left: 1rem;
+  top: 1.05rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--type-muted);
+}
+.prose[data-layout='program'] #the-week + ul > li:has(a) { background: var(--coal); color: var(--type); }
+.prose[data-layout='program'] #the-week + ul > li a { font-weight: 600; }
+.prose[data-layout='program'] #the-week + ul + p { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; }
+@media (min-width: 820px) {
+  .prose[data-layout='program'] #the-week + ul { grid-template-columns: repeat(7, 1fr); }
+  .prose[data-layout='program'] #the-week + ul > li {
+    padding: 1rem 0.8rem 1.1rem;
+    min-height: 8.5rem;
+    font-size: 0.9375rem;
+  }
+  .prose[data-layout='program'] #the-week + ul > li strong { position: static; display: block; margin-bottom: 0.75rem; }
+}
+
 /* Entry footer */
 .entry-foot {
   margin-top: 4rem;

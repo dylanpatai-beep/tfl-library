@@ -18,6 +18,17 @@ const shared = {
   tags: z.array(z.string()).default([]),
   status: z.enum(['draft', 'published']).default('draft'),
   source_url: z.string().url().optional(),
+  // Optional one-page download (e.g. a gym cheat sheet), served from public/.
+  // Renders a download banner above the entry body.
+  printable: z
+    .object({
+      pdf: z.string().startsWith('/', 'printable.pdf must be a site path like /downloads/x.pdf'),
+      png: z.string().startsWith('/', 'printable.png must be a site path like /downloads/x.png').optional(),
+    })
+    .optional(),
+  // Optional body layout. 'program' styles numbered lists as a session
+  // sheet (one row per exercise). Leave it out for a normal entry.
+  layout: z.enum(['program']).optional(),
 };
 
 const recipes = defineCollection({
