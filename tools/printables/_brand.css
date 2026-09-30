@@ -1,0 +1,60 @@
+/* Shared by the printables in this folder. Mirrors the tokens in
+   src/styles/global.css (Brand Foundation v1.3) — ground, type, navy
+   surface, gold + platinum gradients, and the Mobility & S&C red accent. */
+@font-face { font-family: 'Bebas Neue'; src: url('../../node_modules/@fontsource/bebas-neue/files/bebas-neue-latin-400-normal.woff2') format('woff2'); font-weight: 400; }
+@font-face { font-family: 'Inter'; src: url('../../node_modules/@fontsource/inter/files/inter-latin-400-normal.woff2') format('woff2'); font-weight: 400; }
+@font-face { font-family: 'Inter'; src: url('../../node_modules/@fontsource/inter/files/inter-latin-400-italic.woff2') format('woff2'); font-weight: 400; font-style: italic; }
+@font-face { font-family: 'Inter'; src: url('../../node_modules/@fontsource/inter/files/inter-latin-600-normal.woff2') format('woff2'); font-weight: 600; }
+@font-face { font-family: 'Inter'; src: url('../../node_modules/@fontsource/inter/files/inter-latin-700-normal.woff2') format('woff2'); font-weight: 700; }
+@font-face { font-family: 'JetBrains Mono'; src: url('../../node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-400-normal.woff2') format('woff2'); font-weight: 400; }
+@font-face { font-family: 'JetBrains Mono'; src: url('../../node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-600-normal.woff2') format('woff2'); font-weight: 600; }
+
+:root {
+  --ground: #0B0C0F; --type: #F7F8FA; --type-muted: #8A929E; --hairline: #5C6470;
+  --surface: #0A2A6B; --ink: #101216; --coal: #15181D; --ash: #23262C;
+  --gold: linear-gradient(180deg, #F7E7A6 0%, #C9A227 55%, #8C6B1F 100%);
+  --platinum: linear-gradient(180deg, #FBFAF8 0%, #DEDCD7 55%, #A9A6A0 100%);
+  --platinum-hair: linear-gradient(160deg, rgba(251,250,248,.5) 0%, rgba(222,220,215,.3) 45%, rgba(169,166,160,.16) 100%);
+  --accent: #D91F2C; --accent-rgb: 217, 31, 44;
+  --display: 'Bebas Neue', sans-serif; --body: 'Inter', sans-serif; --mono: 'JetBrains Mono', monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { background: var(--ground); color: var(--type); font-family: var(--body);
+  -webkit-print-color-adjust: exact; print-color-adjust: exact; -webkit-font-smoothing: antialiased; }
+
+/* The frame: chamfered platinum hairline, corner rules, wash, numeral. */
+.frame { --ch: 26px; position: relative; isolation: isolate; overflow: hidden; background: var(--ground); }
+.frame::before, .frame::after { content: ''; position: absolute; inset: 0; pointer-events: none; }
+.frame::before { background: var(--platinum-hair); clip-path: polygon(var(--ch) 0, 100% 0, 100% 100%, 0 100%, 0 var(--ch)); }
+.frame::after { inset: 1px; background: var(--ground); clip-path: polygon(calc(var(--ch) - 1px) 0, 100% 0, 100% 100%, 0 100%, 0 calc(var(--ch) - 1px)); z-index: 0; }
+.frame > * { position: relative; z-index: 2; }
+.f-wash { position: absolute !important; top: 0; left: 0; right: 0; height: var(--wash-h, 96px); z-index: 1 !important;
+  background: linear-gradient(100deg, rgba(var(--accent-rgb), .18) 0%, rgba(var(--accent-rgb), 0) 50%);
+  -webkit-mask-image: linear-gradient(180deg, #000 42%, transparent 100%); mask-image: linear-gradient(180deg, #000 42%, transparent 100%);
+  clip-path: polygon(calc(var(--ch) - 1px) 0, 100% 0, 100% 100%, 0 100%, 0 calc(var(--ch) - 1px)); }
+.f-num { position: absolute !important; right: 22px; bottom: 6px; z-index: 1 !important; font-family: var(--display);
+  line-height: .78; color: rgba(var(--accent-rgb), .17); }
+.f-corner { position: absolute !important; z-index: 2; }
+.f-corner i { position: absolute; display: block; height: 1px; }
+.f-corner.tl { top: 16px; left: 16px; width: 46px; height: 46px; }
+.f-corner.tl i { width: 30px; left: 0; transform: rotate(-45deg); transform-origin: 0 50%; }
+.f-corner.tl i:nth-child(1) { top: 22px; background: var(--accent); }
+.f-corner.tl i:nth-child(2) { top: 30px; background: var(--platinum); opacity: .5; }
+.f-corner.tl i:nth-child(3) { top: 38px; background: var(--platinum); opacity: .28; }
+.f-corner.tr { top: 20px; right: 20px; width: 42px; height: 14px; }
+.f-corner.tr i { right: 0; }
+.f-corner.tr i:nth-child(1) { top: 0; width: 42px; background: var(--accent); }
+.f-corner.tr i:nth-child(2) { top: 5px; width: 30px; background: var(--platinum); opacity: .5; }
+.f-corner.tr i:nth-child(3) { top: 10px; width: 20px; background: var(--platinum); opacity: .28; }
+
+/* Type chip: chamfered navy plate, gold edge. */
+.typechip { position: relative; display: inline-flex; }
+.typechip .tc-plate { background: var(--surface); color: var(--type); font-family: var(--display); font-size: 17px; line-height: 1;
+  letter-spacing: .08em; padding: 7px 10px 4px; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%); }
+.typechip::after { content: ''; position: absolute; top: 3px; bottom: -3px; right: -4px; width: 3px; background: var(--gold); }
+
+.kicker { font-family: var(--mono); font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: var(--type-muted); }
+.label { font-family: var(--mono); font-size: 9px; letter-spacing: .28em; text-transform: uppercase; color: var(--type-muted); font-weight: 600;
+  display: flex; align-items: center; gap: 8px; }
+.label::before { content: ''; width: 3px; height: 11px; background: var(--gold); flex: none; }
+.gold-rule { height: 1px; background: var(--gold); }

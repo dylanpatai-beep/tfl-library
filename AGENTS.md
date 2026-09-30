@@ -46,6 +46,12 @@ public writing in Dylan's voice (peer not guru, direct, no "level up"/"game-chan
   in the command center at `2 Make/newsletter/tfl-energy-calculator.html` — edit it there
   and re-copy, don't fork it here. Both tools carry their lane's pillar accent (the
   calculator red, the guide green) in their own `:root` blocks.
+- `tools/printables/` — source HTML for downloadable one-pagers (e.g. The Elastic Engine
+  cheat sheet + week map). Edit the HTML, run `node tools/render-printables.mjs` (needs
+  Google Chrome + `npm ci` for fonts), commit the outputs in `public/downloads/`. An entry
+  links its printable via the optional `printable: { pdf, png }` frontmatter (renders a
+  download banner). Optional `layout: program` styles the entry's numbered lists as a
+  session sheet and a list under a `## The Week` heading as a 7-day map.
 - `.github/workflows/deploy.yml` — build + deploy to GitHub Pages on push to main.
 
 ## The brand system (Brand Foundation v1.3)

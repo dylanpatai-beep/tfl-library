@@ -68,7 +68,21 @@ const dateStr = d.date.toLocaleDateString('en-US', { year: 'numeric', month: 'sh
         </div>
       </div>
 
-      <article class="prose" data-pagefind-body data-pagefind-filter={`lane:${lane.id}`}>
+      {d.printable && (
+        <div class="tool-banner dl-banner">
+          <div>
+            <div class="tb-label">PRINTABLE</div>
+            <div class="tb-title">One-page cheat sheet</div>
+            <p class="tb-desc">The whole program on a single page. Print it or save it to your phone for the gym.</p>
+          </div>
+          <div class="dl-links">
+            <a class="tb-cta" href={d.printable.pdf} download>DOWNLOAD PDF ↓</a>
+            {d.printable.png && <a class="tb-cta" href={d.printable.png} download>DOWNLOAD PNG ↓</a>}
+          </div>
+        </div>
+      )}
+
+      <article class="prose" data-layout={d.layout} data-pagefind-body data-pagefind-filter={`lane:${lane.id}`}>
         <Content />
       </article>
 
