@@ -5,6 +5,21 @@ Supplements, Techniques, Mobility & S&C — plus the interactive Supplement Fiel
 No CMS, no accounts: every entry is a markdown file in this repo, and pushing to
 `main` publishes the site automatically.
 
+## Where this fits
+
+The Fight Life runs one funnel. **Direction lives in one place:
+[`tfl-app/docs/DIRECTION.md`](https://github.com/dylanpatai-beep/tfl-app/blob/main/docs/DIRECTION.md)** (private repo). If this README disagrees with it,
+it wins.
+
+1. **Newsletter** (Beehiiv, [thefightlife.fit](https://thefightlife.fit)) and reposted
+   shorts bring people here for free.
+2. **This site** gives free tools and free outputs: your numbers, your stack, a program.
+3. **The paid TFL app** is the deeper version of each tool: it tracks it every day and
+   adjusts. Every tool here has an in-app upgrade path (the map is in DIRECTION.md).
+
+Email capture is the link between them: every tool result, the footer, and the empty-lane
+messages should end in a Beehiiv signup. *(Not wired up yet; it's Phase 1 work.)*
+
 ## Add an entry in 60 seconds
 
 The easiest way: open this folder in Claude Code and say what you want —
@@ -41,12 +56,17 @@ npm run preview   # view the built site exactly as production will serve it
 - **Astro** turns the markdown files into a fast static site — plain HTML, no servers.
 - **Search** (Pagefind) is baked in at build time — it searches full entry text,
   scoped to each lane, with zero backend.
-- **Design** is ported from the Fight Life OS pillars site: Fight Red `#CC0000` on
-  deep black, Bebas Neue + Inter + JetBrains Mono. All colors live as tokens at the
-  top of `src/styles/global.css`.
+- **Design** is **Brand Foundation v1.3**: navy, gold, and platinum on a near-black
+  ground, one accent colour per lane, Bebas Neue + Inter + JetBrains Mono. All colors
+  live as tokens at the top of `src/styles/global.css`; the rules are in `AGENTS.md`.
+  This is the brand for the whole of TFL (the app is moving to it too).
 - **The Supplement Field Guide** (`public/supplement-field-guide/`) is the standalone
   interactive tool, served as-is at `/supplement-field-guide/` and featured on the
   Supplements lane. The lane's categories and evidence scale mirror it exactly.
+- **The Energy Calculator** (`public/energy-calculator/`) is the second tool, featured
+  on the Mobility & S&C lane.
+- **JSON feeds** (`/api/index.json`, `/api/<lane>.json`, `/api/field-guide.json`) are
+  what the TFL app reads. Don't break their shape without updating the app.
 - **Deploys** run on GitHub Actions → GitHub Pages on every push to `main`
   (`.github/workflows/deploy.yml`).
 
