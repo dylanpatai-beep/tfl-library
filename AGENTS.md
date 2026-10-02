@@ -4,6 +4,25 @@ Public reference library for The Fight Life. Static Astro site, no CMS, no accou
 Four lanes of markdown content + one embedded interactive tool. Owner is Dylan Patai
 (not a coder) — explain decisions in plain terms, keep him directing, not coding.
 
+## Where this fits (read first)
+
+**The TFL direction lives in one place: [`tfl-app/docs/DIRECTION.md`](https://github.com/dylanpatai-beep/tfl-app/blob/main/docs/DIRECTION.md)** (private
+repo, `~/Projects/tfl-app/docs/DIRECTION.md` locally). It wins any conflict with this file.
+In short: newsletter (Beehiiv, thefightlife.fit) + shorts → this free site → the paid TFL
+app. This site is the free layer, not the product.
+
+- **Every tool has an in-app upgrade path.** Don't add a new tool unless you can name the
+  deeper app feature it leads to (add it to the upgrade map in DIRECTION.md). Tools give a
+  one-time output; the app tracks and adjusts it daily.
+- **Email capture is the funnel.** Tool results, the footer, and empty-lane messages end in
+  a Beehiiv signup (planned, not built yet). The newsletter platform is Beehiiv.
+- **No water-cut advice** in tools or entries: no water-loading / water-cut / sauna /
+  sweat-suit / diuretic / laxative protocols (DIRECTION.md principle 3). If an entry heads
+  that way, stop and flag it to Dylan.
+- **Pricing and tiers are TBD, under review.** Don't put app prices, tier names, or offer
+  copy on the site.
+- The site stays static: no accounts, no backend. Anything that needs one belongs to the app.
+
 ## The one workflow that matters: adding content
 
 1. Create the file: `npm run new -- <lane> "Title"` (scaffolds valid frontmatter as a draft),
