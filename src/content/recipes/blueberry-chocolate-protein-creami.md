@@ -17,6 +17,8 @@ calories: 195
 
 *Hands-on time is about 10 minutes. The pints need 24 hours in the freezer before you spin.*
 
+> **Size note:** Written for standard Ninja Creami pints (makes 3). On a Creami XL it fills about 2 1/4 XL tubs: per full XL tub ~260 cal / ~40g protein before mix-ins (~400 cal with ~1 1/2 Tbsp cacao nibs + 1/3 cup rice crisps). Approx., varies by brand.
+
 ## Ingredients (makes 3 pints)
 
 - 3 cups water
