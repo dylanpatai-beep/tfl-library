@@ -2,7 +2,7 @@
 title: Thai Chicken and Rice with Crack Sauce
 summary: Ground chicken, peppers, and Thai basil in a sweet-spicy-savory sauce over jasmine rice. Twenty minutes in one pan, four bowls in the fridge, and a sauce you'll put on everything.
 date: 2026-09-29
-tags: [chicken, rice, high-protein, meal-prep, one-pan, spicy]
+tags: [chicken, rice, high-protein, meal-prep, one-pan, spicy, refuel, camp-meal]
 status: published
 meal: dinner
 time_min: 25

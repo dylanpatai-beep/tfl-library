@@ -2,7 +2,7 @@
 title: Sweet Potato Protein Brownies
 summary: Fudgy squares built on mashed sweet potato, cocoa, and whey. Something sweet after dinner that still fits the day's numbers. One pan, nine squares, 45 minutes plus cooling.
 date: 2026-09-29
-tags: [sweet-potato, baking, snack, meal-prep, sweet-tooth]
+tags: [sweet-potato, baking, snack, meal-prep, sweet-tooth, camp-meal]
 status: published
 meal: snack
 time_min: 45
