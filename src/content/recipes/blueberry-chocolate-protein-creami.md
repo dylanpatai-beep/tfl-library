@@ -1,54 +1,46 @@
 ---
 title: Blueberry Chocolate Protein Creami
-summary: Three Ninja Creami pints of blueberry chocolate protein ice cream, about 30 g protein each. Ten minutes of blending tonight, dessert all week.
+summary: Three Ninja Creami XL tubs of blueberry chocolate protein ice cream, about 40 g protein each. Ten minutes of blending tonight, dessert all week.
 date: 2026-10-26
 tags: [ninja-creami, ice-cream, dessert, meal-prep, sweet-tooth, high-protein]
 status: published
 meal: snack
 time_min: 10
 difficulty: easy
-protein_g: 30
-calories: 195
+protein_g: 40
+calories: 325
 ---
 
 ![Blueberry Chocolate Protein Creami](/images/recipes/blueberry-chocolate-protein-creami/hero.jpg)
 
-**Yield:** 3 Ninja Creami pints · ~30 g protein each
+**Yield:** 3 Ninja Creami XL tubs · ~40 g protein each
 
-*Hands-on time is about 10 minutes. The pints need 24 hours in the freezer before you spin.*
+*Hands-on time is about 10 minutes. The tubs need 24 hours in the freezer before you spin.*
 
-> **Size note:** Written for standard Ninja Creami pints (makes 3). On a Creami XL it fills about 2 1/4 XL tubs: per full XL tub ~260 cal / ~40g protein before mix-ins (~400 cal with ~1 1/2 Tbsp cacao nibs + 1/3 cup rice crisps). Approx., varies by brand.
+> **Size note:** This recipe is written for Creami XL tubs. One XL batch is about 4–5 standard pints' worth, so on a standard Creami, split it evenly across 4–5 pints instead (each pint comes out to roughly 195–245 cal / 24–30 g protein before mix-ins, approx.).
 
-## Ingredients (makes 3 pints)
+## Ingredients (makes 3 XL tubs)
 
-- 3 cups water
-- 3 scoops chocolate casein (90–105 g)
-- 3/4 cup nonfat plain Greek yogurt (180 g)
-- 1 1/2 cups frozen blueberries
-- 3/8 tsp xanthan gum
+- 4 cups water
+- 4 scoops chocolate casein
+- 1 cup nonfat plain Greek yogurt
+- 2 cups frozen blueberries
+- 1/2 tsp xanthan gum
+- 3 Tbsp honey (1 Tbsp per tub)
 - Pinch of salt
-- Sweetener to taste (optional)
 
-**Mix-ins (per pint):** 1 Tbsp cacao nibs, 1/4 cup chocolate rice crisps
+**Mix-in (per tub):** about 1/4 cup One Degree Sprouted Brown Rice Cacao Crisps
 
 ## Method
 
-1. Blend 30–45 seconds. Sprinkle the xanthan gum in while the blender runs so it doesn't clump.
-2. Split evenly into 3 pints, staying under the max fill line.
+1. Blend everything, honey included, until smooth. Sprinkle the xanthan gum in while the blender runs so it doesn't clump.
+2. Split evenly into 3 XL tubs, staying under the max fill line.
 3. Freeze level for 24 hours.
-4. Spin on **Lite Ice Cream**. If it's powdery, add 1–2 Tbsp water or milk and **Re-spin**.
-5. Make a well in the center, add the mix-ins, and run **Mix-In**.
+4. Spin on **Lite Ice Cream**. If it's crumbly, **Re-spin**.
+5. After the spin, make a well in the center, add the crisps, and run **Mix-In**.
 
-## Macros (per pint, approximate; varies by brand)
+## Macros (approx., varies by brand)
 
-- ~195 calories and ~30 g protein before mix-ins
-- ~285 calories with cacao nibs and rice crisps
-
-**Tip:** Add the rice crisps right before eating so they stay crunchy.
-
-## Recipe cards
-
-![Recipe card 1](/images/recipes/blueberry-chocolate-protein-creami/slide-1.png)
-![Recipe card 2](/images/recipes/blueberry-chocolate-protein-creami/slide-2.png)
-![Recipe card 3](/images/recipes/blueberry-chocolate-protein-creami/slide-3.png)
-![Recipe card 4](/images/recipes/blueberry-chocolate-protein-creami/slide-4.png)
+- Whole batch: about 970 calories and 120 g protein (honey is about 64 cal per Tbsp)
+- Per XL tub: about 325 calories and 40 g protein before the crisps mix-in
+- The crisps add roughly 50–60 calories per tub. Check the box label.
