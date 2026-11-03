@@ -21,7 +21,7 @@ calories: 510
 - 3/4 cup liquid egg whites
 - Hot sauce, to taste
 - Black pepper, to taste
-- 1 scoop chocolate cream of rice (raw/dry)
+- 1 scoop RAW Nutrition Cream of Rice, chocolate (Double Fudge Brownie), dry
 - 1 cup frozen blueberries
 - Optional: black coffee on the side
 
@@ -41,4 +41,4 @@ calories: 510
 | Carbs | 47 g |
 | Fat | 16 g |
 
-Eggs, egg whites and blueberries use standard USDA values. The cream of rice is figured as RAW Nutrition Cream of Rice, Double Fudge Brownie: 120 calories, 3 g protein, 26 g carbs and 0.5 g fat per 35.5 g scoop. A protein cream of rice (with whey added) will run higher in protein and calories. Check your tub's label and adjust. Black coffee adds close to nothing.
+Eggs, egg whites and blueberries use standard USDA values. The cream of rice uses RAW Nutrition's label for Cream of Rice, Double Fudge Brownie (their chocolate flavor): 120 calories, 3 g protein, 26 g carbs and 0.5 g fat per 35.5 g scoop. Black coffee adds close to nothing.
