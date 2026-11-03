@@ -40,6 +40,10 @@ const recipes = defineCollection({
     difficulty: z.enum(['easy', 'moderate', 'involved']),
     protein_g: z.number().optional(),
     calories: z.number().optional(),
+    // Optional hero photo (site path). If left out, the feed uses the first
+    // image in the body. Catalog tags for the app live in the shared `tags`
+    // list — see src/lib/recipe-feed.ts and docs/recipes-feed.md.
+    hero: z.string().startsWith('/', 'hero must be a site path like /images/recipes/x/hero.jpg').optional(),
   }),
 });
 

@@ -51,3 +51,8 @@ npm run preview   # view the built site exactly as production will serve it
   (`.github/workflows/deploy.yml`).
 
 More detail for working sessions: see `CLAUDE.md`.
+
+## Recipe feed for the app
+
+`/recipes.json` is a structured recipe feed (ingredients, steps, macros, photos, tags)
+for the TFL app's recipe catalog. Format and parsing rules: [docs/recipes-feed.md](docs/recipes-feed.md).

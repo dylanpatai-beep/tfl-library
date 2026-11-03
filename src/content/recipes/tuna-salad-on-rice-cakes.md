@@ -2,7 +2,7 @@
 title: Tuna Salad on Rice Cakes
 summary: Greek-yogurt tuna salad with crunch from celery and pickles, piled on rice cakes. Ten minutes, no stove, close to 40 g of protein for about 300 calories.
 date: 2026-09-29
-tags: [tuna, no-cook, high-protein, cut-friendly, quick]
+tags: [tuna, no-cook, high-protein, cut-friendly, quick, camp-meal]
 status: published
 meal: lunch
 time_min: 10

@@ -2,7 +2,7 @@
 title: Blueberry Chocolate Protein Creami
 summary: Three Ninja Creami XL tubs of blueberry chocolate protein ice cream, about 40 g protein each. Ten minutes of blending tonight, dessert all week.
 date: 2026-10-26
-tags: [ninja-creami, ice-cream, dessert, meal-prep, sweet-tooth, high-protein]
+tags: [ninja-creami, creami, ice-cream, dessert, meal-prep, sweet-tooth, high-protein, camp-meal]
 status: published
 meal: snack
 time_min: 10

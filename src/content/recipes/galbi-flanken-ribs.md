@@ -2,7 +2,7 @@
 title: Galbi — Korean Grilled Flanken Ribs
 summary: Marinated flanken-cut short ribs that grill in minutes. High protein, feeds a crowd, and the marinade does all the work overnight.
 date: 2026-06-20
-tags: [beef, grill, high-protein, meal-prep]
+tags: [beef, grill, high-protein, meal-prep, refuel]
 status: draft
 meal: dinner
 time_min: 40
