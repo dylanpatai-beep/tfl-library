@@ -1,0 +1,96 @@
+---
+/**
+ * Free Fight Camp Recipe Pack — lead magnet linked from the Instagram DM
+ * auto-reply. Email goes to the free TFL Substack (no paid service).
+ * The PDF is built from the published recipes: node tools/build-recipe-pack.mjs
+ */
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const SUBSTACK = 'https://thefightlife.substack.com';
+const PDF = '/downloads/fight-camp-recipe-pack.pdf';
+
+const recipes = (await getCollection('recipes'))
+  .filter((r: any) => r.data.status === 'published')
+  .map((r: any) => ({
+    slug: r.id,
+    title: r.data.title,
+    cal: r.data.calories,
+    protein: r.data.protein_g,
+    hero: r.data.hero || (r.body?.match(/!\[[^\]]*\]\(([^)]+)\)/) || [])[1],
+  }))
+  .filter((r) => r.hero)
+  .sort((a, b) => a.title.localeCompare(b.title));
+---
+<Base
+  title="Free Fight Camp Recipe Pack — The Fight Life"
+  description="The simple, whole-food, high-protein meals I eat through fight camp. Free PDF."
+>
+  <section class="rp">
+    <span class="rp-chip">FREE · {recipes.length} RECIPES · PDF</span>
+    <h1>FIGHT CAMP<br />RECIPE <b>PACK</b></h1>
+    <p class="rp-pitch">
+      I'm Dylan — Las Vegas firefighter-paramedic and Muay Thai fighter. This is what I actually eat
+      through fight camp and long shifts at the station. Simple whole food, high protein, nothing fancy.
+      Drop your email and it's yours.
+    </p>
+
+    <form id="rp-form" class="rp-form" action={`${SUBSTACK}/api/v1/free?nojs=true`} method="post" target="rp-sink">
+      <input type="email" name="email" required placeholder="you@email.com" autocomplete="email" aria-label="Email" />
+      <input type="hidden" name="source" value="recipe-pack" />
+      <button type="submit">SEND ME THE PACK</button>
+      <small>You'll also get The Fight Life newsletter. Unsubscribe anytime.</small>
+    </form>
+    <iframe name="rp-sink" title="" hidden></iframe>
+
+    <div id="rp-done" class="rp-done" hidden>
+      <strong>You're in.</strong> Check your inbox to confirm, and grab the pack:
+      <a class="rp-dl" href={PDF} download>DOWNLOAD THE PDF &#8595;</a>
+    </div>
+
+    <h2 class="rp-h2">WHAT'S INSIDE</h2>
+    <div class="rp-grid">
+      {recipes.map((r) => (
+        <a href={`/recipes/${r.slug}/`} class="rp-card">
+          <img src={r.hero} alt={r.title} loading="lazy" />
+          <div class="rp-t">{r.title}</div>
+          <div class="rp-m">{[r.cal && `~${r.cal} cal`, r.protein && `${r.protein} g protein`].filter(Boolean).join(' · ')}</div>
+        </a>
+      ))}
+    </div>
+    <p class="rp-fine">Macros are estimates and vary by brand. Food, not medical advice.</p>
+  </section>
+
+  <script>
+    const form = document.getElementById('rp-form') as HTMLFormElement;
+    form.addEventListener('submit', () => {
+      // The form still posts to Substack (into a hidden frame); we just reveal the download.
+      setTimeout(() => {
+        form.hidden = true;
+        document.getElementById('rp-done')!.hidden = false;
+      }, 300);
+    });
+  </script>
+</Base>
+
+<style>
+  .rp { max-width: 960px; margin: 0 auto; padding: 32px 20px 56px; }
+  .rp-chip { display: inline-block; background: #D91F2C; color: #fff; font-family: var(--display); letter-spacing: 2px; font-size: 15px; padding: 4px 10px; }
+  h1 { font-family: var(--display); font-size: clamp(64px, 18vw, 120px); line-height: .9; margin: 16px 0 0; font-weight: 400; }
+  h1 b { color: #D91F2C; font-weight: 400; }
+  .rp-pitch { color: #C9CDD3; font-size: 17px; line-height: 1.55; margin: 18px 0 24px; max-width: 34em; }
+  .rp-form { display: grid; gap: 10px; max-width: 480px; }
+  .rp-form input[type=email] { font: 500 17px var(--body); padding: 16px; background: #15181D; color: #F7F8FA; border: 1px solid #5C6470; border-radius: 6px; }
+  .rp-form button, .rp-dl { font-family: var(--display); font-size: 24px; letter-spacing: 2px; padding: 14px; background: #D91F2C; color: #fff; border: 0; border-radius: 6px; cursor: pointer; text-align: center; text-decoration: none; display: block; }
+  .rp-form small, .rp-fine { color: #8A929E; font-size: 13px; }
+  .rp-done { max-width: 480px; display: grid; gap: 12px; font-size: 17px; background: #15181D; padding: 18px; border-left: 4px solid #D91F2C; border-radius: 6px; }
+  .rp-done[hidden], .rp-form[hidden] { display: none; }
+  .rp-h2 { font-family: var(--display); font-weight: 400; font-size: 34px; letter-spacing: 1px; margin: 44px 0 14px; border-bottom: 2px solid #D91F2C; display: inline-block; }
+  .rp-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  @media (min-width: 720px) { .rp-grid { grid-template-columns: repeat(3, 1fr); } }
+  .rp-card { background: #15181D; border-radius: 6px; overflow: hidden; color: inherit; text-decoration: none; }
+  .rp-card img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+  .rp-t { font-weight: 700; font-size: 14px; padding: 10px 10px 2px; line-height: 1.25; }
+  .rp-m { color: #8A929E; font-size: 12px; padding: 0 10px 12px; }
+  .rp-fine { margin-top: 20px; }
+</style>
